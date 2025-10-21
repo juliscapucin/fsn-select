@@ -1,11 +1,6 @@
 // Example usage of the Unsplash services
 
-import {
-	getFashionPhotos,
-	getBeautyPhotos,
-	getMakeupPhotos,
-	getRandomFeaturedPhotos,
-} from '@/services'
+import { getFashionPhotos, getBeautyPhotos, getMakeupPhotos } from '@/services'
 
 // Example 1: Get fashion photos
 export async function loadFashionImages() {
@@ -36,17 +31,6 @@ export async function loadBeautyImages() {
 		return result.results
 	} catch (error) {
 		console.error('Error fetching beauty photos:', error)
-		return []
-	}
-}
-
-// Example 3: Get random featured content
-export async function loadFeaturedContent() {
-	try {
-		const photos = await getRandomFeaturedPhotos(10)
-		return photos
-	} catch (error) {
-		console.error('Error fetching featured photos:', error)
 		return []
 	}
 }

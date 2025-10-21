@@ -71,7 +71,7 @@ class UnsplashService {
 
 	private async fetchFromUnsplash<T>(
 		endpoint: string,
-		params?: Record<string, string | number | boolean>
+		params?: Record<string, string | number | boolean> | PhotoQueryParams
 	): Promise<T> {
 		const url = new URL(`${UNSPLASH_API_BASE}${endpoint}`)
 
@@ -142,17 +142,30 @@ class UnsplashService {
 		return this.fetchFromUnsplash<UnsplashPhoto>(`/photos/${id}`)
 	}
 
-	// Get random fashion/beauty photos
+	// Get photos from a specific topic
+	async getPhotosByTopic(
+		topicIdOrSlug: string,
+		params?: PhotoQueryParams
+	): Promise<UnsplashPhoto[]> {
+		return this.fetchFromUnsplash<UnsplashPhoto[]>(
+			`/topics/${topicIdOrSlug}/photos`,
+			params
+		)
+	}
+
+	// Get photos from the fashion-beauty topic specifically
+	async getFashionBeautyTopicPhotos(
+		params?: PhotoQueryParams
+	): Promise<UnsplashPhoto[]> {
+		return this.getPhotosByTopic('fashion-beauty', params)
+	}
+
+	// Get random photos from fashion-beauty topic
 	async getRandomFashionBeautyPhotos(
 		count: number = 10
 	): Promise<UnsplashPhoto[]> {
-		const categories = Object.keys(CATEGORY_KEYWORDS) as FashionCategory[]
-		const randomCategory =
-			categories[Math.floor(Math.random() * categories.length)]
-		const searchQuery = CATEGORY_KEYWORDS[randomCategory].join(',')
-
 		return this.fetchFromUnsplash<UnsplashPhoto[]>('/photos/random', {
-			query: searchQuery,
+			topics: 'fashion-beauty',
 			count,
 		})
 	}

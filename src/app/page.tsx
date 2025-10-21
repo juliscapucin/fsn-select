@@ -1,20 +1,19 @@
 import Image from 'next/image'
-import { getFashionPhotos } from '@/queries'
+import { getFashionBeautyTopicPhotos } from '@/queries'
 import { UnsplashPhoto } from '@/types/unsplash'
 
 export default async function Home() {
-	// Fetch fashion images using our query
 	let photos: UnsplashPhoto[] = []
 
 	try {
-		const result = await getFashionPhotos({
+		// Using the fashion-beauty topic from https://unsplash.com/t/fashion-beauty
+		photos = await getFashionBeautyTopicPhotos({
 			page: 1,
-			per_page: 12,
-			order_by: 'popular',
+			per_page: 30,
+			order_by: 'latest',
 		})
-		photos = result.results
 	} catch (error) {
-		console.error('Error fetching fashion photos:', error)
+		console.error('Error fetching fashion-beauty topic photos:', error)
 	}
 
 	return (
@@ -22,20 +21,25 @@ export default async function Home() {
 			<h1 className='heading-display mb-8'>Select</h1>
 			<p className='mb-8 text-lg'>
 				A curated selection of contemporary Fashion & Beauty imagery.{' '}
-				<a className='underlined-link' href='https://unsplash.com'>
-					Powered by Unsplash
+				<a
+					className='underlined-link'
+					href='https://unsplash.com/t/fashion-beauty'
+					target='_blank'
+					rel='noopener noreferrer'>
+					Explore Fashion & Beauty on Unsplash
 				</a>
 			</p>
 
 			{photos.length > 0 ? (
-				<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4'>
+				<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-2 gap-4'>
 					{photos.map((photo) => (
 						<div key={photo.id} className='group cursor-pointer'>
-							<div className='aspect-3/4 overflow-hidden rounded-lg relative'>
+							<div className='aspect-3/4 overflow-hidden relative'>
 								<Image
-									src={photo.urls.small}
+									src={photo.urls.regular}
 									alt={photo.alt_description || 'Fashion photo'}
 									fill
+									quality={80}
 									className='object-cover transition-transform duration-300 group-hover:scale-105'
 								/>
 							</div>
