@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import localFont from 'next/font/local'
 import './globals.css'
+import { navLinks } from '@/lib/data'
+import { Footer, Header } from '@/components'
 
 // Load custom font //
 const font = localFont({
@@ -25,8 +27,10 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang='en'>
-			<body className={`${font.variable} antialiased font-primary`}>
+			<body className={`${font.variable} antialiased font-primary bg-primary`}>
+				<Header navLinks={navLinks} />
 				{children}
+				<Footer />
 			</body>
 		</html>
 	)

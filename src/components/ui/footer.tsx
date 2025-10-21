@@ -1,21 +1,17 @@
 'use client'
 
 import React, { useRef } from 'react'
-import { useRouter, usePathname } from 'next/navigation'
+import { usePathname } from 'next/navigation'
 
 import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 gsap.registerPlugin(ScrollTrigger)
 
-import { ExternalLink, NavLink } from '@/components/ui'
+import { ExternalLink } from '@/components/ui'
+import Logo from './logo'
 
-type FooterProps = {
-	navlinks?: { label: string; slug: string }[]
-}
-
-export default function Footer({ navlinks }: FooterProps) {
-	const router = useRouter()
+export default function Footer() {
 	const pathname = usePathname()
 
 	const footerContainerRef = useRef<HTMLElement>(null)
@@ -70,44 +66,28 @@ export default function Footer({ navlinks }: FooterProps) {
 	return (
 		<div className='relative w-full bg-primary'>
 			{/* MASK FLICKER */}
-			<div className='absolute -top-4 z-15 h-16 w-full rounded-b-3xl bg-primary transition-colors duration-700'></div>
+			<div className='absolute -top-4 z-15 h-16 w-full bg-primary transition-colors duration-700'></div>
 			<footer
 				ref={footerContainerRef}
-				className='relative block h-[700px] overflow-clip bg-primary pb-8'>
+				className='relative block h-[700px] overflow-clip bg-primary'>
 				{/* MASK */}
 				<div
 					ref={footerMaskRef}
-					className='absolute -top-32 z-10 h-[calc(100%+8rem)] w-full rounded-b-3xl bg-primary transition-colors duration-700'></div>
+					className='absolute -top-32 z-10 h-[calc(100%+8rem)] w-full bg-primary transition-colors duration-700'></div>
 
 				{/* CONTENT */}
 				<div
 					ref={footerContentRef}
 					className='h-full w-full bg-secondary text-primary transition-[background-color] duration-800'>
 					<div className='relative mx-auto flex h-full w-full container flex-col items-start justify-end p-8'>
-						<div className='mb-40 flex h-1/2 w-full items-end justify-between rounded-huge text-primary'>
-							<h3 className='heading-display'>Obsidian</h3>
-
-							{/* NAVLINKS */}
-							{navlinks && navlinks.length > 0 && (
-								<ul>
-									{navlinks.map((link) => (
-										<NavLink
-											label={link.label}
-											variant='primary'
-											key={link.slug}
-											onClick={() => router.push(link.slug)}
-										/>
-									))}
-								</ul>
-							)}
+						<div className='mb-8 flex h-1/2 w-full items-end justify-between rounded-huge text-primary'>
+							<Logo variant='primary' />
 						</div>
 
 						{/* COPYRIGHT */}
+						<p>© {new Date().getFullYear()} All rights reserved</p>
 						<p>
-							© {new Date().getFullYear()} Obsidian Park. All rights reserved.
-						</p>
-						<p>
-							Design & Development by{' '}
+							Crafted by{' '}
 							<ExternalLink variant='primary' href='https://juliscapucin.com'>
 								Juli Scapucin
 							</ExternalLink>

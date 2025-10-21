@@ -7,7 +7,6 @@ import HeadingWithParagraph from './headingWithParagraph'
 import ImageWithSpinner from './imageWithSpinner'
 import Loader from './loader'
 import MenuMobile from './menuMobile'
-import NavLink from './navLink'
 import PageWrapper from './pageWrapper'
 import ParagraphFeature from './paragraphFeature'
 import Spacer from './spacer'
@@ -22,7 +21,6 @@ export {
 	ImageWithSpinner,
 	Loader,
 	MenuMobile,
-	NavLink,
 	PageWrapper,
 	ParagraphFeature,
 	Spacer,
