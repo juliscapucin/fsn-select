@@ -23,7 +23,7 @@ A curated selection of contemporary Fashion & Beauty imagery, featuring recent w
 
 ### Prerequisites
 
-- Node.js 18+
+- Node.js 22+
 - npm, yarn, pnpm, or bun
 - Unsplash API access key
 
@@ -93,7 +93,7 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+All images are provided by Unsplash and are subject to the [Unsplash License](https://unsplash.com/license).
 
 ## Acknowledgments
 
