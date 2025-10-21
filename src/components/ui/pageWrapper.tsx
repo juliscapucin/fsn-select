@@ -25,8 +25,8 @@ export default function PageWrapper({ children }: PageWrapperProps) {
 		<div>
 			<div id='smooth-wrapper'>
 				<div id='smooth-content'>
-					<main className='mx-auto min-h-screen container mt-[var(--height-header)] mb-32 bg-primary'>
-						{children}
+					<main className='mx-auto min-h-screen container mt-[var(--height-header)] mb-32 bg-primary grid grid-cols-13'>
+						<div className='col-start-2 col-end-13'>{children}</div>
 					</main>
 					<Footer />
 				</div>

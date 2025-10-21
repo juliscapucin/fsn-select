@@ -19,40 +19,35 @@ export default function Header({ navLinks }: HeaderProps) {
 	const navbarRef = useRef<HTMLElement>(null)
 
 	return (
-		<header className='pointer-events-none fixed top-0 right-0 left-0 z-30'>
+		<header className='pointer-events-none fixed top-2 right-0 left-0 z-30'>
 			<MenuMobile navLinks={navLinks} />
-			<div className='pointer-events-auto relative mx-auto h-header w-full container'>
+			<div className='pointer-events-auto relative mx-auto h-header w-full container flex items-start justify-end'>
 				{/* LOGO */}
 				<Link
-					className='absolute left-0 top-0 bottom-0 z-30'
+					className='absolute left-0 top-0 bottom-0'
 					onClick={(e) => {
 						e.preventDefault()
 						router.push('/')
 					}}
 					href='/'>
 					<div className='-rotate-90 origin-bottom-left flex items-center gap-4 translate-y-[59vh] translate-x-[70px]'>
-						<span className='heading-headline'>October – 2025</span>
+						<span className='heading-title'>October – 2025</span>
 						<Logo variant='secondary' />
 					</div>
 				</Link>
 
-				{/* THEME SWITCHER */}
-				<ThemeToggle variant='toggle' />
-
 				{/* NAVIGATION */}
 				<nav
 					ref={navbarRef}
-					className='w-full items-center justify-center gap-32 overflow-clip rounded-b-2xl bg-accent px-8 py-2 transition-[background-color] duration-800 md:hidden lg:flex'>
+					className='w-fit items-center justify-center gap-32 overflow-clip px-8 py-2 transition-[background-color] duration-800 md:hidden lg:flex'>
 					{/* NAVLINKS */}
-					<ul className='lg:flex lg:flex-col'>
+					<ul className='flex flex-col'>
 						{navLinks.map(
 							(link, index) =>
 								link.slug !== '/' && (
 									<Link
-										className={`heading-title underlined-link uppercase ${
-											pathname === link.slug
-												? 'underline pointer-events-none'
-												: ''
+										className={`text-navlink text-navlink uppercase ${
+											pathname === link.slug ? 'pointer-events-none' : ''
 										}`}
 										key={`panel-button-${index}`}
 										onClick={(e) => {
@@ -60,8 +55,13 @@ export default function Header({ navLinks }: HeaderProps) {
 											router.push(link.slug)
 										}}
 										href={link.slug}>
-										{pathname === link.slug && <span>{'[->] '}</span>}
-										{link.label}
+										<span
+											className={`${
+												pathname === link.slug ? 'opacity-100' : 'opacity-0'
+											}`}>
+											{'[->] '}
+										</span>
+										<span className='underlined-link'>{link.label}</span>
 									</Link>
 								)
 						)}

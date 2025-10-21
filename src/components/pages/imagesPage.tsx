@@ -18,18 +18,6 @@ export default async function ImagesPage() {
 
 	return (
 		<PageWrapper>
-			<h1 className='heading-display mb-8'>Select</h1>
-			<p className='mb-8 text-lg'>
-				A curated selection of contemporary Fashion & Beauty imagery.{' '}
-				<a
-					className='underlined-link'
-					href='https://unsplash.com/t/fashion-beauty'
-					target='_blank'
-					rel='noopener noreferrer'>
-					Explore Fashion & Beauty on Unsplash
-				</a>
-			</p>
-
 			{photos.length > 0 ? (
 				<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-2 gap-4'>
 					{photos.map((photo) => (

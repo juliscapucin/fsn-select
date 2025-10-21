@@ -36,9 +36,9 @@ body {
 @theme inline {
 	--color-primary: var(--primary);
 	--color-secondary: var(--secondary);
-	--color-accent-red: var(--accent-red);
-	--color-accent-blue: var(--accent-blue);
-	--color-accent-green: var(--accent-green);
+	--color-accent-1: var(--accent-1);
+	--color-accent-2: var(--accent-2);
+	--color-accent-3: var(--accent-3);
 	--color-text-dark: var(--primary);
 	--color-text-light: var(--secondary);
 
@@ -50,9 +50,12 @@ body {
 	--text-headline-large: 57px;
 	--text-headline-medium: 40px;
 	--text-headline-small: 28px;
-	--text-title-large: 22px;
-	--text-title-medium: 20px;
-	--text-title-small: 18px;
+	--text-title-large: 40px;
+	--text-title-medium: 28px;
+	--text-title-small: 20px;
+	--text-navlink-large: 22px;
+	--text-navlink-medium: 20px;
+	--text-navlink-small: 18px;
 	--text-body-large: 18px;
 	--text-body-medium: 16px;
 	--text-body-small: 14px;
@@ -107,7 +110,7 @@ body {
 	}
 
 	.underlined-link::after {
-		@apply absolute bottom-[2px] left-0 z-50 h-px w-full -translate-x-[102%] bg-current transition-transform duration-300 content-[''];
+		@apply absolute bottom-[2px] left-0 z-50 h-[2px] w-full -translate-x-[102%] bg-current transition-transform duration-300 content-[''];
 	}
 
 	.underlined-link:hover::after,
@@ -126,15 +129,15 @@ body {
 	}
 
 	.btn-primary {
-		@apply bg-text-dark text-secondary hover:bg-accent-green;
+		@apply bg-text-dark text-secondary hover:bg-accent-1;
 	}
 
 	.btn-secondary {
-		@apply bg-text-dark text-secondary hover:bg-accent-green;
+		@apply bg-text-dark text-secondary hover:bg-accent-1;
 	}
 
-	.btn-accent-blue {
-		@apply bg-accent-blue text-secondary hover:bg-accent-green;
+	.btn-accent-1 {
+		@apply bg-accent-1 text-secondary hover:bg-accent-1;
 	}
 
 	.btn-secondary-sm {
@@ -152,14 +155,29 @@ body {
 	/* HEADING STYLES */
 
 	.heading-display {
-		@apply text-display-small leading-none font-thin lg:text-display-medium xl:text-display-large;
+		@apply text-display-small leading-none font-thin lg:text-display-medium xl:text-display-large uppercase;
 	}
 
 	.heading-headline {
-		@apply text-headline-small leading-none font-thin lg:text-headline-medium xl:text-headline-large;
+		@apply text-headline-small leading-none font-thin lg:text-headline-medium xl:text-headline-large uppercase;
 	}
 
 	.heading-title {
-		@apply text-title-small font-normal lg:text-title-medium xl:text-title-large;
+		@apply text-title-small font-normal lg:text-title-medium xl:text-title-large uppercase;
+	}
+
+	/* TEXT STYLES */
+	.text-paragraph {
+		@apply text-body-small md:text-body-medium max-w-prose text-pretty lg:text-body-large;
+	}
+
+	/* NAVLINK STYLES */
+	.text-navlink {
+		@apply text-navlink-small md:text-navlink-medium lg:text-navlink-large uppercase leading-6;
+	}
+
+	.text-navlink:nth-child(2),
+	.text-navlink:nth-child(3) {
+		@apply text-right self-end block w-full;
 	}
 }

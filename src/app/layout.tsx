@@ -27,7 +27,8 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang='en'>
-			<body className={`${font.variable} antialiased font-primary bg-primary`}>
+			<body
+				className={`${font.variable} antialiased font-primary bg-primary uppercase`}>
 				<Header navLinks={navLinks} />
 				{children}
 			</body>
