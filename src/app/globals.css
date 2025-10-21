@@ -63,8 +63,8 @@ body {
 	--max-width: 1800px;
 
 	/* Heights based on Tailwind's spacing scale: --spacing: 0.25rem /* 4px */
-	--header-height: calc(var(--spacing) * 14) /* [14] 4rem = 56px */;
-	--footer-height: calc(var(--spacing) * 96); /* [96] 24rem = 384px */
+	--height-header: calc(var(--spacing) * 40) /* [40] 10rem = 160px */;
+	--height-footer: calc(var(--spacing) * 200); /* [200] 50rem = 800px */
 }
 
 @layer base {

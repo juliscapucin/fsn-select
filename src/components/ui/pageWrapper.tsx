@@ -6,7 +6,7 @@ import { ScrollSmoother } from 'gsap/ScrollSmoother'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 gsap.registerPlugin(ScrollSmoother, ScrollTrigger)
 
-import { Footer } from '@/components/ui'
+import { Footer } from '@/components'
 
 type PageWrapperProps = {
 	children?: React.ReactNode
@@ -22,12 +22,14 @@ export default function PageWrapper({ children }: PageWrapperProps) {
 	}, [])
 
 	return (
-		<div id='smooth-wrapper'>
-			<div id='smooth-content'>
-				<main className='mx-auto mt-[--header-height] max-w-[--max-width] px-4 pb-16 md:px-8'>
-					{children}
-				</main>
-				<Footer />
+		<div>
+			<div id='smooth-wrapper'>
+				<div id='smooth-content'>
+					<main className='mx-auto min-h-screen container mt-[var(--height-header)] mb-32 bg-primary'>
+						{children}
+					</main>
+					<Footer />
+				</div>
 			</div>
 		</div>
 	)

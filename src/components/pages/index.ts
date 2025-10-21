@@ -1,3 +1,3 @@
-import DefaultPage from './defaultPage';
+import ImagesPage from './imagesPage'
 
-export { DefaultPage };
+export { ImagesPage }

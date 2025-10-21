@@ -30,7 +30,6 @@ export default function RootLayout({
 			<body className={`${font.variable} antialiased font-primary bg-primary`}>
 				<Header navLinks={navLinks} />
 				{children}
-				<Footer />
 			</body>
 		</html>
 	)
