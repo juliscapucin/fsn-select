@@ -1,8 +1,58 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Select
+
+A curated selection of contemporary Fashion & Beauty imagery, featuring recent work from photographers on Unsplash. This collection evolves over time so you can explore, connect and collaborate with image makers from all over the world.
+
+## Features
+
+- 🖼️ Curated Fashion & Beauty photography from Unsplash
+- ✨ Smooth animations powered by GSAP
+- 🔄 Dynamic content that evolves over time
+- 🌍 Discover photographers from around the globe
+- 📱 Responsive design for all devices
+
+## Tech Stack
+
+- **Framework**: [Next.js 15](https://nextjs.org) with App Router
+- **Language**: TypeScript
+- **Styling**: CSS Modules / Tailwind CSS
+- **Animation**: [GSAP](https://gsap.com)
+- **API**: [Unsplash API](https://unsplash.com/developers)
+- **Deployment**: Vercel
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 18+
+- npm, yarn, pnpm, or bun
+- Unsplash API access key
+
+### Installation
+
+1. Clone the repository:
+
+```bash
+git clone <repository-url>
+cd select
+```
+
+2. Install dependencies:
+
+```bash
+npm install
+# or
+yarn install
+# or
+pnpm install
+```
+
+3. Create a `.env.local` file in the root directory and add your Unsplash API key:
+
+```env
+NEXT_PUBLIC_UNSPLASH_ACCESS_KEY=your_unsplash_access_key_here
+```
+
+4. Run the development server:
 
 ```bash
 npm run dev
@@ -10,27 +60,43 @@ npm run dev
 yarn dev
 # or
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+5. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## API Setup
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+To use the Unsplash API:
 
-## Learn More
+1. Create an account at [Unsplash Developers](https://unsplash.com/developers)
+2. Create a new application
+3. Copy your Access Key
+4. Add it to your `.env.local` file
 
-To learn more about Next.js, take a look at the following resources:
+## Project Structure
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+src/
+├── app/                 # Next.js app directory
+│   ├── globals.css     # Global styles
+│   ├── layout.tsx      # Root layout
+│   └── page.tsx        # Home page
+├── components/         # Reusable components
+├── lib/               # Utility functions
+├── hooks/             # Custom React hooks
+└── types/             # TypeScript type definitions
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Contributing
 
-## Deploy on Vercel
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## License
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Acknowledgments
+
+- Photography provided by [Unsplash](https://unsplash.com)
+- Animations powered by [GSAP](https://gsap.com)
+- Built with [Next.js](https://nextjs.org)

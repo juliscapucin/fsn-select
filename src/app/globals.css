@@ -1,6 +1,6 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
-:root {
+/* :root {
   --background: #ffffff;
   --foreground: #171717;
 }
@@ -23,4 +23,143 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+} */
+
+:root {
+	--primary: #f5f3ea;
+	--secondary: #1f1a04;
+	--accent-1: #827c7a;
+	--accent-2: #fff2ec;
+	--accent-3: #dad5c9;
+}
+
+@theme inline {
+	--color-primary: var(--primary);
+	--color-secondary: var(--secondary);
+	--color-accent-red: var(--accent-red);
+	--color-accent-blue: var(--accent-blue);
+	--color-accent-green: var(--accent-green);
+	--color-text-dark: var(--primary);
+	--color-text-light: var(--secondary);
+
+	--font-primary: var(--font-pp-neue-corp);
+
+	--text-display-large: 81px;
+	--text-display-medium: 54px;
+	--text-display-small: 36px;
+	--text-headline-large: 57px;
+	--text-headline-medium: 40px;
+	--text-headline-small: 28px;
+	--text-title-large: 22px;
+	--text-title-medium: 20px;
+	--text-title-small: 18px;
+	--text-body-large: 18px;
+	--text-body-medium: 16px;
+	--text-body-small: 14px;
+	--text-label-large: 16px;
+	--text-label-medium: 14px;
+	--text-label-small: 12px;
+
+	--max-width: 1800px;
+
+	/* Heights based on Tailwind's spacing scale: --spacing: 0.25rem /* 4px */
+	--header-height: calc(var(--spacing) * 14) /* [14] 4rem = 56px */;
+	--footer-height: calc(var(--spacing) * 96); /* [96] 24rem = 384px */
+}
+
+@layer base {
+	*,
+	*::before,
+	*::after {
+		box-sizing: border-box;
+	}
+
+	* {
+		margin: 0;
+		padding: 0;
+	}
+
+	* {
+		scrollbar-width: thin;
+		scrollbar-color: var(--primary) var(--secondary);
+	}
+
+	/* Chrome, Edge, and Safari */
+	*::-webkit-scrollbar {
+		width: 12px;
+	}
+
+	*::-webkit-scrollbar-track {
+		background: var(--primary);
+	}
+
+	*::-webkit-scrollbar-thumb {
+		background-color: var(--secondary);
+	}
+
+	button {
+		@apply cursor-pointer;
+	}
+
+	/* LINK STYLES */
+	.underlined-link {
+		@apply relative inline-block w-fit cursor-pointer overflow-x-clip text-secondary no-underline;
+	}
+
+	.underlined-link::after {
+		@apply absolute bottom-[2px] left-0 z-50 h-px w-full -translate-x-[102%] bg-current transition-transform duration-300 content-[''];
+	}
+
+	.underlined-link:hover::after,
+	.active.underlined-link::after {
+		@apply translate-x-0;
+	}
+
+	/* BUTTON STYLES */
+
+	button {
+		@apply cursor-pointer;
+	}
+
+	.btn {
+		@apply rounded-3xl px-4 pt-4 pb-3 leading-none font-medium transition-colors duration-300;
+	}
+
+	.btn-primary {
+		@apply bg-text-dark text-secondary hover:bg-accent-green;
+	}
+
+	.btn-secondary {
+		@apply bg-text-dark text-secondary hover:bg-accent-green;
+	}
+
+	.btn-accent-blue {
+		@apply bg-accent-blue text-secondary hover:bg-accent-green;
+	}
+
+	.btn-secondary-sm {
+		@apply bg-secondary px-2 py-[2px] text-label-large font-medium text-primary transition-colors duration-300 hover:bg-secondary/30 hover:text-secondary;
+	}
+
+	.btn-ghost {
+		@apply flex items-center border border-secondary bg-transparent px-4 py-2 font-medium text-secondary transition-colors duration-300 hover:bg-secondary hover:text-primary;
+	}
+
+	.btn-ghost-sm {
+		@apply flex items-center border border-secondary bg-transparent px-2 py-[2px] text-label-large font-medium text-secondary transition-colors duration-300 hover:bg-secondary hover:text-primary;
+	}
+
+	/* HEADING STYLES */
+
+	.heading-display {
+		@apply text-display-small leading-none font-thin lg:text-display-medium xl:text-display-large;
+	}
+
+	.heading-headline {
+		@apply text-headline-small leading-none font-thin lg:text-headline-medium xl:text-headline-large;
+	}
+
+	.heading-title {
+		@apply text-title-small font-normal lg:text-title-medium xl:text-title-large;
+	}
 }
