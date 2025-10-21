@@ -1,4 +1,4 @@
-import Image from 'next/image'
+import { ImageWithSpinner } from '@/components'
 import { getFashionBeautyTopicPhotos } from '@/queries'
 import { UnsplashPhoto } from '@/types/unsplash'
 
@@ -35,11 +35,10 @@ export default async function Home() {
 					{photos.map((photo) => (
 						<div key={photo.id} className='group cursor-pointer'>
 							<div className='aspect-3/4 overflow-hidden relative'>
-								<Image
-									src={photo.urls.regular}
-									alt={photo.alt_description || 'Fashion photo'}
-									fill
+								<ImageWithSpinner
+									imageSrc={photo}
 									quality={80}
+									sizes='(min-width: 640px) 50vw, 50vw'
 									className='object-cover transition-transform duration-300 group-hover:scale-105'
 								/>
 							</div>
