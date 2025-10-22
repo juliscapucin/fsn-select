@@ -2,9 +2,9 @@ import { ImageWithSpinner, PageWrapper } from '@/components'
 import { getFashionBeautyTopicPhotos } from '@/queries/unsplash/photos'
 import { UnsplashPhoto } from '@/services/unsplash/types'
 
-export default async function ImagesPage() {
-	let photos: UnsplashPhoto[] = []
+let photos: UnsplashPhoto[] = []
 
+export default async function ImagesPage() {
 	try {
 		// Using the fashion-beauty topic from https://unsplash.com/t/fashion-beauty
 		photos = await getFashionBeautyTopicPhotos({
@@ -31,7 +31,7 @@ export default async function ImagesPage() {
 								/>
 							</div>
 							<div className='mt-2'>
-								<p className='text-sm text-gray-600'>by {photo.user.name}</p>
+								<p className='text-body'>by {photo.user.name}</p>
 							</div>
 						</div>
 					))}

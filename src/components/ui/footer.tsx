@@ -63,7 +63,7 @@ export default function Footer() {
 					</ExternalLink>
 					.
 				</p>
-				<div className='flex-1 flex w-full items-end justify-between mb-[160px]'>
+				<div className='flex-1 flex w-full items-end justify-between mb-8'>
 					<div>
 						<Logo variant='primary' />
 

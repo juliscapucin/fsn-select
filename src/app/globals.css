@@ -67,7 +67,7 @@ body {
 
 	/* Heights based on Tailwind's spacing scale: --spacing: 0.25rem /* 4px */
 	--height-header: calc(var(--spacing) * 40) /* [40] 10rem = 160px */;
-	--height-footer: calc(var(--spacing) * 200); /* [200] 50rem = 800px */
+	--height-footer: calc(var(--spacing) * 150); /* [150] 37.5rem = 600px */
 }
 
 @layer base {
@@ -167,6 +167,10 @@ body {
 	}
 
 	/* TEXT STYLES */
+	.text-body {
+		@apply text-body-medium md:text-body-large;
+	}
+
 	.text-paragraph {
 		@apply text-body-small md:text-body-medium max-w-prose text-pretty lg:text-body-large;
 	}

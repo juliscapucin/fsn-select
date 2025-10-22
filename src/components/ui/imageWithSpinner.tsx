@@ -21,7 +21,7 @@ export default function ImageWithSpinner({
 	wrapperClassName = '',
 	spinnerClassName = '',
 	sizes,
-	quality = 70,
+	quality = 75,
 	priority = false,
 	showSpinner = true,
 	altFallback = '',
