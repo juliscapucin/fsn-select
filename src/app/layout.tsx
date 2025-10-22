@@ -2,9 +2,6 @@ import type { Metadata } from 'next'
 import localFont from 'next/font/local'
 import './globals.css'
 
-import { Header } from '@/components'
-import { navLinks } from '@/lib/data'
-
 // Load custom font //
 const font = localFont({
 	variable: '--font-pp-neue-corp',
@@ -30,7 +27,6 @@ export default function RootLayout({
 		<html lang='en'>
 			<body
 				className={`${font.variable} antialiased font-primary bg-primary uppercase`}>
-				<Header navLinks={navLinks} />
 				{children}
 			</body>
 		</html>

@@ -11,13 +11,13 @@ import { ScrollToPlugin } from 'gsap/ScrollToPlugin'
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin)
 
 import { MenuMobile, Logo } from '@/components'
-import { NavLink as NavLinkType } from '@/types/ui'
+import { navLinks } from '@/lib/data'
 
 type HeaderProps = {
-	navLinks: NavLinkType[]
+	variant?: 'primary' | 'secondary'
 }
 
-export default function Header({ navLinks }: HeaderProps) {
+export default function Header({ variant }: HeaderProps) {
 	const router = useRouter()
 	const pathname = usePathname()
 
@@ -61,7 +61,10 @@ export default function Header({ navLinks }: HeaderProps) {
 			<MenuMobile navLinks={navLinks} />
 
 			{/* HEADER DESKTOP */}
-			<header className='pointer-events-none fixed top-2 right-0 left-0 hidden lg:block'>
+			<header
+				className={`pointer-events-none fixed top-2 right-0 left-0 hidden lg:block ${
+					variant === 'primary' ? 'text-primary' : 'text-secondary'
+				} z-50`}>
 				<div
 					ref={headerContainerRef}
 					className='pointer-events-auto mx-auto h-header w-full container flex items-start justify-end'>
@@ -83,7 +86,7 @@ export default function Header({ navLinks }: HeaderProps) {
 								</span>
 							</div>
 							{/* LOGO */}
-							<Logo variant='secondary' />
+							<Logo variant={variant === 'primary' ? 'primary' : 'secondary'} />
 						</div>
 					</Link>
 				</div>

@@ -17,10 +17,10 @@ export default async function Page() {
 		console.error('Error fetching fashion-beauty topic photos:', error)
 	}
 	return (
-		<PageWrapper>
-			<div className='grid grid-cols-12 w-full gap-2 mt-8'>
+		<PageWrapper variant='primary'>
+			<div className='grid grid-cols-6 lg:grid-cols-12 w-full gap-2 mt-2'>
 				{/* LEFT CONTENT */}
-				<div className='col-start-1 col-span-3 self-end'>
+				<div className='hidden md:block col-start-1 col-span-3 self-end'>
 					{photos.length > 0 && (
 						<ImageWithSpinner
 							imageSrc={photos[0]}
@@ -30,8 +30,8 @@ export default async function Page() {
 				</div>
 
 				{/* CENTER CONTENT */}
-				<div className='col-start-5 col-span-5 grid grid-cols-6'>
-					<div className='col-start-1 col-span-3'>
+				<div className='col-start-1 col-span-7 md:col-start-4 md:col-span-3 lg:col-start-5 lg:col-span-5 grid grid-cols-6'>
+					<div className='col-start-1 col-span-4'>
 						{photos.length > 0 && (
 							<ImageWithSpinner
 								imageSrc={photos[3]}
@@ -40,11 +40,11 @@ export default async function Page() {
 						)}
 					</div>
 
-					<div className='col-start-2 col-span-4 mt-4 text-paragraph'>
-						<h1 className='heading-display text-nowrap'>About Us</h1>
+					<div className='col-start-2 col-span-5 mt-8 text-paragraph'>
+						<h1 className='heading-display text-nowrap'>About</h1>
 						<p className='mt-4'>
-							A curated selection of contemporary Fashion & Beauty imagery,
-							featuring recent work from photographers on Unsplash.
+							This is a curated selection of contemporary Fashion & Beauty
+							imagery, featuring recent work from photographers on Unsplash.
 						</p>
 						<p className='mt-4'>
 							*This collection evolves over time so you can explore, connect and
@@ -54,7 +54,7 @@ export default async function Page() {
 				</div>
 
 				{/* RIGHT CONTENT */}
-				<div className='col-start-10 col-span-3 self-center'>
+				<div className='hidden lg:block col-start-10 col-span-3 self-center'>
 					{photos.length > 0 && (
 						<ImageWithSpinner
 							imageSrc={photos[10]}

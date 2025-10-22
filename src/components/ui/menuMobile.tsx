@@ -30,8 +30,6 @@ export default function MenuMobile({ navLinks }: NavLinksProps) {
 	const pathname = usePathname()
 	const router = useRouter()
 
-	console.log(pathname)
-
 	return (
 		navLinks && (
 			<header className='fixed top-2 right-0 left-0 z-40 pointer-events-none block h-dvh lg:hidden'>

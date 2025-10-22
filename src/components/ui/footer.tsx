@@ -9,7 +9,11 @@ gsap.registerPlugin(ScrollTrigger)
 
 import { ExternalLink, Logo } from '@/components'
 
-export default function Footer() {
+type FooterProps = {
+	variant: 'primary' | 'secondary'
+}
+
+export default function Footer({ variant }: FooterProps) {
 	const footerContainerRef = useRef<HTMLElement>(null)
 	const footerContentRef = useRef<HTMLDivElement>(null)
 
@@ -46,11 +50,15 @@ export default function Footer() {
 	return (
 		<footer
 			ref={footerContainerRef}
-			className='h-footer overflow-clip bg-secondary'>
+			className={`h-footer overflow-clip ${
+				variant === 'primary' ? 'bg-accent-1' : 'bg-secondary'
+			}`}>
 			{/* CONTENT */}
 			<div
 				ref={footerContentRef}
-				className='relative h-footer w-full bg-secondary text-primary transition-[background-color] duration-800 container mx-auto py-8 flex flex-col'>
+				className={`relative h-footer w-full px-2 ${
+					variant === 'primary' ? 'text-secondary' : 'text-primary'
+				} transition-[background-color] duration-800 container mx-auto py-8 flex flex-col`}>
 				<p className='text-paragraph'>
 					Images featured in this collection are sourced from Unsplash and
 					remain the property of their respective photographers. Please review
@@ -58,21 +66,23 @@ export default function Footer() {
 				</p>
 				<p className='text-paragraph mt-8'>
 					Read more about Terms & Conditions, Cookies, and Privacy Policies at{' '}
-					<ExternalLink variant='primary' href='https://unsplash.com/license'>
+					<ExternalLink variant='secondary' href='https://unsplash.com/license'>
 						Unsplash.com
 					</ExternalLink>
 					.
 				</p>
-				<div className='flex-1 flex w-full items-end justify-between mb-8'>
+				<div className='flex-1 flex flex-col md:flex-row w-full md:items-end md:justify-between mt-8 md:mt-0 md:mb-8'>
 					<div>
-						<Logo variant='primary' />
+						<Logo variant={variant === 'primary' ? 'secondary' : 'primary'} />
 
 						{/* COPYRIGHT */}
 						<p>© {new Date().getFullYear()} All rights reserved</p>
 					</div>
-					<p>
+					<p className='mt-4 md:mt-0'>
 						Crafted by{' '}
-						<ExternalLink variant='primary' href='https://juliscapucin.com'>
+						<ExternalLink
+							variant={variant === 'primary' ? 'secondary' : 'primary'}
+							href='https://juliscapucin.com'>
 							Juli Scapucin
 						</ExternalLink>
 					</p>

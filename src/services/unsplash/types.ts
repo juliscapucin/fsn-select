@@ -2,11 +2,7 @@
 export type {
 	UnsplashPhoto,
 	UnsplashUser,
-	UnsplashCollection,
-	UnsplashSearchResult,
 	PhotoQueryParams,
-	FashionBeautyQuery,
-	FashionCategory,
 } from '@/types/unsplash'
 
 import type { UnsplashPhoto } from '@/types/unsplash'

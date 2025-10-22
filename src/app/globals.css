@@ -106,7 +106,7 @@ body {
 
 	/* LINK STYLES */
 	.underlined-link {
-		@apply relative inline-block w-fit cursor-pointer overflow-x-clip text-secondary no-underline;
+		@apply relative inline-block w-fit cursor-pointer overflow-x-clip text-inherit no-underline;
 	}
 
 	.underlined-link::after {

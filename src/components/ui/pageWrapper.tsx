@@ -6,13 +6,14 @@ import { ScrollSmoother } from 'gsap/ScrollSmoother'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 gsap.registerPlugin(ScrollSmoother, ScrollTrigger)
 
-import { Footer } from '@/components'
+import { Footer, Header } from '@/components'
 
 type PageWrapperProps = {
+	variant: 'primary' | 'secondary'
 	children?: React.ReactNode
 }
 
-export default function PageWrapper({ children }: PageWrapperProps) {
+export default function PageWrapper({ children, variant }: PageWrapperProps) {
 	useGSAP(() => {
 		// create the scrollSmoother before your scrollTriggers
 		ScrollSmoother.create({
@@ -22,13 +23,23 @@ export default function PageWrapper({ children }: PageWrapperProps) {
 	}, [])
 
 	return (
-		<div id='smooth-wrapper' className='z-0 pointer-events-none'>
-			<div id='smooth-content' className='z-0 pointer-events-none'>
-				<main className='pointer-events-auto relative mx-auto min-h-screen container mt-2 mb-32 grid grid-cols-14 z-0'>
-					<div className='col-start-2 col-end-14'>{children}</div>
-				</main>
-				<Footer />
+		<>
+			<div id='smooth-wrapper' className='z-0 pointer-events-none'>
+				<div
+					id='smooth-content'
+					className={`z-0 pointer-events-none ${
+						variant === 'secondary' ? 'bg-secondary' : 'bg-primary'
+					}`}>
+					<main
+						className={`pointer-events-auto relative mx-auto min-h-screen container pt-2 pb-32 grid grid-cols-14 z-0 ${
+							variant === 'primary' ? 'text-secondary' : 'text-primary'
+						}`}>
+						<Header variant={variant === 'primary' ? 'secondary' : 'primary'} />
+						<div className='col-start-2 col-end-14'>{children}</div>
+					</main>
+					<Footer variant={variant === 'primary' ? 'secondary' : 'primary'} />
+				</div>
 			</div>
-		</div>
+		</>
 	)
 }

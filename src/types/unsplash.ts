@@ -53,32 +53,6 @@ export interface UnsplashPhoto {
 	}>
 }
 
-export interface UnsplashCollection {
-	id: string
-	title: string
-	description: string | null
-	published_at: string
-	last_collected_at: string
-	updated_at: string
-	total_photos: number
-	private: boolean
-	share_key: string | null
-	cover_photo: UnsplashPhoto | null
-	preview_photos: UnsplashPhoto[]
-	user: UnsplashUser
-	links: {
-		self: string
-		html: string
-		photos: string
-	}
-}
-
-export interface UnsplashSearchResult<T> {
-	total: number
-	total_pages: number
-	results: T[]
-}
-
 // Query parameters
 export interface PhotoQueryParams {
 	query?: string
@@ -99,23 +73,4 @@ export interface PhotoQueryParams {
 		| 'teal'
 		| 'blue'
 	content_filter?: 'low' | 'high'
-}
-
-export interface CollectionQueryParams {
-	page?: number
-	per_page?: number
-}
-
-// Fashion & Beauty specific types
-export type FashionCategory =
-	| 'fashion'
-	| 'beauty'
-	| 'makeup'
-	| 'skincare'
-	| 'style'
-	| 'editorial'
-
-export interface FashionBeautyQuery extends PhotoQueryParams {
-	category?: FashionCategory
-	keywords?: string[]
 }

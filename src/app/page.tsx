@@ -1,5 +1,9 @@
-import { ImagesPage } from '@/components'
+import { ImagesPage, PageWrapper } from '@/components'
 
 export default async function Home() {
-	return <ImagesPage />
+	return (
+		<PageWrapper variant='primary'>
+			<ImagesPage />
+		</PageWrapper>
+	)
 }
