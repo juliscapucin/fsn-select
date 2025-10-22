@@ -20,3 +20,11 @@ export async function getRandomFashionBeautyTopicPhotos(
 ): Promise<UnsplashPhoto[]> {
 	return unsplashService.getRandomFashionBeautyPhotos(count)
 }
+
+// Get photos by a specific artist (username)
+export async function getPhotosByArtist(
+	artistUsername: string,
+	params?: PhotoQueryParams
+): Promise<UnsplashPhoto[]> {
+	return unsplashService.getPhotosByArtist(artistUsername, params)
+}

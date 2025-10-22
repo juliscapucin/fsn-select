@@ -49,6 +49,17 @@ class UnsplashService {
 		return response.json()
 	}
 
+	// Get photos from a specific artist
+	async getPhotosByArtist(
+		artistUsername: string,
+		params?: PhotoQueryParams
+	): Promise<UnsplashPhoto[]> {
+		return this.fetchFromUnsplash<UnsplashPhoto[]>(
+			`/users/${artistUsername}/photos`,
+			params
+		)
+	}
+
 	// Get a single photo by ID
 	async getPhotoById(id: string): Promise<UnsplashPhoto> {
 		return this.fetchFromUnsplash<UnsplashPhoto>(`/photos/${id}`)

@@ -24,7 +24,7 @@ export default async function Page() {
 					<div className='col-start-1 col-span-4'>
 						{photos.length > 0 && (
 							<ImageWithSpinner
-								imageSrc={photos[3]}
+								imageSrc={photos[27]}
 								sizes='(min-width: 640px) 30vw, 30vw'
 							/>
 						)}
