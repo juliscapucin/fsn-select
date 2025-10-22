@@ -22,14 +22,12 @@ export default function PageWrapper({ children }: PageWrapperProps) {
 	}, [])
 
 	return (
-		<div>
-			<div id='smooth-wrapper'>
-				<div id='smooth-content'>
-					<main className='mx-auto min-h-screen container mt-[var(--height-header)] mb-32 bg-primary grid grid-cols-13'>
-						<div className='col-start-2 col-end-13'>{children}</div>
-					</main>
-					<Footer />
-				</div>
+		<div id='smooth-wrapper' className='z-0 pointer-events-none'>
+			<div id='smooth-content' className='z-0 pointer-events-none'>
+				<main className='pointer-events-auto relative mx-auto min-h-screen container mt-[var(--height-header)] mb-32 grid grid-cols-14 z-0'>
+					<div className='col-start-2 col-end-14'>{children}</div>
+				</main>
+				<Footer />
 			</div>
 		</div>
 	)

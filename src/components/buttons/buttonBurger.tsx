@@ -1,14 +1,11 @@
-import { MouseEventHandler } from 'react';
-import { IconBurger } from '@/components/icons';
+import { IconBurger } from '@/components/icons'
 
-interface ButtonBurgerProps {
- action: MouseEventHandler<HTMLButtonElement>;
-}
+type ButtonBurgerProps = React.ButtonHTMLAttributes<HTMLButtonElement>
 
-export default function ButtonBurger({ action }: ButtonBurgerProps) {
- return (
-  <button onClick={action} aria-label='open menu'>
-   <IconBurger />
-  </button>
- );
+export default function ButtonBurger({ ...props }: ButtonBurgerProps) {
+	return (
+		<button {...props} aria-label='open menu'>
+			<IconBurger />
+		</button>
+	)
 }

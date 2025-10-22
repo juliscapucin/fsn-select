@@ -155,15 +155,15 @@ body {
 	/* HEADING STYLES */
 
 	.heading-display {
-		@apply text-display-small leading-none font-thin lg:text-display-medium xl:text-display-large uppercase;
+		@apply text-display-small leading-none font-thin sm:text-display-medium xl:text-display-large uppercase;
 	}
 
 	.heading-headline {
-		@apply text-headline-small leading-none font-thin lg:text-headline-medium xl:text-headline-large uppercase;
+		@apply text-headline-small leading-none font-thin sm:text-headline-medium xl:text-headline-large uppercase;
 	}
 
 	.heading-title {
-		@apply text-title-small font-normal lg:text-title-medium xl:text-title-large uppercase;
+		@apply text-title-small font-normal sm:text-title-medium xl:text-title-large uppercase;
 	}
 
 	/* TEXT STYLES */

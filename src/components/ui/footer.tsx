@@ -1,14 +1,13 @@
 'use client'
 
-import React, { useRef } from 'react'
+import { useRef } from 'react'
 
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 gsap.registerPlugin(ScrollTrigger)
 
-import { ExternalLink } from '@/components/ui'
-import Logo from './logo'
+import { ExternalLink, Logo } from '@/components'
 
 export default function Footer() {
 	const footerContainerRef = useRef<HTMLElement>(null)

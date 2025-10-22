@@ -30,13 +30,15 @@ export default function MenuMobile({ navLinks }: NavLinksProps) {
 	const pathname = usePathname()
 	const router = useRouter()
 
+	console.log(pathname)
+
 	return (
 		navLinks && (
-			<div className='pointer-events-none block h-dvh lg:hidden'>
-				<div className='z-burger pointer-events-auto absolute top-0 flex w-full items-center justify-end bg-primary pr-4'>
+			<header className='fixed top-2 right-0 left-0 z-40 pointer-events-none block h-dvh lg:hidden'>
+				<div className='z-40 pointer-events-auto absolute top-0 flex w-full items-center justify-end pr-4'>
 					{/* BURGER BUTTON */}
 					<ButtonBurger
-						action={() => {
+						onClick={() => {
 							if (mobileMenuRef.current) {
 								animateMobileMenu(mobileMenuRef.current)
 							}
@@ -46,10 +48,10 @@ export default function MenuMobile({ navLinks }: NavLinksProps) {
 
 				{/* EXPANDED MENU */}
 				<aside
-					className='z-mobile pointer-events-auto absolute top-0 min-h-svh w-full -translate-y-[120%] bg-primary transition-transform duration-300'
+					className='z-50 pointer-events-auto fixed top-0 min-h-svh w-full -translate-y-[120%] bg-primary transition-transform duration-300'
 					ref={mobileMenuRef}>
-					{/* Close Button */}
 					<div className='absolute top-4 right-4 z-100'>
+						{/* CLOSE BUTTON */}
 						<ButtonClose
 							onClick={() => {
 								if (mobileMenuRef.current) {
@@ -70,12 +72,12 @@ export default function MenuMobile({ navLinks }: NavLinksProps) {
 										className='block font-primary disabled:opacity-30'
 										onClick={() =>
 											animateMobileMenu(mobileMenuRef.current, () => {
-												router.push(`/${link.slug}`)
+												router.push(`${link.slug}`)
 											})
 										}
 										disabled={
-											(pathname === '/' && link.slug === '/') ||
-											pathname.includes(`/${link.slug}`)
+											(link.slug === '/' && pathname === '/') ||
+											(link.slug !== '/' && pathname.includes(`${link.slug}`))
 										}>
 										<span className='font-headline text-headline-medium text-secondary uppercase sm:text-headline-large'>
 											{link.label}
@@ -86,7 +88,7 @@ export default function MenuMobile({ navLinks }: NavLinksProps) {
 						})}
 					</nav>
 				</aside>
-			</div>
+			</header>
 		)
 	)
 }

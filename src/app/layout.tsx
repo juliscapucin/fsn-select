@@ -1,8 +1,9 @@
 import type { Metadata } from 'next'
 import localFont from 'next/font/local'
 import './globals.css'
+
+import { Header } from '@/components'
 import { navLinks } from '@/lib/data'
-import { Footer, Header } from '@/components'
 
 // Load custom font //
 const font = localFont({
