@@ -34,8 +34,7 @@ interface LoopTimeline extends gsap.core.Timeline {
 export function carouselLoop(
 	items: Element[],
 	config: CarouselConfig,
-	wrapper: HTMLElement,
-	indexSetter: (arg: number) => void
+	wrapper: HTMLElement
 ): LoopTimeline {
 	const onChange = config.onChange
 	let lastIndex = 0
@@ -252,22 +251,20 @@ export function carouselLoop(
 	const syncIndex = () => {
 		const index = tl.closestIndex(true)
 		curIndex = index
-		indexSetter(index)
 	}
 
 	if (config.draggable && typeof Draggable === 'function') {
 		proxy = document.createElement('div')
-		let wrap = gsap.utils.wrap(0, 1)
-		let ratio: number, startProgress: number, draggable: Draggable
+		const wrap = gsap.utils.wrap(0, 1)
+		let ratio: number, startProgress: number
 		let lastSnap: number, initChangeX: number
-
 		const align = () => {
 			tl.progress(
 				wrap(startProgress + (draggable.startX - draggable.x) * ratio)
 			)
 		}
 
-		draggable = Draggable.create(proxy, {
+		const draggable = Draggable.create(proxy, {
 			trigger: wrapper,
 			type: 'x',
 			lockAxis: true,

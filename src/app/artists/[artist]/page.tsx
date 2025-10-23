@@ -1,9 +1,6 @@
-import Image from 'next/image'
+import { ArtistPage } from '@/components'
 import { getFashionBeautyTopicPhotos, getPhotosByArtist } from '@/queries'
 import { UnsplashPhoto } from '@/types/unsplash'
-import PageWrapper from '@/components/ui/pageWrapper'
-import ExternalLink from '@/components/ui/externalLink'
-import { EmptyResults } from '@/components'
 
 // Return a list of `params` to populate the [artist] dynamic segment
 export async function generateStaticParams() {
@@ -57,82 +54,5 @@ export default async function Page({
 		console.error('Error fetching artist photos:', error)
 	}
 
-	return (
-		<PageWrapper variant='primary'>
-			{artistInfo ? (
-				<>
-					<header className='mb-8 mt-[var(--height-header)]'>
-						{/* ARTIST NAME */}
-						{artistInfo.name && (
-							<h1 className='heading-display'>{artistInfo.name}</h1>
-						)}
-
-						{/* INSTAGRAM LINK */}
-						{artistInfo.social.instagram_username && (
-							<ExternalLink
-								variant='secondary'
-								classes='text-link-lg mt-4'
-								href={`https://instagram.com/${artistInfo.social.instagram_username}`}>
-								View on Instagram
-							</ExternalLink>
-						)}
-
-						{/* BIO AND LOCATION */}
-						{artistInfo.bio && <p className='mt-4'>{artistInfo.bio}</p>}
-						{artistInfo.location && (
-							<p className='mt-4'>Location: {artistInfo.location}</p>
-						)}
-
-						{/* UNSPLASH LINK */}
-						{artistInfo.username && (
-							<ExternalLink
-								variant='secondary'
-								classes='text-link-lg text-right ml-auto block mt-8'
-								href={artistInfo.links.html}>
-								Unsplash Profile
-							</ExternalLink>
-						)}
-					</header>
-
-					{artistPhotos.length > 0 ? (
-						<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
-							{artistPhotos.map((photo) => (
-								<div key={photo.id} className='group cursor-pointer'>
-									<div className='aspect-3/4 overflow-hidden relative'>
-										<Image
-											src={photo.urls.regular}
-											alt={
-												photo.alt_description || `Photo by ${artistInfo.name}`
-											}
-											fill
-											className='object-cover transition-transform duration-300 group-hover:scale-105'
-										/>
-									</div>
-									<div className='mt-2'>
-										<p>
-											{(() => {
-												const text = (
-													photo.description ||
-													photo.alt_description ||
-													''
-												).slice(0, 100)
-												const lastPeriodIndex = text.lastIndexOf('.')
-												return lastPeriodIndex > 0
-													? text.slice(0, lastPeriodIndex + 1)
-													: text
-											})()}
-										</p>
-									</div>
-								</div>
-							))}
-						</div>
-					) : (
-						<p>No photos found for this artist.</p>
-					)}
-				</>
-			) : (
-				<EmptyResults message='Artist not found or no photos available.' />
-			)}
-		</PageWrapper>
-	)
+	return <ArtistPage artistPhotos={artistPhotos} artistInfo={artistInfo} />
 }

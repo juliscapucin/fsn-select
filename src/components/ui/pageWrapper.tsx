@@ -12,12 +12,14 @@ type PageWrapperProps = {
 	variant: 'primary' | 'secondary' | 'accent'
 	classes?: string
 	children?: React.ReactNode
+	hasContainer?: boolean
 }
 
 export default function PageWrapper({
 	children,
 	variant,
 	classes,
+	hasContainer = true,
 }: PageWrapperProps) {
 	useGSAP(() => {
 		// create the scrollSmoother before your scrollTriggers
@@ -52,7 +54,9 @@ export default function PageWrapper({
 					}`}>
 					{/* MAIN CONTENT */}
 					<main
-						className={`pointer-events-auto relative mx-auto min-h-screen container pt-2 pb-32 grid grid-cols-14 z-0 ${
+						className={`pointer-events-auto relative mx-auto min-h-screen pt-2 pb-32 grid grid-cols-14 z-0 ${
+							hasContainer ? 'container' : ''
+						} ${
 							variant === 'primary' || variant === 'accent'
 								? 'text-secondary'
 								: 'text-primary'
