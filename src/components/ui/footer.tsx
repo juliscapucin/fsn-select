@@ -50,13 +50,13 @@ export default function Footer({ variant }: FooterProps) {
 	return (
 		<footer
 			ref={footerContainerRef}
-			className={`h-footer overflow-clip ${
+			className={`h-footer pointer-events-auto overflow-clip ${
 				variant === 'primary' ? 'bg-accent-1' : 'bg-secondary'
 			}`}>
 			{/* CONTENT */}
 			<div
 				ref={footerContentRef}
-				className={`relative h-footer w-full px-2 ${
+				className={`relative h-full w-full px-2 ${
 					variant === 'primary' ? 'text-secondary' : 'text-primary'
 				} transition-[background-color] duration-800 container mx-auto py-8 flex flex-col`}>
 				<p className='text-paragraph'>
@@ -66,7 +66,9 @@ export default function Footer({ variant }: FooterProps) {
 				</p>
 				<p className='text-paragraph mt-8'>
 					Read more about Terms & Conditions, Cookies, and Privacy Policies at{' '}
-					<ExternalLink variant='secondary' href='https://unsplash.com/license'>
+					<ExternalLink
+						variant={variant === 'primary' ? 'secondary' : 'primary'}
+						href='https://unsplash.com/license'>
 						Unsplash.com
 					</ExternalLink>
 					.

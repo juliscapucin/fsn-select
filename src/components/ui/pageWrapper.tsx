@@ -9,7 +9,7 @@ gsap.registerPlugin(ScrollSmoother, ScrollTrigger)
 import { Footer, Header } from '@/components'
 
 type PageWrapperProps = {
-	variant: 'primary' | 'secondary'
+	variant: 'primary' | 'secondary' | 'accent'
 	children?: React.ReactNode
 }
 
@@ -28,16 +28,34 @@ export default function PageWrapper({ children, variant }: PageWrapperProps) {
 				<div
 					id='smooth-content'
 					className={`z-0 pointer-events-none ${
-						variant === 'secondary' ? 'bg-secondary' : 'bg-primary'
+						variant === 'secondary'
+							? 'bg-secondary'
+							: variant === 'accent'
+							? 'bg-accent-1'
+							: 'bg-primary'
 					}`}>
 					<main
 						className={`pointer-events-auto relative mx-auto min-h-screen container pt-2 pb-32 grid grid-cols-14 z-0 ${
-							variant === 'primary' ? 'text-secondary' : 'text-primary'
+							variant === 'primary' || variant === 'accent'
+								? 'text-secondary'
+								: 'text-primary'
 						}`}>
-						<Header variant={variant === 'primary' ? 'secondary' : 'primary'} />
+						<Header
+							variant={
+								variant === 'primary' || variant === 'accent'
+									? 'secondary'
+									: 'primary'
+							}
+						/>
 						<div className='col-start-2 col-end-14'>{children}</div>
 					</main>
-					<Footer variant={variant === 'primary' ? 'secondary' : 'primary'} />
+					<Footer
+						variant={
+							variant === 'primary' || variant === 'accent'
+								? 'secondary'
+								: 'primary'
+						}
+					/>
 				</div>
 			</div>
 		</>

@@ -55,13 +55,15 @@ export default async function Page({
 		console.error('Error fetching artist photos:', error)
 	}
 
+	console.log(artistInfo)
+
 	return (
 		<PageWrapper variant='primary'>
 			<div className='container mx-auto px-4 py-8'>
 				{artistInfo ? (
 					<>
 						<div className='mb-8'>
-							<h1 className='text-3xl font-bold mb-2'>{artistInfo.name}</h1>
+							<h1 className='heading-display'>{artistInfo.name}</h1>
 							<p>@{artistInfo.username}</p>
 							{artistInfo.bio && <p className='mt-2'>{artistInfo.bio}</p>}
 							{artistInfo.location && <p>{artistInfo.location}</p>}
