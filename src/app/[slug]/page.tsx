@@ -1,4 +1,4 @@
-import { ImagesPage } from '@/components'
+import { ImagesPageServer } from '@/components'
 
 import { navLinks } from '@/lib/data'
 
@@ -25,5 +25,5 @@ export default async function Page({
 }) {
 	const { slug } = await params
 
-	return <ImagesPage variant={slug} />
+	return <ImagesPageServer variant={slug} />
 }

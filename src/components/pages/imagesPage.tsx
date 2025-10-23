@@ -1,53 +1,57 @@
-import { EmptyResults, PageWrapper } from '@/components'
+'use client'
+
+import { useState } from 'react'
+
+import { EmptyResults, MouseFollower, PageWrapper } from '@/components'
 import { UnsplashPhoto } from '@/services/unsplash/types'
 
-import { getFashionBeautyTopicPhotos } from '@/queries/unsplash/photos'
 import { ImageCard } from '@/components'
 
-let photos: UnsplashPhoto[] = []
 let containerClasses = ''
-let imageCardClasses = ''
 
 type ImagesPageProps = {
 	variant: 'grid' | 'index' | 'gallery'
+	photos: UnsplashPhoto[]
 }
 
-export default async function ImagesPage({ variant }: ImagesPageProps) {
-	try {
-		// Using the fashion-beauty topic from https://unsplash.com/t/fashion-beauty
-		photos = await getFashionBeautyTopicPhotos({
-			page: 1,
-			per_page: 30,
-			order_by: 'latest',
-		})
-	} catch (error) {
-		console.error('Error fetching fashion-beauty topic photos:', error)
-	}
+export default function ImagesPage({ variant, photos }: ImagesPageProps) {
+	const [isMouseFollowerVisible, setIsMouseFollowerVisible] = useState(true)
 
 	switch (variant) {
 		case 'index':
-			containerClasses = 'grid grid-cols-3 gap-4'
-			imageCardClasses = 'col-span-1'
+			containerClasses =
+				'mt-24 relative flex flex-col gap-24 items-center justify-center'
 			break
 		case 'gallery':
 			containerClasses = 'flex flex-col gap-6'
-			imageCardClasses = 'w-full'
 			break
 		case 'grid':
-			containerClasses = ''
-			imageCardClasses = ''
+			containerClasses = 'w-full'
 			break
-		default:
-			// use all fetched photos
-			break
+	}
+
+	function handleMouseEnter() {
+		setIsMouseFollowerVisible(true)
+	}
+
+	function handleMouseLeave() {
+		setIsMouseFollowerVisible(false)
 	}
 
 	return (
 		<PageWrapper variant='primary'>
+			<MouseFollower isVisible={isMouseFollowerVisible} photos={photos} />
 			{photos && photos.length > 0 ? (
 				<div className={containerClasses}>
 					{photos.map((photo, index) => (
-						<ImageCard key={photo.id} photo={photo} index={index} />
+						<ImageCard
+							key={photo.id}
+							photo={photo}
+							index={index}
+							variant={variant}
+							onMouseEnter={handleMouseEnter}
+							onMouseLeave={handleMouseLeave}
+						/>
 					))}
 				</div>
 			) : (

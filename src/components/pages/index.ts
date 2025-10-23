@@ -1,3 +1,4 @@
+import ImagesPageServer from './imagesPageServer'
 import ImagesPage from './imagesPage'
 
-export { ImagesPage }
+export { ImagesPage, ImagesPageServer }
