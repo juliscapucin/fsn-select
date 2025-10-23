@@ -34,8 +34,8 @@ export default async function ImagesPage({ variant }: ImagesPageProps) {
 			imageCardClasses = 'w-full'
 			break
 		case 'grid':
-			containerClasses = 'grid grid-cols-2 gap-4'
-			imageCardClasses = 'col-span-1'
+			containerClasses = ''
+			imageCardClasses = ''
 			break
 		default:
 			// use all fetched photos
@@ -43,9 +43,9 @@ export default async function ImagesPage({ variant }: ImagesPageProps) {
 	}
 
 	return (
-		<PageWrapper variant='primary' classes={containerClasses}>
+		<PageWrapper variant='primary'>
 			{photos && photos.length > 0 ? (
-				<div className={imageCardClasses}>
+				<div className={containerClasses}>
 					{photos.map((photo, index) => (
 						<ImageCard key={photo.id} photo={photo} index={index} />
 					))}

@@ -29,6 +29,7 @@ export default function PageWrapper({
 
 	return (
 		<>
+			{/* HEADER */}
 			<Header
 				variant={
 					variant === 'primary' || variant === 'accent'
@@ -36,7 +37,10 @@ export default function PageWrapper({
 						: 'primary'
 				}
 			/>
+
+			{/* GSAP SMOOTHER WRAPPER */}
 			<div id='smooth-wrapper' className='z-0 pointer-events-none'>
+				{/* GSAP SMOOTHER CONTENT */}
 				<div
 					id='smooth-content'
 					className={`z-0 pointer-events-none ${
@@ -46,14 +50,18 @@ export default function PageWrapper({
 							? 'bg-accent-1'
 							: 'bg-primary'
 					}`}>
+					{/* MAIN CONTENT */}
 					<main
 						className={`pointer-events-auto relative mx-auto min-h-screen container pt-2 pb-32 grid grid-cols-14 z-0 ${
 							variant === 'primary' || variant === 'accent'
 								? 'text-secondary'
 								: 'text-primary'
 						} ${classes ? classes : ''}`}>
+						{/* Keep children in column 2 to 13 */}
 						<div className='col-start-2 col-end-14'>{children}</div>
 					</main>
+
+					{/* FOOTER */}
 					<Footer
 						variant={
 							variant === 'primary' || variant === 'accent'
