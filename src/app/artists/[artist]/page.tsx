@@ -3,6 +3,7 @@ import { getFashionBeautyTopicPhotos, getPhotosByArtist } from '@/queries'
 import { UnsplashPhoto } from '@/types/unsplash'
 import PageWrapper from '@/components/ui/pageWrapper'
 import ExternalLink from '@/components/ui/externalLink'
+import { EmptyResults } from '@/components'
 
 // Return a list of `params` to populate the [artist] dynamic segment
 export async function generateStaticParams() {
@@ -55,8 +56,6 @@ export default async function Page({
 	} catch (error) {
 		console.error('Error fetching artist photos:', error)
 	}
-
-	console.log(artistInfo)
 
 	return (
 		<PageWrapper variant='primary'>
@@ -132,11 +131,7 @@ export default async function Page({
 					)}
 				</>
 			) : (
-				<div>
-					<p className='heading-headline'>
-						Artist not found or no photos available.
-					</p>
-				</div>
+				<EmptyResults message='Artist not found or no photos available.' />
 			)}
 		</PageWrapper>
 	)

@@ -10,10 +10,15 @@ import { Footer, Header } from '@/components'
 
 type PageWrapperProps = {
 	variant: 'primary' | 'secondary' | 'accent'
+	classes?: string
 	children?: React.ReactNode
 }
 
-export default function PageWrapper({ children, variant }: PageWrapperProps) {
+export default function PageWrapper({
+	children,
+	variant,
+	classes,
+}: PageWrapperProps) {
 	useGSAP(() => {
 		// create the scrollSmoother before your scrollTriggers
 		ScrollSmoother.create({
@@ -46,7 +51,7 @@ export default function PageWrapper({ children, variant }: PageWrapperProps) {
 							variant === 'primary' || variant === 'accent'
 								? 'text-secondary'
 								: 'text-primary'
-						}`}>
+						} ${classes ? classes : ''}`}>
 						<div className='col-start-2 col-end-14'>{children}</div>
 					</main>
 					<Footer

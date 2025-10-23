@@ -1,4 +1,4 @@
-import { IconArrow, IconArrowUpRight } from '../icons'
+import { IconArrowUpRight } from '../icons'
 
 type ExternalLinkProps = React.AnchorHTMLAttributes<HTMLAnchorElement> & {
 	variant: 'primary' | 'secondary'

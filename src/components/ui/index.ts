@@ -1,4 +1,5 @@
 import CustomButton from './customButton'
+import EmptyResults from './emptyResults'
 import ExternalLink from './externalLink'
 import Footer from './footer'
 import Grid from './grid'
@@ -15,6 +16,7 @@ import Spacer from './spacer'
 export {
 	CustomButton,
 	Footer,
+	EmptyResults,
 	ExternalLink,
 	Grid,
 	Header,
