@@ -24,6 +24,13 @@ export default function PageWrapper({ children, variant }: PageWrapperProps) {
 
 	return (
 		<>
+			<Header
+				variant={
+					variant === 'primary' || variant === 'accent'
+						? 'secondary'
+						: 'primary'
+				}
+			/>
 			<div id='smooth-wrapper' className='z-0 pointer-events-none'>
 				<div
 					id='smooth-content'
@@ -40,13 +47,6 @@ export default function PageWrapper({ children, variant }: PageWrapperProps) {
 								? 'text-secondary'
 								: 'text-primary'
 						}`}>
-						<Header
-							variant={
-								variant === 'primary' || variant === 'accent'
-									? 'secondary'
-									: 'primary'
-							}
-						/>
 						<div className='col-start-2 col-end-14'>{children}</div>
 					</main>
 					<Footer

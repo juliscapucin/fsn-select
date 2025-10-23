@@ -1,16 +1,35 @@
-type ExternalLinkProps = React.AnchorHTMLAttributes<HTMLAnchorElement> & {
-    variant: 'primary' | 'secondary';
-};
+import { IconArrow, IconArrowUpRight } from '../icons'
 
-export default function ExternalLink({ variant, ...props }: ExternalLinkProps) {
-    return (
-        <a
-            className={`underlined-link text-${variant}`}
-            {...props}
-            target='_blank'
-            rel='noopener noreferrer'
-        >
-            {props.children}
-        </a>
-    );
+type ExternalLinkProps = React.AnchorHTMLAttributes<HTMLAnchorElement> & {
+	variant: 'primary' | 'secondary'
+	classes?: string
+}
+
+export default function ExternalLink({
+	variant,
+	classes,
+	...props
+}: ExternalLinkProps) {
+	return (
+		<a
+			className={`group flex gap-2 ${
+				variant === 'primary' ? 'text-primary' : 'text-secondary'
+			} ${classes}`}
+			{...props}
+			target='_blank'
+			rel='noopener noreferrer'>
+			<span className='underlined-link '>{props.children}</span>
+			<div className='overflow-clip relative pt-1'>
+				<div
+					className={`transition-all opacity-0 duration-300 -translate-x-full translate-y-full group-hover:translate-x-0 group-hover:translate-y-0 group-hover:opacity-100 ${
+						variant === 'primary' ? 'text-primary' : 'text-secondary'
+					}`}>
+					<IconArrowUpRight
+						color={
+							variant === 'primary' ? 'white' : 'black'
+						}></IconArrowUpRight>
+				</div>
+			</div>
+		</a>
+	)
 }

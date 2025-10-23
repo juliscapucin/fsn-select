@@ -67,11 +67,11 @@ export default function Header({ variant }: HeaderProps) {
 				} z-50`}>
 				<div
 					ref={headerContainerRef}
-					className='pointer-events-auto mx-auto h-header w-full container flex items-start justify-end'>
+					className='mx-auto h-header w-full container flex items-start justify-end'>
 					{/* VERTICAL HEADER */}
 					<Link
 						ref={headerContentRef}
-						className='absolute left-0 top-0 bottom-0 opacity-0 -z-30'
+						className='pointer-events-auto absolute left-0 top-0 bottom-0 opacity-0 -z-30'
 						onClick={(e) => {
 							e.preventDefault()
 							router.push('/')
@@ -95,14 +95,16 @@ export default function Header({ variant }: HeaderProps) {
 			{/* NAVIGATION DESKTOP */}
 			<nav
 				ref={navbarRef}
-				className='fixed top-0 right-0 w-fit items-center justify-center gap-32 overflow-clip px-2 py-2 transition-[background-color] duration-800 hidden lg:flex z-50'>
+				className={`fixed top-0 right-0 w-fit items-center justify-center gap-32 overflow-clip px-2 py-2 transition-[background-color] duration-800 hidden lg:flex z-50 ${
+					variant === 'primary' ? 'text-primary' : 'text-secondary'
+				}`}>
 				{/* NAVLINKS */}
 				<ul className='flex flex-col'>
 					{navLinks.map(
 						(link, index) =>
 							link.slug !== '/' && (
 								<Link
-									className={`text-navlink text-navlink uppercase ${
+									className={`text-link-lg navlink uppercase ${
 										pathname === link.slug ? 'pointer-events-none' : ''
 									}`}
 									key={`panel-button-${index}`}

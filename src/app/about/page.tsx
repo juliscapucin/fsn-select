@@ -31,7 +31,7 @@ export default async function Page() {
 
 				{/* CENTER CONTENT */}
 				<div className='col-start-1 col-span-7 md:col-start-4 md:col-span-3 lg:col-start-5 lg:col-span-5 grid grid-cols-6'>
-					<div className='col-start-1 col-span-4'>
+					<div className='col-start-1 col-span-5 md:col-span-4'>
 						{photos.length > 0 && (
 							<ImageWithSpinner
 								imageSrc={photos[3]}

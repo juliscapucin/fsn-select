@@ -8,6 +8,11 @@ export interface UnsplashUser {
 	bio: string | null
 	location: string | null
 	portfolio_url: string | null
+	links: {
+		self: string
+		html: string
+		photos: string
+	}
 	profile_image: {
 		small: string
 		medium: string

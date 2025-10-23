@@ -2,6 +2,7 @@ import Image from 'next/image'
 import { getFashionBeautyTopicPhotos, getPhotosByArtist } from '@/queries'
 import { UnsplashPhoto } from '@/types/unsplash'
 import PageWrapper from '@/components/ui/pageWrapper'
+import ExternalLink from '@/components/ui/externalLink'
 
 // Return a list of `params` to populate the [artist] dynamic segment
 export async function generateStaticParams() {
@@ -59,48 +60,84 @@ export default async function Page({
 
 	return (
 		<PageWrapper variant='primary'>
-			<div className='container mx-auto px-4 py-8'>
-				{artistInfo ? (
-					<>
-						<div className='mb-8'>
+			{artistInfo ? (
+				<>
+					<header className='mb-8 mt-[var(--height-header)]'>
+						{/* ARTIST NAME */}
+						{artistInfo.name && (
 							<h1 className='heading-display'>{artistInfo.name}</h1>
-							<p>@{artistInfo.username}</p>
-							{artistInfo.bio && <p className='mt-2'>{artistInfo.bio}</p>}
-							{artistInfo.location && <p>{artistInfo.location}</p>}
-						</div>
-
-						{artistPhotos.length > 0 ? (
-							<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
-								{artistPhotos.map((photo) => (
-									<div key={photo.id} className='group cursor-pointer'>
-										<div className='aspect-3/4 overflow-hidden relative'>
-											<Image
-												src={photo.urls.regular}
-												alt={
-													photo.alt_description || `Photo by ${artistInfo.name}`
-												}
-												fill
-												className='object-cover transition-transform duration-300 group-hover:scale-105'
-											/>
-										</div>
-										<div className='mt-2'>
-											<p>{photo.description || photo.alt_description}</p>
-										</div>
-									</div>
-								))}
-							</div>
-						) : (
-							<p>No photos found for this artist.</p>
 						)}
-					</>
-				) : (
-					<div>
-						<p className='heading-headline'>
-							Artist not found or no photos available.
-						</p>
-					</div>
-				)}
-			</div>
+
+						{/* INSTAGRAM LINK */}
+						{artistInfo.social.instagram_username && (
+							<ExternalLink
+								variant='secondary'
+								classes='text-link-lg mt-4'
+								href={`https://instagram.com/${artistInfo.social.instagram_username}`}>
+								View on Instagram
+							</ExternalLink>
+						)}
+
+						{/* BIO AND LOCATION */}
+						{artistInfo.bio && <p className='mt-4'>{artistInfo.bio}</p>}
+						{artistInfo.location && (
+							<p className='mt-4'>Location: {artistInfo.location}</p>
+						)}
+
+						{/* UNSPLASH LINK */}
+						{artistInfo.username && (
+							<ExternalLink
+								variant='secondary'
+								classes='text-link-lg text-right ml-auto block mt-8'
+								href={artistInfo.links.html}>
+								Unsplash Profile
+							</ExternalLink>
+						)}
+					</header>
+
+					{artistPhotos.length > 0 ? (
+						<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
+							{artistPhotos.map((photo) => (
+								<div key={photo.id} className='group cursor-pointer'>
+									<div className='aspect-3/4 overflow-hidden relative'>
+										<Image
+											src={photo.urls.regular}
+											alt={
+												photo.alt_description || `Photo by ${artistInfo.name}`
+											}
+											fill
+											className='object-cover transition-transform duration-300 group-hover:scale-105'
+										/>
+									</div>
+									<div className='mt-2'>
+										<p>
+											{(() => {
+												const text = (
+													photo.description ||
+													photo.alt_description ||
+													''
+												).slice(0, 100)
+												const lastPeriodIndex = text.lastIndexOf('.')
+												return lastPeriodIndex > 0
+													? text.slice(0, lastPeriodIndex + 1)
+													: text
+											})()}
+										</p>
+									</div>
+								</div>
+							))}
+						</div>
+					) : (
+						<p>No photos found for this artist.</p>
+					)}
+				</>
+			) : (
+				<div>
+					<p className='heading-headline'>
+						Artist not found or no photos available.
+					</p>
+				</div>
+			)}
 		</PageWrapper>
 	)
 }

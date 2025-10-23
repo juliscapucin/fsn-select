@@ -176,12 +176,12 @@ body {
 	}
 
 	/* NAVLINK STYLES */
-	.text-navlink {
+	.text-link-lg {
 		@apply text-navlink-small md:text-navlink-medium lg:text-navlink-large uppercase leading-6;
 	}
 
-	.text-navlink:nth-child(2),
-	.text-navlink:nth-child(3) {
+	.navlink:nth-child(2),
+	.navlink:nth-child(3) {
 		@apply text-right self-end block w-full;
 	}
 }
