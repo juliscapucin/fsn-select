@@ -1,9 +1,5 @@
-import { ImagesPageServer, PageWrapper } from '@/components'
+import { ImagesPageServer } from '@/components'
 
 export default async function Home() {
-	return (
-		<PageWrapper variant='primary'>
-			<ImagesPageServer variant='grid' />
-		</PageWrapper>
-	)
+	return <ImagesPageServer variant='gallery' />
 }

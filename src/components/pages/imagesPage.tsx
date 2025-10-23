@@ -15,7 +15,8 @@ type ImagesPageProps = {
 }
 
 export default function ImagesPage({ variant, photos }: ImagesPageProps) {
-	const [isMouseFollowerVisible, setIsMouseFollowerVisible] = useState(true)
+	const [isMouseFollowerVisible, setIsMouseFollowerVisible] = useState(false)
+	const [indexHovered, setIndexHovered] = useState<number | null>(null)
 
 	switch (variant) {
 		case 'index':
@@ -26,37 +27,57 @@ export default function ImagesPage({ variant, photos }: ImagesPageProps) {
 			containerClasses = 'flex flex-col gap-6'
 			break
 		case 'grid':
-			containerClasses = 'w-full'
+			containerClasses =
+				'w-full grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6'
 			break
 	}
 
-	function handleMouseEnter() {
+	function handleMouseEnter(index: number) {
 		setIsMouseFollowerVisible(true)
+		setIndexHovered(index)
 	}
 
 	function handleMouseLeave() {
 		setIsMouseFollowerVisible(false)
+		setIndexHovered(null)
 	}
 
 	return (
-		<PageWrapper variant='primary'>
-			<MouseFollower isVisible={isMouseFollowerVisible} photos={photos} />
-			{photos && photos.length > 0 ? (
-				<div className={containerClasses}>
-					{photos.map((photo, index) => (
-						<ImageCard
-							key={photo.id}
-							photo={photo}
-							index={index}
-							variant={variant}
-							onMouseEnter={handleMouseEnter}
-							onMouseLeave={handleMouseLeave}
-						/>
-					))}
-				</div>
-			) : (
-				<EmptyResults message='No photos available at the moment.' />
+		<>
+			<PageWrapper variant='primary'>
+				{photos && photos.length > 0 ? (
+					<div className={containerClasses}>
+						{photos.map((photo, index) => {
+							return (
+								<>
+									<ImageCard
+										key={photo.id}
+										photo={photo}
+										index={index}
+										variant={variant}
+										onMouseEnter={() => handleMouseEnter(index)}
+										onMouseLeave={handleMouseLeave}
+									/>
+
+									{/* SPACER FOR GRID LAYOUT */}
+									{variant === 'grid' && index % 2 === 1 && (
+										<div className='w-full h-6'></div>
+									)}
+								</>
+							)
+						})}
+					</div>
+				) : (
+					<EmptyResults message='No photos available at the moment.' />
+				)}
+			</PageWrapper>
+			{variant === 'index' && (
+				<MouseFollower
+					isVisible={isMouseFollowerVisible}
+					indexHovered={indexHovered}
+					photos={photos}
+				/>
 			)}
-		</PageWrapper>
+		</>
 	)
 }

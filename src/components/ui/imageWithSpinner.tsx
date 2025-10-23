@@ -35,7 +35,7 @@ export default function ImageWithSpinner({
 
 	return (
 		<div
-			className={`relative ${wrapperClassName}`}
+			className={`${wrapperClassName}`}
 			id={id}
 			role='img'
 			aria-busy={isLoading}

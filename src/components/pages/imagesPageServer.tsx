@@ -20,6 +20,15 @@ try {
 	console.error('Error fetching fashion-beauty topic photos:', error)
 }
 
+// Retrieve photos from unique artists only
+const uniquePhotosMap: { [key: string]: UnsplashPhoto } = {}
+photos.forEach((photo) => {
+	if (!uniquePhotosMap[photo.user.username]) {
+		uniquePhotosMap[photo.user.username] = photo
+	}
+})
+photos = Object.values(uniquePhotosMap)
+
 export default async function ImagesPageServer({ variant }: ImagesPageProps) {
 	return <ImagesPage variant={variant} photos={photos} />
 }

@@ -5,17 +5,20 @@ import { useRef } from 'react'
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
 import { Observer } from 'gsap/Observer'
+gsap.registerPlugin(Observer)
+
 import { UnsplashPhoto } from '@/services'
 import { ImageWithSpinner } from './ui'
-gsap.registerPlugin(Observer)
 
 type MouseFollowerProps = {
 	isVisible?: boolean
+	indexHovered?: number | null
 	photos: UnsplashPhoto[]
 }
 
 export default function MouseFollower({
 	isVisible,
+	indexHovered,
 	photos,
 }: MouseFollowerProps) {
 	const cursorRef = useRef<HTMLDivElement | null>(null)
@@ -36,10 +39,10 @@ export default function MouseFollower({
 		}
 
 		const parent = cursorDiv.parentElement
-		parent.addEventListener('mousemove', moveCursor)
+		parent?.addEventListener('mousemove', moveCursor)
 
 		return () => {
-			parent.removeEventListener('mousemove', moveCursor)
+			parent?.removeEventListener('mousemove', moveCursor)
 		}
 	}, [])
 
@@ -47,15 +50,26 @@ export default function MouseFollower({
 		const cursorDiv = cursorRef.current
 		if (!cursorDiv) return
 
-		gsap.to(cursorDiv, { opacity: isVisible ? 1 : 0, duration: 0.3 })
+		gsap.to(cursorDiv, { opacity: isVisible ? 1 : 0, duration: 1 })
 	}, [isVisible])
 
 	return (
 		<div
 			ref={cursorRef}
-			className={`pointer-events-none fixed top-0 left-0 z-15 flex items-center justify-center rounded-full border border-secondary/50 bg-primary/30 h-40 w-40`}>
+			className={`pointer-events-none fixed top-0 left-0 z-15 h-64 w-64 mix-blend-multiply`}>
 			{photos && photos.length > 0 && (
-				<ImageWithSpinner imageSrc={photos[0]} sizes='' />
+				<div className='relative h-64 w-64'>
+					{photos.map((photo, index) => (
+						<ImageWithSpinner
+							wrapperClassName={`absolute top-0 left-0 right-0 bottom-0 transition-opacity duration-300 ${
+								index === indexHovered ? 'opacity-100' : 'opacity-0'
+							}`}
+							key={photo.id}
+							imageSrc={photo}
+							sizes='30vw'
+						/>
+					))}
+				</div>
 			)}
 		</div>
 	)
