@@ -18,11 +18,13 @@ import {
 } from '@/components'
 
 type ArtistPageProps = {
+	artists: string[]
 	artistPhotos: UnsplashPhoto[]
 	artistInfo: UnsplashPhoto['user'] | null
 }
 
 export default function ArtistPage({
+	artists,
 	artistPhotos,
 	artistInfo,
 }: ArtistPageProps) {
@@ -54,10 +56,35 @@ export default function ArtistPage({
 			invalidateOnRefresh: true,
 		})
 	}, [])
+
+	function handleNavigation(direction: 'previous' | 'next') {
+		if (artists.length === 0 || !artistInfo) return
+		const currentIndex = artists.indexOf(artistInfo.username)
+		let newIndex = currentIndex
+
+		if (direction === 'previous') {
+			newIndex = currentIndex === 0 ? artists.length - 1 : currentIndex - 1
+		} else if (direction === 'next') {
+			newIndex = currentIndex === artists.length - 1 ? 0 : currentIndex + 1
+		}
+
+		const newArtistUsername = artists[newIndex]
+		router.push(`/artists/${newArtistUsername}`)
+	}
+
 	return (
 		<PageWrapper variant='primary' classes='overflow-clip' hasContainer={false}>
 			{artistInfo ? (
 				<>
+					{/* PREVIOUS / NEXT BUTTONS */}
+					{artists.length > 1 && (
+						<div>
+							<button onClick={() => handleNavigation('previous')}>
+								Previous
+							</button>
+							<button onClick={() => handleNavigation('next')}>Next</button>
+						</div>
+					)}
 					{artistPhotos.length > 0 ? (
 						//* CAROUSEL OUTER CONTAINER *//
 						<div
@@ -66,10 +93,10 @@ export default function ArtistPage({
 							{/* CARDS CONTAINER */}
 
 							<div
-								className='h-[700px] flex gap-4 will-change-transform'
+								className='h-content flex gap-4 will-change-transform'
 								ref={cardsContainerRef}>
 								{/* HEADER */}
-								<header className='mb-8'>
+								<header className='mb-8 w-[32vw] h-full flex flex-col justify-start'>
 									{/* ARTIST NAME */}
 									{artistInfo.name && (
 										<h1 className='heading-display'>{artistInfo.name}</h1>

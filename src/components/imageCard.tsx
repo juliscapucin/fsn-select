@@ -38,7 +38,8 @@ export default function ImageCard({
 			return (
 				<button
 					key={photo.id}
-					className='relative group w-full mb-6 flex flex-col justify-start'>
+					className='relative group w-full mb-6 flex flex-col justify-start'
+					onClick={() => router.push(`/artists/${photo.user.username}`)}>
 					<ImageWithSpinner
 						imageSrc={photo}
 						quality={75}

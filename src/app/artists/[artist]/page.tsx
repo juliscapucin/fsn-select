@@ -2,6 +2,23 @@ import { ArtistPage } from '@/components'
 import { getFashionBeautyTopicPhotos, getPhotosByArtist } from '@/queries'
 import { UnsplashPhoto } from '@/types/unsplash'
 
+let artists: string[] = []
+
+try {
+	const photos = await getFashionBeautyTopicPhotos({
+		page: 1,
+		per_page: 30,
+	})
+	// Extract unique artist usernames
+	const uniqueArtists = Array.from(
+		new Set(photos.map((photo) => photo.user.username))
+	).slice(0, 10) // Limit to first 10 artists for static generation
+
+	artists = uniqueArtists.map((username) => username)
+} catch (error) {
+	console.error('Error fetching artists for Next Artist component', error)
+}
+
 // Return a list of `params` to populate the [artist] dynamic segment
 export async function generateStaticParams() {
 	try {
@@ -54,5 +71,11 @@ export default async function Page({
 		console.error('Error fetching artist photos:', error)
 	}
 
-	return <ArtistPage artistPhotos={artistPhotos} artistInfo={artistInfo} />
+	return (
+		<ArtistPage
+			artists={artists}
+			artistPhotos={artistPhotos}
+			artistInfo={artistInfo}
+		/>
+	)
 }
