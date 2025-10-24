@@ -33,6 +33,7 @@ export default function ArtistPage({
 	const carouselContainerRef = useRef<HTMLDivElement | null>(null)
 	const cardsContainerRef = useRef<HTMLDivElement | null>(null)
 
+	//* GSAP HORIZONTAL SCROLL ANIMATION *//
 	useGSAP(() => {
 		if (!carouselContainerRef.current || !cardsContainerRef.current) return
 		const outerWrapper = carouselContainerRef.current
@@ -42,7 +43,7 @@ export default function ArtistPage({
 
 		tl.to(cardsWrapper, {
 			x: `-=${cardsWrapper.offsetWidth - window.innerWidth}px`,
-			ease: 'power4.inOut',
+			ease: 'none',
 			duration: 5,
 		})
 
@@ -50,13 +51,14 @@ export default function ArtistPage({
 			animation: tl,
 			trigger: outerWrapper,
 			pin: true,
-			start: 'top top+=100',
-			end: '+=2000',
+			start: 'top top+=160',
+			end: `+=${cardsWrapper.offsetWidth * 3}`,
 			scrub: 1,
 			invalidateOnRefresh: true,
 		})
 	}, [])
 
+	//* PREVIOUS / NEXT ARTIST NAVIGATION *//
 	function handleNavigation(direction: 'previous' | 'next') {
 		if (artists.length === 0 || !artistInfo) return
 		const currentIndex = artists.indexOf(artistInfo.username)
@@ -73,68 +75,64 @@ export default function ArtistPage({
 	}
 
 	return (
-		<PageWrapper variant='primary' classes='overflow-clip' hasContainer={false}>
+		<PageWrapper
+			variant='secondary'
+			classes='overflow-clip'
+			hasContainer={false}>
 			{artistInfo ? (
 				<>
-					{/* PREVIOUS / NEXT BUTTONS */}
-					{artists.length > 1 && (
-						<div>
-							<button onClick={() => handleNavigation('previous')}>
-								Previous
-							</button>
-							<button onClick={() => handleNavigation('next')}>Next</button>
-						</div>
-					)}
 					{artistPhotos.length > 0 ? (
 						//* CAROUSEL OUTER CONTAINER *//
 						<div
-							className='relative flex flex-nowrap h-screen w-fit overflow-clip'
+							className='relative flex flex-nowrap h-screen w-fit overflow-visible'
 							ref={carouselContainerRef}>
 							{/* CARDS CONTAINER */}
-
 							<div
-								className='h-content flex gap-4 will-change-transform'
+								className='h-content flex gap-4 will-change-transform pl-[var(--height-header)] pb-4'
 								ref={cardsContainerRef}>
 								{/* HEADER */}
-								<header className='mb-8 w-[32vw] h-full flex flex-col justify-start'>
-									{/* ARTIST NAME */}
-									{artistInfo.name && (
-										<h1 className='heading-display'>{artistInfo.name}</h1>
-									)}
+								<header className='mb-8 w-[32vw] h-full flex flex-col justify-between'>
+									<div>
+										{/* ARTIST NAME */}
+										{artistInfo.name && (
+											<h1 className='heading-display'>{artistInfo.name}</h1>
+										)}
 
-									{/* INSTAGRAM LINK */}
-									{artistInfo.social.instagram_username && (
-										<ExternalLink
-											variant='secondary'
-											classes='text-link-lg mt-4'
-											href={`https://instagram.com/${artistInfo.social.instagram_username}`}>
-											View on Instagram
-										</ExternalLink>
-									)}
+										{/* BIO AND LOCATION */}
+										{artistInfo.bio && <p className='mt-4'>{artistInfo.bio}</p>}
+										{artistInfo.location && (
+											<p className='mt-4'>Location: {artistInfo.location}</p>
+										)}
+									</div>
 
-									{/* BIO AND LOCATION */}
-									{artistInfo.bio && <p className='mt-4'>{artistInfo.bio}</p>}
-									{artistInfo.location && (
-										<p className='mt-4'>Location: {artistInfo.location}</p>
-									)}
+									<div>
+										{/* INSTAGRAM LINK */}
+										{artistInfo.social.instagram_username && (
+											<ExternalLink
+												variant='primary'
+												classes='text-link-lg mt-4'
+												href={`https://instagram.com/${artistInfo.social.instagram_username}`}>
+												View on Instagram
+											</ExternalLink>
+										)}
 
-									{/* UNSPLASH LINK */}
-									{artistInfo.username && (
-										<ExternalLink
-											variant='secondary'
-											classes='text-link-lg text-right ml-auto block mt-8'
-											href={artistInfo.links.html}>
-											Unsplash Profile
-										</ExternalLink>
-									)}
+										{/* UNSPLASH LINK */}
+										{artistInfo.username && (
+											<ExternalLink
+												variant='primary'
+												classes='text-link-lg mt-4'
+												href={artistInfo.links.html}>
+												Unsplash Profile
+											</ExternalLink>
+										)}
+									</div>
 								</header>
 								{artistPhotos.map((photo) => {
-									console.log(photo)
 									// IMAGE CARD //
 									return (
 										<button
 											key={photo.id}
-											className='relative group cursor-pointer min-h-full h-full w-[20vw]'
+											className='group cursor-pointer min-h-full h-full w-[20vw] min-w-[450px] max-w-[600px] overflow-clip'
 											onClick={() => router.push(photo.links.html)}>
 											{/* IMAGE */}
 											<ImageWithSpinner
@@ -142,11 +140,32 @@ export default function ArtistPage({
 												quality={75}
 												isFill={true}
 												sizes='(min-width: 640px) 40vw, 30vw'
-												className='h-full w-full bg-accent-1 object-cover transition-transform duration-300 group-hover:scale-105'
+												className='relative h-full w-full bg-accent-1 object-cover transition-transform duration-300 group-hover:scale-105'
 											/>
 										</button>
 									)
 								})}
+								{/* PREVIOUS / NEXT BUTTONS */}
+								{artists.length > 1 && (
+									<div className='flex'>
+										<div className='w-96 h-full flex items-end justify-end'>
+											<button
+												className='underlined-link text-link-lg text-right'
+												onClick={() => handleNavigation('next')}>
+												<p>Next Artist {`[->]`}</p>
+												<span>
+													{
+														artists[
+															(artists.indexOf(artistInfo.username) + 1) %
+																artists.length
+														]
+													}
+												</span>
+											</button>
+										</div>
+										<div className='w-96 h-full flex items-end justify-end'></div>
+									</div>
+								)}
 							</div>
 						</div>
 					) : (
