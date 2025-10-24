@@ -1,9 +1,13 @@
 'use client'
 
-import { useRef, useState } from 'react'
+import { useRef } from 'react'
+import { useRouter } from 'next/navigation'
 
-import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
+import { gsap } from 'gsap'
+import { Observer } from 'gsap/Observer'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+gsap.registerPlugin(Observer, ScrollTrigger)
 
 import { UnsplashPhoto } from '@/types/unsplash'
 import {
@@ -12,7 +16,6 @@ import {
 	ImageWithSpinner,
 	PageWrapper,
 } from '@/components'
-import { carouselLoop } from '@/lib/animations'
 
 type ArtistPageProps = {
 	artistPhotos: UnsplashPhoto[]
@@ -23,97 +26,100 @@ export default function ArtistPage({
 	artistPhotos,
 	artistInfo,
 }: ArtistPageProps) {
+	const router = useRouter()
+
 	const carouselContainerRef = useRef<HTMLDivElement | null>(null)
 	const cardsContainerRef = useRef<HTMLDivElement | null>(null)
-	const tlRef = useRef<gsap.core.Timeline | null>(null)
-	const [isTimelineReady, setTimelineReady] = useState(false)
 
-	// CAROUSEL
 	useGSAP(() => {
-		if (!carouselContainerRef.current || !cardsContainerRef.current) {
-			setTimelineReady(false)
-			if (tlRef.current) {
-				tlRef.current.kill()
-				tlRef.current = null
-			}
-			return
-		}
+		if (!carouselContainerRef.current || !cardsContainerRef.current) return
+		const outerWrapper = carouselContainerRef.current
+		const cardsWrapper = cardsContainerRef.current
 
-		const wrapper = carouselContainerRef.current
-		const cards = Array.from(cardsContainerRef.current.children)
+		const tl = gsap.timeline()
 
-		tlRef.current = carouselLoop(
-			cards,
-			{
-				paused: true,
-				paddingRight: 16,
-				draggable: true,
-				speed: 0.5,
-			},
-			wrapper
-		)
+		tl.to(cardsWrapper, {
+			x: `-=${cardsWrapper.offsetWidth - window.innerWidth}px`,
+			ease: 'power4.inOut',
+			duration: 5,
+		})
 
-		setTimelineReady(true)
+		ScrollTrigger.create({
+			animation: tl,
+			trigger: outerWrapper,
+			pin: true,
+			start: 'top top+=100',
+			end: '+=2000',
+			scrub: 1,
+			invalidateOnRefresh: true,
+		})
 	}, [])
 	return (
 		<PageWrapper variant='primary' classes='overflow-clip' hasContainer={false}>
 			{artistInfo ? (
 				<>
-					<header className='mb-8'>
-						{/* ARTIST NAME */}
-						{artistInfo.name && (
-							<h1 className='heading-display'>{artistInfo.name}</h1>
-						)}
-
-						{/* INSTAGRAM LINK */}
-						{artistInfo.social.instagram_username && (
-							<ExternalLink
-								variant='secondary'
-								classes='text-link-lg mt-4'
-								href={`https://instagram.com/${artistInfo.social.instagram_username}`}>
-								View on Instagram
-							</ExternalLink>
-						)}
-
-						{/* BIO AND LOCATION */}
-						{artistInfo.bio && <p className='mt-4'>{artistInfo.bio}</p>}
-						{artistInfo.location && (
-							<p className='mt-4'>Location: {artistInfo.location}</p>
-						)}
-
-						{/* UNSPLASH LINK */}
-						{artistInfo.username && (
-							<ExternalLink
-								variant='secondary'
-								classes='text-link-lg text-right ml-auto block mt-8'
-								href={artistInfo.links.html}>
-								Unsplash Profile
-							</ExternalLink>
-						)}
-					</header>
-
 					{artistPhotos.length > 0 ? (
 						//* CAROUSEL OUTER CONTAINER *//
 						<div
-							className='absolute bottom-4 left-0 right-0 flex flex-nowrap h-[600px] w-fit overflow-clip'
+							className='relative flex flex-nowrap h-screen w-fit overflow-clip'
 							ref={carouselContainerRef}>
 							{/* CARDS CONTAINER */}
+
 							<div
-								className='flex gap-4 will-change-transform'
+								className='h-[700px] flex gap-4 will-change-transform'
 								ref={cardsContainerRef}>
-								{artistPhotos.map((photo, index) => (
+								{/* HEADER */}
+								<header className='mb-8'>
+									{/* ARTIST NAME */}
+									{artistInfo.name && (
+										<h1 className='heading-display'>{artistInfo.name}</h1>
+									)}
+
+									{/* INSTAGRAM LINK */}
+									{artistInfo.social.instagram_username && (
+										<ExternalLink
+											variant='secondary'
+											classes='text-link-lg mt-4'
+											href={`https://instagram.com/${artistInfo.social.instagram_username}`}>
+											View on Instagram
+										</ExternalLink>
+									)}
+
+									{/* BIO AND LOCATION */}
+									{artistInfo.bio && <p className='mt-4'>{artistInfo.bio}</p>}
+									{artistInfo.location && (
+										<p className='mt-4'>Location: {artistInfo.location}</p>
+									)}
+
+									{/* UNSPLASH LINK */}
+									{artistInfo.username && (
+										<ExternalLink
+											variant='secondary'
+											classes='text-link-lg text-right ml-auto block mt-8'
+											href={artistInfo.links.html}>
+											Unsplash Profile
+										</ExternalLink>
+									)}
+								</header>
+								{artistPhotos.map((photo) => {
+									console.log(photo)
 									// IMAGE CARD //
-									<button
-										key={photo.id}
-										className='relative group cursor-pointer min-h-full h-full w-[20vw]'>
-										<ImageWithSpinner
-											imageSrc={photo}
-											quality={75}
-											sizes='(min-width: 640px) 40vw, 30vw'
-											className='h-full w-full bg-accent-1 object-cover transition-transform duration-300 group-hover:scale-105'
-										/>
-									</button>
-								))}
+									return (
+										<button
+											key={photo.id}
+											className='relative group cursor-pointer min-h-full h-full w-[20vw]'
+											onClick={() => router.push(photo.links.html)}>
+											{/* IMAGE */}
+											<ImageWithSpinner
+												imageSrc={photo}
+												quality={75}
+												isFill={true}
+												sizes='(min-width: 640px) 40vw, 30vw'
+												className='h-full w-full bg-accent-1 object-cover transition-transform duration-300 group-hover:scale-105'
+											/>
+										</button>
+									)
+								})}
 							</div>
 						</div>
 					) : (

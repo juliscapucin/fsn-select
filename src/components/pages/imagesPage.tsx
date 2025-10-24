@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { Fragment, useState } from 'react'
 
 import { EmptyResults, MouseFollower, PageWrapper } from '@/components'
 import { UnsplashPhoto } from '@/services/unsplash/types'
@@ -49,9 +49,8 @@ export default function ImagesPage({ variant, photos }: ImagesPageProps) {
 					<div className={containerClasses}>
 						{photos.map((photo, index) => {
 							return (
-								<>
+								<Fragment key={photo.id}>
 									<ImageCard
-										key={photo.id}
 										photo={photo}
 										index={index}
 										variant={variant}
@@ -63,7 +62,7 @@ export default function ImagesPage({ variant, photos }: ImagesPageProps) {
 									{variant === 'grid' && index % 2 === 1 && (
 										<div className='w-full h-6'></div>
 									)}
-								</>
+								</Fragment>
 							)
 						})}
 					</div>

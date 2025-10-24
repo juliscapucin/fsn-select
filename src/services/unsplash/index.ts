@@ -56,7 +56,10 @@ class UnsplashService {
 	): Promise<UnsplashPhoto[]> {
 		return this.fetchFromUnsplash<UnsplashPhoto[]>(
 			`/users/${artistUsername}/photos`,
-			params
+			{
+				...params,
+				cache: 'force-cache', // Cache indefinitely
+			}
 		)
 	}
 

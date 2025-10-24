@@ -14,6 +14,7 @@ type ImageWithSpinnerProps = React.HTMLAttributes<HTMLDivElement> & {
 	showSpinner?: boolean
 	altFallback?: string
 	imageSrc: UnsplashPhoto
+	isFill?: boolean
 }
 
 export default function ImageWithSpinner({
@@ -26,6 +27,7 @@ export default function ImageWithSpinner({
 	showSpinner = true,
 	altFallback = '',
 	imageSrc,
+	isFill = false,
 	...props
 }: ImageWithSpinnerProps) {
 	const [isLoading, setIsLoading] = useState(true)
@@ -60,8 +62,9 @@ export default function ImageWithSpinner({
 					alt={alt_description || altFallback}
 					sizes={sizes}
 					quality={quality}
-					width={width}
-					height={height}
+					width={isFill ? undefined : width}
+					height={isFill ? undefined : height}
+					fill={isFill}
 					onLoad={() => setIsLoading(false)}
 					onError={() => {
 						setHasError(true)
