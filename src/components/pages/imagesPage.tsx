@@ -75,6 +75,7 @@ export default function ImagesPage({ variant, photos }: ImagesPageProps) {
 					isVisible={isMouseFollowerVisible}
 					indexHovered={indexHovered}
 					photos={photos}
+					variant='indexPage'
 				/>
 			)}
 		</>

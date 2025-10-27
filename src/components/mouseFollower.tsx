@@ -9,17 +9,20 @@ gsap.registerPlugin(Observer)
 
 import { UnsplashPhoto } from '@/services'
 import { ImageWithSpinner } from './ui'
+import { IconArrowUpRight } from './icons'
 
 type MouseFollowerProps = {
 	isVisible?: boolean
 	indexHovered?: number | null
-	photos: UnsplashPhoto[]
+	photos?: UnsplashPhoto[]
+	variant: 'indexPage' | 'artistPage'
 }
 
 export default function MouseFollower({
 	isVisible,
 	indexHovered,
 	photos,
+	variant,
 }: MouseFollowerProps) {
 	const cursorRef = useRef<HTMLDivElement | null>(null)
 
@@ -56,8 +59,23 @@ export default function MouseFollower({
 	return (
 		<div
 			ref={cursorRef}
-			className={`pointer-events-none fixed top-0 left-0 z-15 h-64 w-64 mix-blend-multiply`}>
-			{photos && photos.length > 0 && (
+			className={`pointer-events-none fixed top-0 left-0 z-15 h-64 w-64 ${
+				variant === 'indexPage'
+					? 'mix-blend-multiply'
+					: 'flex items-center justify-center'
+			}`}>
+			{/* OVERLAY FOR ARTIST PAGE */}
+			{variant === 'artistPage' && (
+				<div className='bg-secondary rounded-full w-12 h-12 flex justify-center items-center'>
+					{/* <span className='text-primary text-label-medium text-pretty text-center'>
+						View on Unsplash
+					</span> */}
+					<IconArrowUpRight color='white' />
+				</div>
+			)}
+
+			{/* OVERLAY FOR INDEX PAGE */}
+			{variant === 'indexPage' && photos && photos.length > 0 && (
 				<div className='relative h-64 w-64'>
 					{photos.map((photo, index) => (
 						<ImageWithSpinner

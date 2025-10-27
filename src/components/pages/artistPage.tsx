@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
 
 import { useGSAP } from '@gsap/react'
@@ -14,6 +14,7 @@ import {
 	EmptyResults,
 	ExternalLink,
 	ImageWithSpinner,
+	MouseFollower,
 	PageWrapper,
 } from '@/components'
 
@@ -32,6 +33,8 @@ export default function ArtistPage({
 
 	const carouselContainerRef = useRef<HTMLDivElement | null>(null)
 	const cardsContainerRef = useRef<HTMLDivElement | null>(null)
+
+	const [isMouseFollowerVisible, setIsMouseFollowerVisible] = useState(false)
 
 	//* GSAP HORIZONTAL SCROLL ANIMATION *//
 	useGSAP(() => {
@@ -75,107 +78,116 @@ export default function ArtistPage({
 	}
 
 	return (
-		<PageWrapper
-			variant='secondary'
-			classes='overflow-clip'
-			hasContainer={false}
-			hasFooter={false}>
-			{artistInfo ? (
-				<>
-					{artistPhotos.length > 0 ? (
-						//* CAROUSEL OUTER CONTAINER *//
-						<div
-							className='relative flex flex-nowrap h-content w-fit overflow-visible'
-							ref={carouselContainerRef}>
-							{/* CARDS CONTAINER */}
+		<>
+			<MouseFollower isVisible={isMouseFollowerVisible} variant='artistPage' />
+			<PageWrapper
+				variant='secondary'
+				classes='overflow-clip'
+				hasContainer={false}
+				hasFooter={false}>
+				{artistInfo ? (
+					<>
+						{artistPhotos.length > 0 ? (
+							//* CAROUSEL OUTER CONTAINER *//
 							<div
-								className='h-content flex gap-4 will-change-transform pl-[var(--height-header)] pb-4'
-								ref={cardsContainerRef}>
-								{/* HEADER */}
-								<header className='mb-8 w-[32vw] h-full flex flex-col justify-between'>
-									<div>
-										{/* ARTIST NAME */}
-										{artistInfo.name && (
-											<h1 className='heading-display'>{artistInfo.name}</h1>
-										)}
+								className='relative flex flex-nowrap h-content w-fit overflow-visible'
+								ref={carouselContainerRef}>
+								{/* CARDS CONTAINER */}
+								<div
+									className='h-content flex gap-4 will-change-transform pl-[var(--height-header)] pb-4'
+									ref={cardsContainerRef}>
+									{/* HEADER */}
+									<header className='mb-8 w-[32vw] h-full flex flex-col justify-between'>
+										<div>
+											{/* ARTIST NAME */}
+											{artistInfo.name && (
+												<h1 className='heading-display'>{artistInfo.name}</h1>
+											)}
 
-										{/* BIO AND LOCATION */}
-										{artistInfo.bio && <p className='mt-4'>{artistInfo.bio}</p>}
-										{artistInfo.location && (
-											<p className='mt-4'>Location: {artistInfo.location}</p>
-										)}
-									</div>
-
-									<div>
-										{/* INSTAGRAM LINK */}
-										{artistInfo.social.instagram_username && (
-											<ExternalLink
-												variant='primary'
-												classes='text-link-lg mt-4'
-												href={`https://instagram.com/${artistInfo.social.instagram_username}`}>
-												View on Instagram
-											</ExternalLink>
-										)}
-
-										{/* UNSPLASH LINK */}
-										{artistInfo.username && (
-											<ExternalLink
-												variant='primary'
-												classes='text-link-lg mt-4'
-												href={artistInfo.links.html}>
-												Unsplash Profile
-											</ExternalLink>
-										)}
-									</div>
-								</header>
-								{artistPhotos.map((photo) => {
-									// IMAGE CARD //
-									return (
-										<button
-											key={photo.id}
-											className='group cursor-pointer min-h-full h-full w-[20vw] min-w-[450px] max-w-[600px] overflow-clip'
-											onClick={() => router.push(photo.links.html)}>
-											{/* IMAGE */}
-											<ImageWithSpinner
-												imageSrc={photo}
-												quality={75}
-												isFill={true}
-												sizes='(min-width: 640px) 40vw, 30vw'
-												className='relative h-full w-full bg-accent-1 object-cover transition-transform duration-300 group-hover:scale-105'
-											/>
-										</button>
-									)
-								})}
-								{/* PREVIOUS / NEXT BUTTONS */}
-								{artists.length > 1 && (
-									<div className='flex'>
-										<div className='w-96 h-full flex items-end justify-end'>
-											<button
-												className='underlined-link text-link-lg text-right'
-												onClick={() => handleNavigation('next')}>
-												<p>Next Artist {`[->]`}</p>
-												<span>
-													{
-														artists[
-															(artists.indexOf(artistInfo.username) + 1) %
-																artists.length
-														]
-													}
-												</span>
-											</button>
+											{/* BIO AND LOCATION */}
+											{artistInfo.bio && (
+												<p className='mt-4 text-pretty'>{artistInfo.bio}</p>
+											)}
+											{artistInfo.location && (
+												<p className='mt-4'>Location: {artistInfo.location}</p>
+											)}
 										</div>
-										<div className='w-96 h-full flex items-end justify-end'></div>
-									</div>
-								)}
+
+										<div>
+											{/* INSTAGRAM LINK */}
+											{artistInfo.social.instagram_username && (
+												<ExternalLink
+													variant='primary'
+													classes='text-link-lg mt-4'
+													href={`https://instagram.com/${artistInfo.social.instagram_username}`}>
+													View on Instagram
+												</ExternalLink>
+											)}
+
+											{/* UNSPLASH LINK */}
+											{artistInfo.username && (
+												<ExternalLink
+													variant='primary'
+													classes='text-link-lg mt-4'
+													href={artistInfo.links.html}>
+													Unsplash Profile
+												</ExternalLink>
+											)}
+										</div>
+									</header>
+									{artistPhotos.map((photo) => {
+										// IMAGE CARD //
+										return (
+											<a
+												key={photo.id}
+												className='group cursor-pointer min-h-full h-full w-[20vw] min-w-[450px] max-w-[600px] overflow-clip'
+												target='_blank'
+												rel='noopener noreferrer'
+												href={photo.links.html}
+												onMouseEnter={() => setIsMouseFollowerVisible(true)}
+												onMouseLeave={() => setIsMouseFollowerVisible(false)}>
+												{/* IMAGE */}
+												<ImageWithSpinner
+													imageSrc={photo}
+													quality={75}
+													isFill={true}
+													sizes='(min-width: 640px) 40vw, 30vw'
+													className='relative h-full w-full bg-accent-1 object-cover transition-transform duration-300 group-hover:scale-105 will-change-transform'
+												/>
+											</a>
+										)
+									})}
+									{/* PREVIOUS / NEXT BUTTONS */}
+									{artists.length > 1 && (
+										<div className='flex'>
+											<div className='w-96 h-full flex items-end justify-end'>
+												<button
+													className='underlined-link text-link-lg text-right'
+													onClick={() => handleNavigation('next')}>
+													<p>Next Artist {`[->]`}</p>
+													<span>
+														{
+															artists[
+																(artists.indexOf(artistInfo.username) + 1) %
+																	artists.length
+															]
+														}
+													</span>
+												</button>
+											</div>
+											<div className='w-96 h-full flex items-end justify-end'></div>
+										</div>
+									)}
+								</div>
 							</div>
-						</div>
-					) : (
-						<p>No photos found for this artist.</p>
-					)}
-				</>
-			) : (
-				<EmptyResults message='Artist not found or no photos available.' />
-			)}
-		</PageWrapper>
+						) : (
+							<p>No photos found for this artist.</p>
+						)}
+					</>
+				) : (
+					<EmptyResults message='Artist not found or no photos available.' />
+				)}
+			</PageWrapper>
+		</>
 	)
 }
