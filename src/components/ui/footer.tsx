@@ -69,9 +69,8 @@ export default function Footer({ variant }: FooterProps) {
 					<ExternalLink
 						variant={variant === 'primary' ? 'secondary' : 'primary'}
 						href='https://unsplash.com/license'>
-						Unsplash.com
+						Unsplash.com.
 					</ExternalLink>
-					.
 				</p>
 				<div className='flex-1 flex flex-col md:flex-row w-full md:items-end md:justify-between mt-8 md:mt-0 md:mb-8'>
 					<div>

@@ -1,6 +1,13 @@
 'use client'
 
+import { useRef } from 'react'
+
 import { useRouter } from 'next/navigation'
+
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+gsap.registerPlugin(ScrollTrigger)
+import { useGSAP } from '@gsap/react'
 
 import { ImageWithSpinner } from '@/components'
 import { UnsplashPhoto } from '@/services/unsplash/types'
@@ -9,14 +16,46 @@ type ImageCardProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
 	photo: UnsplashPhoto
 	index: number
 	variant: 'grid' | 'index' | 'gallery'
+	handleActiveArtist?: (index: number | null) => void
 }
 export default function ImageCard({
 	photo,
 	index,
 	variant,
+	handleActiveArtist,
 	...props
 }: ImageCardProps) {
 	const router = useRouter()
+	const cardRef = useRef<HTMLButtonElement>(null)
+
+	const isPortrait = photo.height > photo.width
+
+	useGSAP(() => {
+		if (variant !== 'gallery' || !cardRef.current || !handleActiveArtist) return
+		const element = cardRef.current
+
+		ScrollTrigger.create({
+			trigger: element,
+			start: 'top center',
+			end: 'bottom center',
+			onEnter: () => {
+				handleActiveArtist(index)
+			},
+			onEnterBack: () => {
+				handleActiveArtist(index)
+			},
+			onLeave: () => {
+				handleActiveArtist(null)
+			},
+			onUpdate: (self) => {
+				if (self.direction === -1 && self.isActive) {
+					console.log('direction up')
+				} else if (self.direction === 1 && self.isActive) {
+					console.log('direction down')
+				}
+			},
+		})
+	}, [variant])
 
 	switch (variant) {
 		// * INDEX VARIANT */
@@ -63,26 +102,24 @@ export default function ImageCard({
 			return (
 				<button
 					key={photo.id}
+					ref={cardRef}
 					className={`relative flex group w-full`}
 					onClick={() => router.push(`/artists/${photo.user.username}`)}>
 					{/* ARTIST NAME OVERLAY */}
-					<div
-						className={`absolute top-1/2 z-30 max-w-prose text-pretty ${
-							index % 2 === 0 ? 'right-0' : 'left-0'
-						} -translate-y-1/2`}>
+					<div className='sr-only'>
 						<p className='heading-headline'>by {photo.user.name}</p>
 					</div>
 
 					{/* IMAGE */}
 					<div
-						className={`relative w-[60%] bg-accent-1 ${
+						className={`relative bg-accent-3 ${
 							index % 2 === 0 ? 'mr-auto ml-0' : 'ml-auto mr-0'
-						}`}>
+						} ${isPortrait ? 'w-2/3' : 'w-full sm:w-2/3'}`}>
 						<ImageWithSpinner
 							imageSrc={photo}
 							quality={75}
 							sizes='(min-width: 640px) 50vw, 50vw'
-							className='relative w-full h-full object-cover transition-transform duration-300 group-hover:scale-105 group-hover:z-10'
+							className='w-full h-full object-cover transition-transform duration-300 group-hover:scale-105 group-hover:z-10'
 						/>
 					</div>
 				</button>

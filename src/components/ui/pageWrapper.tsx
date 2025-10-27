@@ -57,7 +57,7 @@ export default function PageWrapper({
 					{/* MAIN CONTENT */}
 					<main
 						className={`pointer-events-auto relative mx-auto min-h-screen pt-2 grid grid-cols-14 z-0 ${
-							hasContainer ? 'container pb-32' : ''
+							hasContainer ? 'container pb-32 pt-[var(--height-header)]' : ''
 						} ${
 							variant === 'primary' || variant === 'accent'
 								? 'text-secondary'

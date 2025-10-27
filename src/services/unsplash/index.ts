@@ -6,7 +6,7 @@ const UNSPLASH_API_BASE = 'https://api.unsplash.com'
 // Default query parameters
 const DEFAULT_PARAMS = {
 	per_page: 20,
-	orientation: 'portrait' as const,
+	// orientation: 'portrait' as const,
 	content_filter: 'high' as const,
 }
 
@@ -75,7 +75,7 @@ class UnsplashService {
 	): Promise<UnsplashPhoto[]> {
 		return this.fetchFromUnsplash<UnsplashPhoto[]>(
 			`/topics/${topicIdOrSlug}/photos`,
-			params
+			{ ...params, cache: 'force-cache' } // Cache indefinitely
 		)
 	}
 
@@ -83,7 +83,9 @@ class UnsplashService {
 	async getFashionBeautyTopicPhotos(
 		params?: PhotoQueryParams
 	): Promise<UnsplashPhoto[]> {
-		return this.getPhotosByTopic('fashion-beauty', params)
+		return this.getPhotosByTopic('fashion-beauty', {
+			...params,
+		})
 	}
 
 	// Get random photos from fashion-beauty topic

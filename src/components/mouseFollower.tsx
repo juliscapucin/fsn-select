@@ -66,7 +66,7 @@ export default function MouseFollower({
 			}`}>
 			{/* OVERLAY FOR ARTIST PAGE */}
 			{variant === 'artistPage' && (
-				<div className='bg-secondary rounded-full w-12 h-12 flex justify-center items-center'>
+				<div className='bg-secondary rounded-full w-12 h-12 pl-[2px] pb-[2px] flex justify-center items-center'>
 					{/* <span className='text-primary text-label-medium text-pretty text-center'>
 						View on Unsplash
 					</span> */}
