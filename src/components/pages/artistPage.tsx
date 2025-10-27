@@ -1,20 +1,19 @@
 'use client'
 
-import { useRef, useState } from 'react'
+import { useRef } from 'react'
 import { useRouter } from 'next/navigation'
 
 import { useGSAP } from '@gsap/react'
 import { gsap } from 'gsap'
-import { Observer } from 'gsap/Observer'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-gsap.registerPlugin(Observer, ScrollTrigger)
+gsap.registerPlugin(useGSAP, ScrollTrigger)
 
 import { UnsplashPhoto } from '@/types/unsplash'
 import {
 	EmptyResults,
 	ExternalLink,
+	IconArrowUpRight,
 	ImageWithSpinner,
-	MouseFollower,
 	PageWrapper,
 } from '@/components'
 
@@ -34,31 +33,36 @@ export default function ArtistPage({
 	const carouselContainerRef = useRef<HTMLDivElement | null>(null)
 	const cardsContainerRef = useRef<HTMLDivElement | null>(null)
 
-	const [isMouseFollowerVisible, setIsMouseFollowerVisible] = useState(false)
-
 	//* GSAP HORIZONTAL SCROLL ANIMATION *//
 	useGSAP(() => {
 		if (!carouselContainerRef.current || !cardsContainerRef.current) return
+		const mm = gsap.matchMedia()
 		const outerWrapper = carouselContainerRef.current
 		const cardsWrapper = cardsContainerRef.current
 
-		const tl = gsap.timeline()
+		mm.add('(min-width: 768px)', () => {
+			const tl = gsap.timeline()
 
-		tl.to(cardsWrapper, {
-			x: `-=${cardsWrapper.offsetWidth - window.innerWidth}px`,
-			ease: 'none',
-			duration: 5,
+			tl.to(cardsWrapper, {
+				x: `-=${cardsWrapper.offsetWidth - window.innerWidth}px`,
+				ease: 'none',
+				duration: 5,
+			})
+
+			ScrollTrigger.create({
+				animation: tl,
+				trigger: outerWrapper,
+				pin: true,
+				start: 'top top+=160',
+				end: `+=${cardsWrapper.offsetWidth * 3}`,
+				scrub: 1,
+				invalidateOnRefresh: true,
+			})
 		})
 
-		ScrollTrigger.create({
-			animation: tl,
-			trigger: outerWrapper,
-			pin: true,
-			start: 'top top+=160',
-			end: `+=${cardsWrapper.offsetWidth * 3}`,
-			scrub: 1,
-			invalidateOnRefresh: true,
-		})
+		return () => {
+			mm.revert()
+		}
 	}, [])
 
 	//* PREVIOUS / NEXT ARTIST NAVIGATION *//
@@ -79,7 +83,6 @@ export default function ArtistPage({
 
 	return (
 		<>
-			<MouseFollower isVisible={isMouseFollowerVisible} variant='artistPage' />
 			<PageWrapper
 				variant='secondary'
 				classes='overflow-clip'
@@ -90,14 +93,14 @@ export default function ArtistPage({
 						{artistPhotos.length > 0 ? (
 							//* CAROUSEL OUTER CONTAINER *//
 							<div
-								className='relative flex flex-nowrap h-content w-fit overflow-visible'
+								className='relative md:flex flex-nowrap md:h-content w-fit overflow-visible'
 								ref={carouselContainerRef}>
 								{/* CARDS CONTAINER */}
 								<div
-									className='h-content flex gap-4 will-change-transform pl-[var(--height-header)] pb-4'
+									className='md:h-content flex gap-4 will-change-transform pl-[var(--height-header)] pb-4'
 									ref={cardsContainerRef}>
 									{/* HEADER */}
-									<header className='mb-8 w-[32vw] h-full flex flex-col justify-between'>
+									<header className='mb-8 md:w-[32vw] h-full flex flex-col justify-between'>
 										<div>
 											{/* ARTIST NAME */}
 											{artistInfo.name && (
@@ -140,12 +143,14 @@ export default function ArtistPage({
 										return (
 											<a
 												key={photo.id}
-												className='group cursor-pointer min-h-full h-full w-[20vw] min-w-[450px] max-w-[600px] overflow-clip'
+												className='relative group cursor-pointer min-h-full h-full w-[20vw] min-w-[450px] max-w-[600px] overflow-clip'
 												target='_blank'
 												rel='noopener noreferrer'
-												href={photo.links.html}
-												onMouseEnter={() => setIsMouseFollowerVisible(true)}
-												onMouseLeave={() => setIsMouseFollowerVisible(false)}>
+												href={photo.links.html}>
+												{/* OVERLAY ICON */}
+												<div className='absolute left-4 bottom-4 bg-secondary rounded-full w-12 h-12 pl-0.5 pb-0.5 flex justify-center items-center z-10 transition-opacity duration-300 opacity-0 group-hover:opacity-100'>
+													<IconArrowUpRight color='white' />
+												</div>
 												{/* IMAGE */}
 												<ImageWithSpinner
 													imageSrc={photo}
