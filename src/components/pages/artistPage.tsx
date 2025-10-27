@@ -78,13 +78,14 @@ export default function ArtistPage({
 		<PageWrapper
 			variant='secondary'
 			classes='overflow-clip'
-			hasContainer={false}>
+			hasContainer={false}
+			hasFooter={false}>
 			{artistInfo ? (
 				<>
 					{artistPhotos.length > 0 ? (
 						//* CAROUSEL OUTER CONTAINER *//
 						<div
-							className='relative flex flex-nowrap h-screen w-fit overflow-visible'
+							className='relative flex flex-nowrap h-content w-fit overflow-visible'
 							ref={carouselContainerRef}>
 							{/* CARDS CONTAINER */}
 							<div

@@ -21,7 +21,7 @@ export default function ImagesPage({ variant, photos }: ImagesPageProps) {
 	switch (variant) {
 		case 'index':
 			containerClasses =
-				'mt-24 relative flex flex-col gap-24 items-center justify-center'
+				'mt-[var(--height-header)] relative flex flex-col gap-24 items-center justify-center'
 			break
 		case 'gallery':
 			containerClasses = 'flex flex-col gap-6'
