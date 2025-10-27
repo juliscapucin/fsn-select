@@ -33,7 +33,7 @@ export default function MenuMobile({ navLinks }: NavLinksProps) {
 	return (
 		navLinks && (
 			<header className='fixed top-2 right-0 left-0 z-40 pointer-events-none block h-dvh lg:hidden'>
-				<div className='z-40 pointer-events-auto absolute top-0 flex w-full items-center justify-end pr-4'>
+				<div className='z-40 pointer-events-auto absolute top-0 flex w-full items-center justify-end pr-4 mix-blend-darken'>
 					{/* BURGER BUTTON */}
 					<ButtonBurger
 						onClick={() => {
@@ -46,7 +46,7 @@ export default function MenuMobile({ navLinks }: NavLinksProps) {
 
 				{/* EXPANDED MENU */}
 				<aside
-					className='z-50 pointer-events-auto fixed top-0 min-h-svh w-full -translate-y-[120%] bg-primary transition-transform duration-300'
+					className='z-50 pointer-events-auto fixed top-0 min-h-svh w-full -translate-y-[120%] bg-accent-1 transition-transform duration-300'
 					ref={mobileMenuRef}>
 					<div className='absolute top-4 right-4 z-100'>
 						{/* CLOSE BUTTON */}

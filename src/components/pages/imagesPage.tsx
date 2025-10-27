@@ -29,7 +29,7 @@ export default function ImagesPage({ variant, photos }: ImagesPageProps) {
 	switch (variant) {
 		case 'index':
 			containerClasses =
-				'relative flex flex-col gap-24 items-center justify-center'
+				'relative flex flex-col gap-24 items-center justify-center z-30 mix-blend-exclusion'
 			break
 		case 'gallery':
 			containerClasses = 'flex flex-col'
@@ -105,7 +105,7 @@ export default function ImagesPage({ variant, photos }: ImagesPageProps) {
 			{variant === 'gallery' && (
 				<div
 					ref={activeArtistRef}
-					className='fixed inset-0 flex items-center justify-center z-30 pointer-events-none'>
+					className='fixed inset-0 flex items-center justify-center z-30 pointer-events-none mix-blend-exclusion'>
 					{photos.length > 0 &&
 						photos.map((photo) => (
 							<div
@@ -115,7 +115,7 @@ export default function ImagesPage({ variant, photos }: ImagesPageProps) {
 									{Array.from({ length: 10 }, (_, i) => (
 										<span
 											key={i}
-											className='block mix-blend-exclusion w-fit text-nowrap'>
+											className='block text-accent-3 w-fit text-nowrap'>
 											{photo.user.name}
 										</span>
 									))}
@@ -123,6 +123,15 @@ export default function ImagesPage({ variant, photos }: ImagesPageProps) {
 							</div>
 						))}
 				</div>
+			)}
+			{/* MOUSE FOLLOWER FOR INDEX PAGE */}
+			{variant === 'index' && (
+				<MouseFollower
+					isVisible={isMouseFollowerVisible}
+					indexHovered={indexHovered}
+					photos={photos}
+					variant='indexPage'
+				/>
 			)}
 			<PageWrapper variant='primary'>
 				{photos && photos.length > 0 ? (
@@ -151,16 +160,6 @@ export default function ImagesPage({ variant, photos }: ImagesPageProps) {
 					<EmptyResults message='No photos available at the moment.' />
 				)}
 			</PageWrapper>
-
-			{/* MOUSE FOLLOWER FOR INDEX PAGE */}
-			{variant === 'index' && (
-				<MouseFollower
-					isVisible={isMouseFollowerVisible}
-					indexHovered={indexHovered}
-					photos={photos}
-					variant='indexPage'
-				/>
-			)}
 		</>
 	)
 }

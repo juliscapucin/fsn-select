@@ -10,8 +10,11 @@ gsap.registerPlugin(useGSAP, ScrollTrigger)
 
 import { UnsplashPhoto } from '@/types/unsplash'
 import {
+	ButtonArrow,
 	EmptyResults,
 	ExternalLink,
+	IconArrow,
+	IconArrowShort,
 	IconArrowUpRight,
 	ImageWithSpinner,
 	PageWrapper,
@@ -34,36 +37,39 @@ export default function ArtistPage({
 	const cardsContainerRef = useRef<HTMLDivElement | null>(null)
 
 	//* GSAP HORIZONTAL SCROLL ANIMATION *//
-	useGSAP(() => {
-		if (!carouselContainerRef.current || !cardsContainerRef.current) return
-		const mm = gsap.matchMedia()
-		const outerWrapper = carouselContainerRef.current
-		const cardsWrapper = cardsContainerRef.current
+	useGSAP(
+		() => {
+			if (!carouselContainerRef.current || !cardsContainerRef.current) return
+			const mm = gsap.matchMedia()
+			const outerWrapper = carouselContainerRef.current
+			const cardsWrapper = cardsContainerRef.current
 
-		mm.add('(min-width: 768px)', () => {
-			const tl = gsap.timeline()
+			mm.add('(min-width: 768px)', () => {
+				const tl = gsap.timeline()
 
-			tl.to(cardsWrapper, {
-				x: `-=${cardsWrapper.offsetWidth - window.innerWidth}px`,
-				ease: 'none',
-				duration: 5,
+				tl.to(cardsWrapper, {
+					x: `-=${cardsWrapper.offsetWidth - window.innerWidth}px`,
+					ease: 'none',
+					duration: 5,
+				})
+
+				ScrollTrigger.create({
+					animation: tl,
+					trigger: outerWrapper,
+					pin: true,
+					start: 'top top+=160',
+					end: `+=${cardsWrapper.offsetWidth * 3}`,
+					scrub: 1,
+					invalidateOnRefresh: true,
+				})
 			})
 
-			ScrollTrigger.create({
-				animation: tl,
-				trigger: outerWrapper,
-				pin: true,
-				start: 'top top+=160',
-				end: `+=${cardsWrapper.offsetWidth * 3}`,
-				scrub: 1,
-				invalidateOnRefresh: true,
-			})
-		})
-
-		return () => {
-			mm.revert()
-		}
-	}, [])
+			return () => {
+				mm.revert()
+			}
+		},
+		{ dependencies: [artistPhotos], revertOnUpdate: true }
+	)
 
 	//* PREVIOUS / NEXT ARTIST NAVIGATION *//
 	function handleNavigation(direction: 'previous' | 'next') {
@@ -85,7 +91,7 @@ export default function ArtistPage({
 		<>
 			<PageWrapper
 				variant='secondary'
-				classes='overflow-clip'
+				classes='overflow-clip pt-[var(--height-header)]'
 				hasContainer={false}
 				hasFooter={false}>
 				{artistInfo ? (
@@ -93,14 +99,14 @@ export default function ArtistPage({
 						{artistPhotos.length > 0 ? (
 							//* CAROUSEL OUTER CONTAINER *//
 							<div
-								className='relative md:flex flex-nowrap md:h-content w-fit overflow-visible'
+								className='relative md:h-content overflow-clip'
 								ref={carouselContainerRef}>
 								{/* CARDS CONTAINER */}
 								<div
-									className='md:h-content flex gap-4 will-change-transform pl-[var(--height-header)] pb-4'
+									className='w-full md:w-fit md:h-content flex flex-col md:flex-row flex-nowrap gap-4 will-change-transform md:pl-[var(--height-header)] pb-4'
 									ref={cardsContainerRef}>
 									{/* HEADER */}
-									<header className='mb-8 md:w-[32vw] h-full flex flex-col justify-between'>
+									<header className='mb-8 w-container md:w-[32vw] h-full flex flex-col justify-between'>
 										<div>
 											{/* ARTIST NAME */}
 											{artistInfo.name && (
@@ -143,12 +149,12 @@ export default function ArtistPage({
 										return (
 											<a
 												key={photo.id}
-												className='relative group cursor-pointer min-h-full h-full w-[20vw] min-w-[450px] max-w-[600px] overflow-clip'
+												className='relative block group cursor-pointer h-[70svh] md:min-h-full md:h-full w-full md:w-[20vw] md:min-w-[450px] md:max-w-[600px] overflow-clip bg-accent-1 '
 												target='_blank'
 												rel='noopener noreferrer'
 												href={photo.links.html}>
 												{/* OVERLAY ICON */}
-												<div className='absolute left-4 bottom-4 bg-secondary rounded-full w-12 h-12 pl-0.5 pb-0.5 flex justify-center items-center z-10 transition-opacity duration-300 opacity-0 group-hover:opacity-100'>
+												<div className='absolute left-4 bottom-4 bg-secondary rounded-full w-12 h-12 pl-0.5 pb-0.5 flex justify-center items-center z-10 transition-opacity duration-300 md:opacity-0 group-hover:opacity-100'>
 													<IconArrowUpRight color='white' />
 												</div>
 												{/* IMAGE */}
@@ -156,20 +162,23 @@ export default function ArtistPage({
 													imageSrc={photo}
 													quality={75}
 													isFill={true}
-													sizes='(min-width: 640px) 40vw, 30vw'
-													className='relative h-full w-full bg-accent-1 object-cover transition-transform duration-300 group-hover:scale-105 will-change-transform'
+													sizes='(min-width: 640px) 30vw, 100vw'
+													className='relative h-full w-full bg-accent-3 object-cover transition-transform duration-300 group-hover:scale-105 will-change-transform'
 												/>
 											</a>
 										)
 									})}
+
 									{/* PREVIOUS / NEXT BUTTONS */}
 									{artists.length > 1 && (
 										<div className='flex'>
-											<div className='w-96 h-full flex items-end justify-end'>
+											<div className='w-full md:w-96 md:h-full flex items-end justify-end'>
+												<span className='text-link-lg mr-2'>{`[->] `}</span>
 												<button
 													className='underlined-link text-link-lg text-right'
 													onClick={() => handleNavigation('next')}>
-													<p>Next Artist {`[->]`}</p>
+													<span className='mr-2'>Next Artist:</span>
+
 													<span>
 														{
 															artists[
@@ -180,7 +189,7 @@ export default function ArtistPage({
 													</span>
 												</button>
 											</div>
-											<div className='w-96 h-full flex items-end justify-end'></div>
+											<div className='hidden md:block md:w-96 md:h-full'></div>
 										</div>
 									)}
 								</div>

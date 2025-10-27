@@ -47,13 +47,6 @@ export default function ImageCard({
 			onLeave: () => {
 				handleActiveArtist(null)
 			},
-			onUpdate: (self) => {
-				if (self.direction === -1 && self.isActive) {
-					console.log('direction up')
-				} else if (self.direction === 1 && self.isActive) {
-					console.log('direction down')
-				}
-			},
 		})
 	}, [variant])
 

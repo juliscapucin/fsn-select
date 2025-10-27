@@ -61,7 +61,7 @@ export default function MouseFollower({
 	return (
 		<div
 			ref={cursorRef}
-			className={`pointer-events-none fixed inset-0 z-15 h-64 w-64 ${
+			className={`pointer-events-none fixed inset-0 z-10 h-64 w-64 ${
 				variant === 'indexPage'
 					? 'mix-blend-multiply'
 					: 'flex items-center justify-center'

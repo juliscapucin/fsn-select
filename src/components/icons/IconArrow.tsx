@@ -3,7 +3,7 @@ type IconArrowProps = {
 }
 
 export default function IconArrow({ color }: IconArrowProps) {
-	const colorFinal = color
+	const colorFinal = color || 'currentColor'
 	return (
 		<svg
 			width='100'
