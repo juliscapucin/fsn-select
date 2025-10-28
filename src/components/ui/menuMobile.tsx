@@ -32,8 +32,8 @@ export default function MenuMobile({ navLinks }: NavLinksProps) {
 
 	return (
 		navLinks && (
-			<header className='fixed top-2 right-0 left-0 z-40 pointer-events-none block h-dvh lg:hidden'>
-				<div className='z-40 pointer-events-auto absolute top-0 flex w-full items-center justify-end pr-4 mix-blend-darken'>
+			<header className='fixed top-2 right-0 left-0 z-40 pointer-events-none block h-dvh md:hidden'>
+				<div className='z-40 pointer-events-auto absolute top-0 flex w-full items-center justify-end pr-4'>
 					{/* BURGER BUTTON */}
 					<ButtonBurger
 						onClick={() => {
@@ -46,7 +46,7 @@ export default function MenuMobile({ navLinks }: NavLinksProps) {
 
 				{/* EXPANDED MENU */}
 				<aside
-					className='z-50 pointer-events-auto fixed top-0 min-h-svh w-full -translate-y-[120%] bg-accent-1 transition-transform duration-300'
+					className='z-50 pointer-events-auto fixed top-0 min-h-svh w-full -translate-y-[120%] bg-secondary transition-transform duration-300'
 					ref={mobileMenuRef}>
 					<div className='absolute top-4 right-4 z-100'>
 						{/* CLOSE BUTTON */}
@@ -67,7 +67,7 @@ export default function MenuMobile({ navLinks }: NavLinksProps) {
 									className='relative flex w-full justify-center'
 									key={link.slug}>
 									<button
-										className='block font-primary disabled:opacity-30'
+										className='block font-primary disabled:opacity-40'
 										onClick={() =>
 											animateMobileMenu(mobileMenuRef.current, () => {
 												router.push(`${link.slug}`)
@@ -77,7 +77,7 @@ export default function MenuMobile({ navLinks }: NavLinksProps) {
 											(link.slug === '/' && pathname === '/') ||
 											(link.slug !== '/' && pathname.includes(`${link.slug}`))
 										}>
-										<span className='font-headline text-headline-medium text-secondary uppercase sm:text-headline-large'>
+										<span className='heading-display text-primary md:text-secondary uppercase'>
 											{link.label}
 										</span>
 									</button>

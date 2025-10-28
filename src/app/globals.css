@@ -111,7 +111,7 @@ body {
 	}
 
 	.underlined-link::after {
-		@apply absolute bottom-[2px] left-0 z-50 h-[2px] w-full -translate-x-[102%] bg-current transition-transform duration-300 content-[''];
+		@apply absolute bottom-0.5 left-0 z-50 h-0.5 w-full -translate-x-[102%] bg-current transition-transform duration-300 content-[''];
 	}
 
 	.underlined-link:hover::after,
@@ -142,7 +142,7 @@ body {
 	}
 
 	.btn-secondary-sm {
-		@apply bg-secondary px-2 py-[2px] text-label-large font-medium text-primary transition-colors duration-300 hover:bg-secondary/30 hover:text-secondary;
+		@apply bg-secondary px-2 py-0.5 text-label-large font-medium text-primary transition-colors duration-300 hover:bg-secondary/30 hover:text-secondary;
 	}
 
 	.btn-ghost {
@@ -154,7 +154,6 @@ body {
 	}
 
 	/* HEADING STYLES */
-
 	.heading-display {
 		@apply text-display-small leading-none font-thin sm:text-display-medium xl:text-display-large uppercase;
 	}
@@ -184,5 +183,15 @@ body {
 	.navlink:nth-child(2),
 	.navlink:nth-child(3) {
 		@apply text-right self-end block w-full;
+	}
+
+	/* ANIMATIONS */
+	@keyframes glitchStrip {
+		0% {
+			mask-position: -150% 0;
+		}
+		100% {
+			mask-position: 150% 0;
+		}
 	}
 }

@@ -1,6 +1,7 @@
 'use client'
 
 import { useRef } from 'react'
+import Link from 'next/link'
 
 import { useRouter } from 'next/navigation'
 
@@ -12,7 +13,7 @@ import { useGSAP } from '@gsap/react'
 import { ImageWithSpinner } from '@/components'
 import { UnsplashPhoto } from '@/services/unsplash/types'
 
-type ImageCardProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
+type ImageCardProps = React.LinkHTMLAttributes<HTMLLinkElement> & {
 	photo: UnsplashPhoto
 	index: number
 	variant: 'grid' | 'index' | 'gallery'
@@ -26,7 +27,7 @@ export default function ImageCard({
 	...props
 }: ImageCardProps) {
 	const router = useRouter()
-	const cardRef = useRef<HTMLButtonElement>(null)
+	const cardRef = useRef<HTMLAnchorElement | null>(null)
 
 	const isPortrait = photo.height > photo.width
 
@@ -54,24 +55,31 @@ export default function ImageCard({
 		// * INDEX VARIANT */
 		case 'index':
 			return (
-				<button
+				<Link
 					key={photo.id}
 					className='group relative flex items-center justify-center w-full'
-					onClick={() => router.push(`/artists/${photo.user.username}`)}
-					{...props}>
+					onClick={(e) => {
+						e.preventDefault()
+						router.push(`/artists/${photo.user.username}`)
+					}}
+					href={`/artists/${photo.user.username}`}>
 					{/* ARTIST NAME */}
 					<p className='underlined-link heading-headline w-fit'>
 						{photo.user.name}
 					</p>
-				</button>
+				</Link>
 			)
 		// * GRID VARIANT */
 		case 'grid':
 			return (
-				<button
+				<Link
 					key={photo.id}
 					className='relative group w-full mb-6 flex flex-col justify-start'
-					onClick={() => router.push(`/artists/${photo.user.username}`)}>
+					onClick={(e) => {
+						e.preventDefault()
+						router.push(`/artists/${photo.user.username}`)
+					}}
+					href={`/artists/${photo.user.username}`}>
 					<ImageWithSpinner
 						imageSrc={photo}
 						quality={75}
@@ -82,22 +90,26 @@ export default function ImageCard({
 						imageSrc={photo}
 						quality={75}
 						sizes='(min-width: 640px) 30vw, 30vw'
-						className='absolute top-0 left-0 w-full h-auto object-cover transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-4 group-hover:-translate-y-4'
+						className='absolute top-0 left-0 w-full h-auto object-cover transition-all duration-300 group-hover:opacity-100 group-hover:mix-blend-exclusion group-hover:translate-x-4 group-hover:-translate-y-4'
 					/>
 					{/* ARTIST NAME */}
 					<p className='underlined-link text-link-lg w-fit mt-2 group-hover:opacity-50'>
 						{photo.user.name}
 					</p>
-				</button>
+				</Link>
 			)
 		// * GALLERY VARIANT */
 		case 'gallery':
 			return (
-				<button
+				<Link
 					key={photo.id}
 					ref={cardRef}
 					className={`relative flex group w-full`}
-					onClick={() => router.push(`/artists/${photo.user.username}`)}>
+					onClick={(e) => {
+						e.preventDefault()
+						router.push(`/artists/${photo.user.username}`)
+					}}
+					href={`/artists/${photo.user.username}`}>
 					{/* ARTIST NAME OVERLAY */}
 					<div className='sr-only'>
 						<p className='heading-headline'>by {photo.user.name}</p>
@@ -112,10 +124,25 @@ export default function ImageCard({
 							imageSrc={photo}
 							quality={75}
 							sizes='(min-width: 640px) 50vw, 50vw'
-							className='w-full h-full object-cover transition-transform duration-300 group-hover:scale-105 group-hover:z-10'
+							className='w-full h-full object-cover group-hover:scale-105 transition-transform duration-300'
+						/>
+						<ImageWithSpinner
+							imageSrc={photo}
+							quality={75}
+							sizes='(min-width: 640px) 50vw, 50vw'
+							className='
+							absolute inset-0 w-full h-full object-cover
+							mix-blend-exclusion
+							opacity-0 group-hover:opacity-100
+							transition-all duration-300
+							mask-[repeating-linear-gradient(90deg,#000_0_50%,transparent_100%_200%)]
+							mask-size-[200%_100%]
+							mask-no-repeat
+							mask-position:-150%_0
+							group-hover:animate-[glitchStrip_1s_ease-in-out_forwards]'
 						/>
 					</div>
-				</button>
+				</Link>
 			)
 	}
 }

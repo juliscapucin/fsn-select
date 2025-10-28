@@ -26,6 +26,7 @@ export default function Header({ variant }: HeaderProps) {
 	const headerContainerRef = useRef<HTMLDivElement>(null)
 	const headerContentRef = useRef<HTMLAnchorElement>(null)
 
+	// HEADER SCROLLTRIGGER ANIMATION
 	useGSAP(() => {
 		if (!headerContainerRef.current || !headerContentRef.current) return
 
@@ -62,7 +63,7 @@ export default function Header({ variant }: HeaderProps) {
 
 			{/* HEADER DESKTOP */}
 			<header
-				className={`pointer-events-none fixed top-2 right-0 left-0 hidden lg:block ${
+				className={`pointer-events-none fixed top-2 right-0 left-0 ${
 					variant === 'primary' ? 'text-primary' : 'text-secondary'
 				} z-50`}>
 				<div
@@ -95,7 +96,7 @@ export default function Header({ variant }: HeaderProps) {
 			{/* NAVIGATION DESKTOP */}
 			<nav
 				ref={navbarRef}
-				className={`fixed top-0 right-0 w-fit items-center justify-center gap-32 overflow-clip px-2 py-2 transition-[background-color] duration-800 hidden lg:flex z-50 ${
+				className={`fixed top-0 right-0 w-fit items-center justify-center gap-32 overflow-clip px-2 py-2 transition-[background-color] duration-800 hidden md:flex z-50 ${
 					variant === 'primary' ? 'text-primary' : 'text-secondary'
 				}`}>
 				{/* NAVLINKS */}

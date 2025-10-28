@@ -88,7 +88,7 @@ export default function ArtistPage({
 		<>
 			<PageWrapper
 				variant='secondary'
-				classes='overflow-clip pt-[var(--height-header)]'
+				classes='overflow-clip md:pt-[var(--height-header)]'
 				hasContainer={false}
 				hasFooter={false}>
 				{artistInfo ? (
