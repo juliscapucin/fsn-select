@@ -31,6 +31,7 @@ body {
 	--accent-1: #827c7a;
 	--accent-2: #fff2ec;
 	--accent-3: #dad5c9;
+	--accent-focus: #ff6e1f;
 }
 
 @theme inline {
@@ -39,6 +40,7 @@ body {
 	--color-accent-1: var(--accent-1);
 	--color-accent-2: var(--accent-2);
 	--color-accent-3: var(--accent-3);
+	--color-accent-focus: var(--accent-focus);
 	--color-text-dark: var(--primary);
 	--color-text-light: var(--secondary);
 
@@ -83,6 +85,7 @@ body {
 		padding: 0;
 	}
 
+	/* SCROLLBAR STYLES */
 	* {
 		scrollbar-width: thin;
 		scrollbar-color: var(--primary) var(--secondary);
@@ -103,6 +106,11 @@ body {
 
 	button {
 		@apply cursor-pointer;
+	}
+
+	/* FOCUS STYLES */
+	:focus-visible {
+		@apply outline-none ring-4 ring-accent-focus;
 	}
 
 	/* LINK STYLES */

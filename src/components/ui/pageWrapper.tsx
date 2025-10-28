@@ -23,6 +23,7 @@ export default function PageWrapper({
 	hasContainer = true,
 	hasFooter = true,
 }: PageWrapperProps) {
+	//* INITIALIZE GSAP SCROLLSMOOTHER *//
 	useGSAP(() => {
 		// create the scrollSmoother before your scrollTriggers
 		ScrollSmoother.create({
@@ -32,55 +33,53 @@ export default function PageWrapper({
 	}, [])
 
 	return (
-		<>
-			{/* HEADER */}
-			<Header
-				variant={
-					variant === 'primary' || variant === 'accent'
-						? 'secondary'
-						: 'primary'
-				}
-			/>
-
-			{/* GSAP SMOOTHER WRAPPER */}
-			<div id='smooth-wrapper' className='z-0 pointer-events-none'>
-				{/* GSAP SMOOTHER CONTENT */}
+		<div id='smooth-wrapper' className='z-0'>
+			{/* GSAP SMOOTHER CONTENT */}
+			<div
+				id='smooth-content'
+				className={`z-0 ${
+					variant === 'secondary'
+						? 'bg-secondary'
+						: variant === 'accent'
+						? 'bg-accent-1'
+						: 'bg-primary'
+				}`}>
 				<div
-					id='smooth-content'
-					className={`z-0 pointer-events-none ${
-						variant === 'secondary'
-							? 'bg-secondary'
-							: variant === 'accent'
-							? 'bg-accent-1'
-							: 'bg-primary'
-					}`}>
-					{/* MAIN CONTENT */}
-					<main
-						className={`pointer-events-auto relative mx-auto min-h-screen pt-2 grid grid-cols-14 z-0 ${
-							hasContainer ? 'container pb-32 md:pt-[var(--height-header)]' : ''
-						} ${
+					className={`relative mx-auto min-h-screen pt-2 grid grid-cols-14 z-0 ${
+						hasContainer ? 'container pb-32 md:pt-[var(--height-header)]' : ''
+					} ${
+						variant === 'primary' || variant === 'accent'
+							? 'text-secondary'
+							: 'text-primary'
+					} ${classes ? classes : ''}`}>
+					{/* HEADER */}
+					<Header
+						variant={
 							variant === 'primary' || variant === 'accent'
-								? 'text-secondary'
-								: 'text-primary'
-						} ${classes ? classes : ''}`}>
-						{/* Keep children in column 2 to 13 */}
-						<div className='col-start-3 md:col-start-2 col-end-15 md:col-end-14'>
-							{children}
-						</div>
+								? 'secondary'
+								: 'primary'
+						}
+					/>
+					{/* MAIN CONTENT */}
+					{/* Keep children in column 2 to 13 */}
+					<main
+						id='main-content'
+						className='col-start-3 md:col-start-2 col-end-15 md:col-end-14'>
+						{children}
 					</main>
-
-					{/* FOOTER */}
-					{hasFooter && (
-						<Footer
-							variant={
-								variant === 'primary' || variant === 'accent'
-									? 'secondary'
-									: 'primary'
-							}
-						/>
-					)}
 				</div>
+
+				{/* FOOTER */}
+				{hasFooter && (
+					<Footer
+						variant={
+							variant === 'primary' || variant === 'accent'
+								? 'secondary'
+								: 'primary'
+						}
+					/>
+				)}
 			</div>
-		</>
+		</div>
 	)
 }
