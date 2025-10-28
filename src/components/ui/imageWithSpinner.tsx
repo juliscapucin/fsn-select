@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import Image from 'next/image'
 import { UnsplashPhoto } from '@/types/unsplash'
+import { EmptyResults } from '@/components'
 
 type ImageWithSpinnerProps = React.HTMLAttributes<HTMLDivElement> & {
 	className?: string
@@ -46,12 +47,12 @@ export default function ImageWithSpinner({
 			aria-live='polite'>
 			{showSpinner && isLoading && !hasError && (
 				<div
-					className={`bg-faded-5 absolute inset-0 z-10 grid place-items-center ${spinnerClassName}`}
+					className={`bg-accent-1 absolute inset-0 z-10 grid place-items-center ${spinnerClassName}`}
 					role='status'
 					aria-label='Loading image'>
 					<div className='relative aspect-square w-[10%] min-w-12 motion-safe:animate-spin'>
-						<div className='border-faded absolute inset-0 z-10 rounded-full border border-r-secondary'></div>
-						<div className='border-faded-30 absolute inset-0 rounded-full border opacity-20'></div>
+						<div className='border-secondary absolute inset-0 rounded-full border border-r-accent-1'></div>
+						<div className='border-secondary/20 absolute z-10 inset-0 rounded-full border'></div>
 					</div>
 					<span className='sr-only'>Loading</span>
 				</div>
@@ -75,9 +76,7 @@ export default function ImageWithSpinner({
 					priority={priority}
 				/>
 			) : (
-				<div className='bg-faded-5 flex h-full w-full items-center justify-center text-secondary/70'>
-					<span className='text-center'>Image failed to load</span>
-				</div>
+				<EmptyResults message='Failed to load image.' />
 			)}
 		</div>
 	)
