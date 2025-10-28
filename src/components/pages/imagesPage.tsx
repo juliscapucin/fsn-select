@@ -67,7 +67,6 @@ export default function ImagesPage({ variant, photos }: ImagesPageProps) {
 				elements.forEach((element) => {
 					gsap.to(element, {
 						yPercent: -100,
-						opacity: 0,
 						duration: 0.5,
 						ease: 'power2.out',
 					})
@@ -77,16 +76,15 @@ export default function ImagesPage({ variant, photos }: ImagesPageProps) {
 
 			elements.forEach((element, index) => {
 				if (index === activeArtistIndex) {
+					gsap.set(element, { opacity: 1, yPercent: 100 })
 					gsap.to(element, {
 						yPercent: 0,
-						opacity: 1,
 						duration: 0.5,
 						ease: 'power2.out',
 					})
 				} else {
 					gsap.to(element, {
 						yPercent: -100,
-						opacity: 0,
 						duration: 0.5,
 						ease: 'power2.out',
 					})
@@ -101,7 +99,7 @@ export default function ImagesPage({ variant, photos }: ImagesPageProps) {
 
 	return (
 		<>
-			{/* ACTIVE ARTIST NAME FOR GALLERY PAGE */}
+			{/* ARTIST NAME OVERLAY ON GALLERY PAGE */}
 			{variant === 'gallery' && (
 				<div
 					ref={activeArtistRef}
@@ -111,14 +109,10 @@ export default function ImagesPage({ variant, photos }: ImagesPageProps) {
 							<div
 								className='heading-display absolute overflow-clip'
 								key={photo.id}>
-								<div className='gsap-active-artist opacity-0 flex flex-nowrap items-center gap-8 h-32 w-fit'>
-									{Array.from({ length: 10 }, (_, i) => (
-										<span
-											key={i}
-											className='block text-accent-3 w-fit text-nowrap'>
-											{photo.user.name}
-										</span>
-									))}
+								<div className='gsap-active-artist opacity-0 flex items-center justify-center h-32 w-full'>
+									<span className='block text-accent-3 w-fit md:text-nowrap text-center text-pretty'>
+										{`[ ${photo.user.name} ]`}
+									</span>
 								</div>
 							</div>
 						))}
