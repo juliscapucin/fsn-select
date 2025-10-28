@@ -91,110 +91,104 @@ export default function ArtistPage({
 				classes='overflow-clip md:pt-[var(--height-header)]'
 				hasContainer={false}
 				hasFooter={false}>
-				{artistInfo ? (
-					<>
-						{artistPhotos.length > 0 ? (
-							//* CAROUSEL OUTER CONTAINER *//
-							<div
-								className='relative md:h-content overflow-clip'
-								ref={carouselContainerRef}>
-								{/* CARDS CONTAINER */}
-								<div
-									className='w-full md:w-fit md:h-content flex flex-col md:flex-row flex-nowrap gap-4 will-change-transform md:pl-[var(--height-header)] pb-4'
-									ref={cardsContainerRef}>
-									{/* HEADER */}
-									<header className='mb-8 w-container md:w-[32vw] h-full flex flex-col justify-between'>
-										<div>
-											{/* ARTIST NAME */}
-											{artistInfo.name && (
-												<h1 className='heading-display'>{artistInfo.name}</h1>
-											)}
+				{artistPhotos.length > 0 && artistInfo ? (
+					//* CAROUSEL OUTER CONTAINER *//
+					<div
+						className='relative md:h-content overflow-clip'
+						ref={carouselContainerRef}>
+						{/* CARDS CONTAINER */}
+						<div
+							className='w-full md:w-fit md:h-content flex flex-col md:flex-row flex-nowrap gap-4 will-change-transform md:pl-[var(--height-header)] pb-4'
+							ref={cardsContainerRef}>
+							{/* HEADER */}
+							<header className='mb-8 w-container md:w-[32vw] h-full flex flex-col justify-between'>
+								<div>
+									{/* ARTIST NAME */}
+									{artistInfo.name && (
+										<h1 className='heading-display'>{artistInfo.name}</h1>
+									)}
 
-											{/* BIO AND LOCATION */}
-											{artistInfo.bio && (
-												<p className='mt-4 text-pretty'>{artistInfo.bio}</p>
-											)}
-											{artistInfo.location && (
-												<p className='mt-4'>Location: {artistInfo.location}</p>
-											)}
-										</div>
-
-										<div>
-											{/* INSTAGRAM LINK */}
-											{artistInfo.social.instagram_username && (
-												<ExternalLink
-													variant='primary'
-													classes='text-link-lg mt-4'
-													href={`https://instagram.com/${artistInfo.social.instagram_username}`}>
-													View on Instagram
-												</ExternalLink>
-											)}
-
-											{/* UNSPLASH LINK */}
-											{artistInfo.username && (
-												<ExternalLink
-													variant='primary'
-													classes='text-link-lg mt-4'
-													href={artistInfo.links.html}>
-													Unsplash Profile
-												</ExternalLink>
-											)}
-										</div>
-									</header>
-									{artistPhotos.map((photo) => {
-										// IMAGE CARD //
-										return (
-											<a
-												key={photo.id}
-												className='relative block group cursor-pointer h-[70svh] md:min-h-full md:h-full w-full md:w-[20vw] md:min-w-[450px] md:max-w-[600px] overflow-clip'
-												target='_blank'
-												rel='noopener noreferrer'
-												href={photo.links.html}>
-												{/* OVERLAY ARROW ICON */}
-												<div className='absolute left-4 bottom-4 bg-secondary rounded-full w-12 h-12 pl-0.5 pb-0.5 flex justify-center items-center z-10 transition-opacity duration-300 md:opacity-0 group-hover:opacity-100'>
-													<IconArrowUpRight color='white' />
-												</div>
-												{/* IMAGE */}
-												<ImageWithSpinner
-													imageSrc={photo}
-													quality={75}
-													isFill={true}
-													sizes='(min-width: 640px) 30vw, 100vw'
-													className='relative h-full w-full object-cover transition-transform duration-300 group-hover:scale-105 will-change-transform'
-												/>
-											</a>
-										)
-									})}
-
-									{/* PREVIOUS / NEXT BUTTONS */}
-									{artists.length > 1 && (
-										<div className='flex'>
-											<div className='w-full md:w-96 md:h-full flex items-end justify-end'>
-												<span className='text-link-lg mr-2'>{`[->] `}</span>
-												<button
-													className='underlined-link text-link-lg text-right'
-													onClick={() => handleNavigation('next')}>
-													<span className='mr-2'>Next Artist:</span>
-
-													<span>
-														{
-															artists[
-																(artists.indexOf(artistInfo.username) + 1) %
-																	artists.length
-															]
-														}
-													</span>
-												</button>
-											</div>
-											<div className='hidden md:block md:w-96 md:h-full'></div>
-										</div>
+									{/* BIO AND LOCATION */}
+									{artistInfo.bio && (
+										<p className='mt-4 text-pretty'>{artistInfo.bio}</p>
+									)}
+									{artistInfo.location && (
+										<p className='mt-4'>Location: {artistInfo.location}</p>
 									)}
 								</div>
-							</div>
-						) : (
-							<EmptyResults message='No photos found for this artist.' />
-						)}
-					</>
+
+								<div>
+									{/* INSTAGRAM LINK */}
+									{artistInfo.social.instagram_username && (
+										<ExternalLink
+											variant='primary'
+											classes='text-link-lg mt-4'
+											href={`https://instagram.com/${artistInfo.social.instagram_username}`}>
+											View on Instagram
+										</ExternalLink>
+									)}
+
+									{/* UNSPLASH LINK */}
+									{artistInfo.username && (
+										<ExternalLink
+											variant='primary'
+											classes='text-link-lg mt-4'
+											href={artistInfo.links.html}>
+											Unsplash Profile
+										</ExternalLink>
+									)}
+								</div>
+							</header>
+							{artistPhotos.map((photo) => {
+								// IMAGE CARD //
+								return (
+									<a
+										key={photo.id}
+										className='relative block group cursor-pointer h-[70svh] md:min-h-full md:h-full w-full md:w-[20vw] md:min-w-[450px] md:max-w-[600px] overflow-clip'
+										target='_blank'
+										rel='noopener noreferrer'
+										href={photo.links.html}>
+										{/* OVERLAY ARROW ICON */}
+										<div className='absolute left-4 bottom-4 bg-secondary rounded-full w-12 h-12 pl-0.5 pb-0.5 flex justify-center items-center z-10 transition-opacity duration-300 md:opacity-0 group-hover:opacity-100'>
+											<IconArrowUpRight color='white' />
+										</div>
+										{/* IMAGE */}
+										<ImageWithSpinner
+											imageSrc={photo}
+											quality={75}
+											isFill={true}
+											sizes='(min-width: 640px) 30vw, 100vw'
+											className='relative h-full w-full object-cover transition-transform duration-300 group-hover:scale-105 will-change-transform'
+										/>
+									</a>
+								)
+							})}
+
+							{/* PREVIOUS / NEXT BUTTONS */}
+							{artists.length > 1 && artistInfo && (
+								<div className='flex'>
+									<div className='w-full md:w-96 md:h-full flex items-end justify-end'>
+										<span className='text-link-lg mr-2'>{`[->] `}</span>
+										<button
+											className='underlined-link text-link-lg text-right'
+											onClick={() => handleNavigation('next')}>
+											<span className='mr-2'>Next Artist:</span>
+
+											<span>
+												{
+													artists[
+														(artists.indexOf(artistInfo.username) + 1) %
+															artists.length
+													]
+												}
+											</span>
+										</button>
+									</div>
+									<div className='hidden md:block md:w-96 md:h-full'></div>
+								</div>
+							)}
+						</div>
+					</div>
 				) : (
 					<EmptyResults message='Artist not found or no photos available.' />
 				)}

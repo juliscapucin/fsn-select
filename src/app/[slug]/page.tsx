@@ -1,3 +1,5 @@
+import { notFound } from 'next/navigation'
+
 import { ImagesPageServer } from '@/components'
 
 import { navLinks } from '@/lib/data'
@@ -21,9 +23,21 @@ export async function generateStaticParams() {
 export default async function Page({
 	params,
 }: {
-	params: Promise<{ slug: 'grid' | 'index' | 'gallery' }>
+	params: Promise<{ slug: 'grid' | 'list' | 'gallery' }>
 }) {
 	const { slug } = await params
+
+	// throw error if slug is not in navLinks
+	const imagePages = navLinks.slice(1, 4)
+
+	const validImagePages = imagePages.map((page) => ({
+		page: page.slug.replace('/', ''),
+	}))
+
+	// Check if the slug is valid
+	if (!validImagePages.some((page) => page.page === slug)) {
+		return notFound()
+	}
 
 	return <ImagesPageServer variant={slug} />
 }

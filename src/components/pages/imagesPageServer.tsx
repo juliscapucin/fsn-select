@@ -6,7 +6,7 @@ import { getFashionBeautyTopicPhotos } from '@/queries/unsplash/photos'
 let photos: UnsplashPhoto[] = []
 
 type ImagesPageProps = {
-	variant: 'grid' | 'index' | 'gallery'
+	variant: 'grid' | 'list' | 'gallery'
 }
 
 try {

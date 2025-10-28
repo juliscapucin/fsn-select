@@ -5,7 +5,6 @@ import ButtonBurger from './buttonBurger'
 import ButtonsCarousel from './buttonsCarousel'
 import ButtonChevron from './buttonChevron'
 import ButtonClose from './buttonClose'
-import ButtonRounded from './buttonRounded'
 import ButtonToggle from './buttonToggle'
 
 export {
@@ -16,6 +15,5 @@ export {
 	ButtonsCarousel,
 	ButtonChevron,
 	ButtonClose,
-	ButtonRounded,
 	ButtonToggle,
 }

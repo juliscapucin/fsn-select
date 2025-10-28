@@ -1,5 +1,7 @@
 'use client'
 
+import { useRef, useEffect } from 'react'
+
 import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
 import { ScrollSmoother } from 'gsap/ScrollSmoother'
@@ -23,64 +25,93 @@ export default function PageWrapper({
 	hasContainer = true,
 	hasFooter = true,
 }: PageWrapperProps) {
+	const scrollSmootherRef = useRef<ScrollSmoother | null>(null)
+
 	//* INITIALIZE GSAP SCROLLSMOOTHER *//
 	useGSAP(() => {
-		// create the scrollSmoother before your scrollTriggers
-		ScrollSmoother.create({
+		// Check if ScrollSmoother already exists and destroy it
+		if (scrollSmootherRef.current) {
+			scrollSmootherRef.current.kill()
+		}
+
+		// Create new ScrollSmoother
+		scrollSmootherRef.current = ScrollSmoother.create({
 			smooth: 1, // how long (in seconds) it takes to "catch up" to the native scroll position
 			effects: false, // looks for data-speed and data-lag attributes on elements
 		})
+
+		// Cleanup function
+		return () => {
+			if (scrollSmootherRef.current) {
+				scrollSmootherRef.current.kill()
+				scrollSmootherRef.current = null
+			}
+		}
+	}, [])
+
+	// Additional cleanup on unmount
+	useEffect(() => {
+		return () => {
+			if (scrollSmootherRef.current) {
+				scrollSmootherRef.current.kill()
+			}
+		}
 	}, [])
 
 	return (
-		<div id='smooth-wrapper' className='z-0 pointer-events-none'>
-			{/* GSAP SMOOTHER CONTENT */}
-			<div
-				id='smooth-content'
-				className={`z-0 pointer-events-none ${
-					variant === 'secondary'
-						? 'bg-secondary'
-						: variant === 'accent'
-						? 'bg-accent-1'
-						: 'bg-primary'
-				}`}>
+		<>
+			{/* HEADER */}
+			<Header
+				variant={
+					variant === 'primary' || variant === 'accent'
+						? 'secondary'
+						: 'primary'
+				}
+			/>
+			<div id='smooth-wrapper' className='z-0 pointer-events-none'>
+				{/* GSAP SMOOTHER CONTENT */}
 				<div
-					className={`relative mx-auto min-h-screen pt-2 grid grid-cols-14 z-0 pointer-events-auto ${
-						hasContainer ? 'container pb-32 md:pt-[var(--height-header)]' : ''
-					} ${
-						variant === 'primary' || variant === 'accent'
-							? 'text-secondary'
-							: 'text-primary'
-					} ${classes ? classes : ''}`}>
-					{/* HEADER */}
-					<Header
-						variant={
+					id='smooth-content'
+					className={`z-0 pointer-events-none ${
+						variant === 'secondary'
+							? 'bg-secondary'
+							: variant === 'accent'
+							? 'bg-accent-1'
+							: 'bg-primary'
+					}`}>
+					{/* PAGE CONTENT GRID */}
+					<div
+						className={`relative mx-auto min-h-screen pt-2 grid grid-cols-14 z-0 pointer-events-auto ${
+							hasContainer ? 'container pb-32 md:pt-[var(--height-header)]' : ''
+						} ${
 							variant === 'primary' || variant === 'accent'
-								? 'secondary'
-								: 'primary'
-						}
-					/>
-					{/* MAIN CONTENT */}
-					{/* Keep children in column 2 to 13 */}
-					<main
-						id='main-content' // Add id for skip link
-						tabIndex={-1} // Make focusable for skip link
-						className='col-start-3 md:col-start-2 col-end-15 md:col-end-14'>
-						{children}
-					</main>
-				</div>
+								? 'text-secondary'
+								: 'text-primary'
+						}`}>
+						{/* MAIN CONTENT */}
+						{/* Keep children in column 2 to 13 */}
+						<main
+							id='main-content' // Add id for skip link
+							tabIndex={-1} // Make focusable for skip link
+							className={`col-start-3 md:col-start-2 col-end-15 md:col-end-14 ${
+								classes ? classes : ''
+							}`}>
+							{children}
+						</main>
+					</div>
 
-				{/* FOOTER */}
-				{hasFooter && (
-					<Footer
-						variant={
-							variant === 'primary' || variant === 'accent'
-								? 'secondary'
-								: 'primary'
-						}
-					/>
-				)}
+					{/* FOOTER */}
+					{hasFooter && (
+						<Footer
+							variant={
+								variant === 'primary' || variant === 'accent'
+									? 'secondary'
+									: 'primary'
+							}
+						/>
+					)}
+				</div>
 			</div>
-		</div>
+		</>
 	)
 }

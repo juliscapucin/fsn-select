@@ -1,4 +1,7 @@
-import { ArtistPage } from '@/components'
+import { notFound } from 'next/navigation'
+import Link from 'next/link'
+
+import { ArtistPage, EmptyResults, PageWrapper } from '@/components'
 import { getFashionBeautyTopicPhotos, getPhotosByArtist } from '@/queries'
 import { UnsplashPhoto } from '@/types/unsplash'
 
@@ -43,8 +46,6 @@ export async function generateStaticParams() {
 	}
 }
 
-// Multiple versions of this page will be statically generated
-// using the `params` returned by `generateStaticParams`
 export default async function Page({
 	params,
 }: {
@@ -52,9 +53,12 @@ export default async function Page({
 }) {
 	const { artist } = await params
 
-	// Fetch photos by this specific artist
 	let artistPhotos: UnsplashPhoto[] = []
 	let artistInfo: UnsplashPhoto['user'] | null = null
+	let errorState: {
+		type: 'not_found' | 'api_error' | 'network_error' | 'rate_limit'
+		message: string
+	} | null = null
 
 	try {
 		// Get all photos by artist
@@ -68,7 +72,43 @@ export default async function Page({
 			artistInfo = artistPhotos[0].user
 		}
 	} catch (error) {
-		console.error('Error fetching artist photos:', error)
+		console.error(`Error fetching photos for artist "${artist}":`, error)
+
+		// Specific error handling based on error type
+		if (error instanceof Error) {
+			if (error.message.includes('404')) {
+				errorState = {
+					type: 'not_found',
+					message: `Artist "${artist}" was not found. Please check the spelling or try a different artist.`,
+				}
+			} else if (
+				error.message.includes('403') ||
+				error.message.includes('rate limit')
+			) {
+				errorState = {
+					type: 'rate_limit',
+					message: `We're currently experiencing high traffic. Please try viewing "${artist}'s" photos again in a few minutes.`,
+				}
+			} else if (
+				error.message.includes('500') ||
+				error.message.includes('502') ||
+				error.message.includes('503')
+			) {
+				errorState = {
+					type: 'api_error',
+					message: `Our image service is temporarily unavailable. We're working to restore access to "${artist}'s" photos.`,
+				}
+			} else {
+				errorState = {
+					type: 'network_error',
+					message: `Unable to load "${artist}'s" photos. Please check your internet connection and try again.`,
+				}
+			}
+		}
+	}
+
+	if (errorState) {
+		return <EmptyResults message={errorState.message} />
 	}
 
 	return (
