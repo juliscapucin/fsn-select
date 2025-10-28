@@ -71,13 +71,13 @@ export default function MenuMobile({ navLinks }: NavLinksProps) {
 			<>
 				{/* BURGER BUTTON - Outside header for blend mode */}
 				<ButtonBurger
-					className='z-40 pointer-events-auto fixed top-0 flex w-full items-center justify-end pr-4 mix-blend-exclusion md:hidden'
+					className='z-50 pointer-events-auto fixed top-0 flex w-full items-center justify-end pr-4 mix-blend-exclusion md:hidden'
 					onClick={() => toggleMenu()}
 					aria-expanded={isMenuOpen}
 					aria-controls='mobile-menu'
 					aria-label={'Open navigation menu'}
 				/>
-				<header className='fixed top-2 right-0 left-0 z-40 pointer-events-none block h-dvh md:hidden'>
+				<header className='fixed top-2 right-0 left-0 z-50 pointer-events-none block h-dvh md:hidden'>
 					{/* EXPANDED MENU */}
 					<aside
 						className='z-50 pointer-events-auto fixed top-0 min-h-svh w-full -translate-y-[120%] bg-secondary transition-transform duration-300'

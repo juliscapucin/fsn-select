@@ -13,7 +13,7 @@ import { useGSAP } from '@gsap/react'
 import { ImageWithSpinner } from '@/components'
 import { UnsplashPhoto } from '@/services/unsplash/types'
 
-type ImageCardProps = React.LinkHTMLAttributes<HTMLLinkElement> & {
+type ImageCardProps = React.AnchorHTMLAttributes<HTMLAnchorElement> & {
 	photo: UnsplashPhoto
 	index: number
 	variant: 'grid' | 'index' | 'gallery'
@@ -58,11 +58,12 @@ export default function ImageCard({
 				<Link
 					key={photo.id}
 					className='group relative flex items-center justify-center w-full'
+					href={`/artists/${photo.user.username}`}
 					onClick={(e) => {
 						e.preventDefault()
 						router.push(`/artists/${photo.user.username}`)
 					}}
-					href={`/artists/${photo.user.username}`}>
+					{...props}>
 					{/* ARTIST NAME */}
 					<p className='underlined-link heading-headline w-fit'>
 						{photo.user.name}
@@ -136,10 +137,10 @@ export default function ImageCard({
 							opacity-0 group-hover:opacity-100
 							transition-all duration-300
 							mask-[repeating-linear-gradient(90deg,#000_0_50%,transparent_100%_200%)]
-							mask-size-[200%_100%]
+							mask-size-[150%_100%]
 							mask-no-repeat
 							mask-position:-150%_0
-							group-hover:animate-[glitchStrip_1s_ease-in-out_forwards]'
+							group-hover:animate-[glitchStrip_0.5s_ease-in-out_forwards]'
 						/>
 					</div>
 				</Link>

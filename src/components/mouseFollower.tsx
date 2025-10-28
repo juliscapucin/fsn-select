@@ -61,14 +61,14 @@ export default function MouseFollower({
 	return (
 		<div
 			ref={cursorRef}
-			className={`pointer-events-none fixed inset-0 z-10 h-64 w-64 ${
+			className={`pointer-events-none fixed inset-0 z-30 h-64 w-64 ${
 				variant === 'indexPage'
 					? 'mix-blend-multiply'
 					: 'flex items-center justify-center'
 			}`}>
 			{/* OVERLAY FOR INDEX PAGE */}
 			{variant === 'indexPage' && photos && photos.length > 0 && (
-				<div className='gsap-mouse-follower relative h-64 w-64'>
+				<div className='relative h-64 w-64'>
 					{photos.map((photo, index) => (
 						<ImageWithSpinner
 							wrapperClassName={`absolute transition-opacity duration-300 ${

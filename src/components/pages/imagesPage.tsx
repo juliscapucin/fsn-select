@@ -103,7 +103,7 @@ export default function ImagesPage({ variant, photos }: ImagesPageProps) {
 			{variant === 'gallery' && (
 				<div
 					ref={activeArtistRef}
-					className='fixed inset-0 flex items-center justify-center z-20 pointer-events-none mix-blend-exclusion'>
+					className='fixed inset-0 flex items-center justify-center z-10 pointer-events-none mix-blend-exclusion'>
 					{photos.length > 0 &&
 						photos.map((photo) => (
 							<div

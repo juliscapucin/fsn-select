@@ -33,11 +33,11 @@ export default function PageWrapper({
 	}, [])
 
 	return (
-		<div id='smooth-wrapper' className='z-0'>
+		<div id='smooth-wrapper' className='z-0 pointer-events-none'>
 			{/* GSAP SMOOTHER CONTENT */}
 			<div
 				id='smooth-content'
-				className={`z-0 ${
+				className={`z-0 pointer-events-none ${
 					variant === 'secondary'
 						? 'bg-secondary'
 						: variant === 'accent'
@@ -45,7 +45,7 @@ export default function PageWrapper({
 						: 'bg-primary'
 				}`}>
 				<div
-					className={`relative mx-auto min-h-screen pt-2 grid grid-cols-14 z-0 ${
+					className={`relative mx-auto min-h-screen pt-2 grid grid-cols-14 z-0 pointer-events-auto ${
 						hasContainer ? 'container pb-32 md:pt-[var(--height-header)]' : ''
 					} ${
 						variant === 'primary' || variant === 'accent'
@@ -63,7 +63,8 @@ export default function PageWrapper({
 					{/* MAIN CONTENT */}
 					{/* Keep children in column 2 to 13 */}
 					<main
-						id='main-content'
+						id='main-content' // Add id for skip link
+						tabIndex={-1} // Make focusable for skip link
 						className='col-start-3 md:col-start-2 col-end-15 md:col-end-14'>
 						{children}
 					</main>
