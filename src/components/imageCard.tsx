@@ -16,7 +16,7 @@ import { UnsplashPhoto } from '@/services/unsplash/types'
 type ImageCardProps = React.AnchorHTMLAttributes<HTMLAnchorElement> & {
 	photo: UnsplashPhoto
 	index: number
-	variant: 'grid' | 'index' | 'gallery'
+	variant: 'grid' | 'list' | 'gallery'
 	handleActiveArtist?: (index: number | null) => void
 }
 export default function ImageCard({
@@ -53,7 +53,7 @@ export default function ImageCard({
 
 	switch (variant) {
 		// * INDEX VARIANT */
-		case 'index':
+		case 'list':
 			return (
 				<Link
 					key={photo.id}

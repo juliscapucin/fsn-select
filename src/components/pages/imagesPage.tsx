@@ -13,7 +13,7 @@ import { ImageCard } from '@/components'
 let containerClasses = ''
 
 type ImagesPageProps = {
-	variant: 'grid' | 'index' | 'gallery'
+	variant: 'grid' | 'list' | 'gallery'
 	photos: UnsplashPhoto[]
 }
 
@@ -27,7 +27,7 @@ export default function ImagesPage({ variant, photos }: ImagesPageProps) {
 	)
 
 	switch (variant) {
-		case 'index':
+		case 'list':
 			containerClasses =
 				'relative flex flex-col gap-24 items-center justify-center z-30 mix-blend-exclusion'
 			break
@@ -119,12 +119,12 @@ export default function ImagesPage({ variant, photos }: ImagesPageProps) {
 				</div>
 			)}
 			{/* MOUSE FOLLOWER FOR INDEX PAGE */}
-			{variant === 'index' && (
+			{variant === 'list' && (
 				<MouseFollower
 					isVisible={isMouseFollowerVisible}
 					indexHovered={indexHovered}
 					photos={photos}
-					variant='indexPage'
+					variant='listPage'
 				/>
 			)}
 			<PageWrapper variant='primary'>

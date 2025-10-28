@@ -14,7 +14,7 @@ type MouseFollowerProps = {
 	isVisible?: boolean
 	indexHovered?: number | null
 	photos?: UnsplashPhoto[]
-	variant: 'indexPage' | 'artistPage'
+	variant: 'listPage'
 }
 
 export default function MouseFollower({
@@ -62,12 +62,12 @@ export default function MouseFollower({
 		<div
 			ref={cursorRef}
 			className={`pointer-events-none fixed inset-0 z-30 h-64 w-64 ${
-				variant === 'indexPage'
+				variant === 'listPage'
 					? 'mix-blend-multiply'
 					: 'flex items-center justify-center'
 			}`}>
-			{/* OVERLAY FOR INDEX PAGE */}
-			{variant === 'indexPage' && photos && photos.length > 0 && (
+			{/* OVERLAY FOR LIST PAGE */}
+			{variant === 'listPage' && photos && photos.length > 0 && (
 				<div className='relative h-64 w-64'>
 					{photos.map((photo, index) => (
 						<ImageWithSpinner

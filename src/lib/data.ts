@@ -1,8 +1,8 @@
 const navLinks = [
 	{ label: 'Home', slug: '/' },
-	{ label: 'Grid', slug: '/grid' },
-	{ label: 'Index', slug: '/index' },
 	{ label: 'Gallery', slug: '/gallery' },
+	{ label: 'Grid', slug: '/grid' },
+	{ label: 'List', slug: '/list' },
 	{ label: 'About', slug: '/about' },
 	{ label: 'Contact', slug: '/contact' },
 ]
