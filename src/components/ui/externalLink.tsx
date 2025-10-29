@@ -11,27 +11,39 @@ export default function ExternalLink({
 	...props
 }: ExternalLinkProps) {
 	return (
-		<a
-			className={`group flex gap-2 ${
-				variant === 'primary' ? 'text-primary' : 'text-secondary'
-			} ${classes}`}
-			{...props}
-			target='_blank'
-			rel='noopener noreferrer'>
-			<span className='underlined-link '>{props.children}</span>
-
+		<div className='group flex gap-2'>
+			<a
+				className={`underlined-link ${
+					variant === 'primary' ? 'text-primary' : 'text-secondary'
+				} ${classes}`}
+				{...props}
+				target='_blank'
+				rel='noopener noreferrer'>
+				{props.children}
+			</a>
 			{/* ICON ARROW RIGHT UP */}
-			<span className='overflow-clip relative inline-block'>
-				<span
-					className={`transition-all opacity-0 duration-300 -translate-x-full translate-y-full group-hover:translate-x-0 group-hover:translate-y-0 group-hover:opacity-100 inline-block ${
-						variant === 'primary' ? 'text-primary' : 'text-secondary'
-					}`}>
-					<IconArrowUpRight
-						color={
-							variant === 'primary' ? 'white' : 'black'
-						}></IconArrowUpRight>
-				</span>
-			</span>
-		</a>
+			<div className='overflow-clip relative inline-block'>
+				<div className='translate-y-1/2 group-hover:translate-x-full transition-transform duration-300 group-hover:translate-y-0'>
+					<div
+						className={`w-4 h-5 overflow-clip ${
+							variant === 'primary' ? 'text-primary' : 'text-secondary'
+						}`}>
+						<IconArrowUpRight
+							color={
+								variant === 'primary' ? 'white' : 'black'
+							}></IconArrowUpRight>
+					</div>
+					<div
+						className={`w-4 h-5 overflow-clip -translate-x-full ${
+							variant === 'primary' ? 'text-primary' : 'text-secondary'
+						}`}>
+						<IconArrowUpRight
+							color={
+								variant === 'primary' ? 'white' : 'black'
+							}></IconArrowUpRight>
+					</div>
+				</div>
+			</div>
+		</div>
 	)
 }

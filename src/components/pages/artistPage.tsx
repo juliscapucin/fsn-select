@@ -54,7 +54,7 @@ export default function ArtistPage({
 					animation: tl,
 					trigger: outerWrapper,
 					pin: true,
-					start: 'top top+=160',
+					start: 'top top+=170',
 					end: `+=${cardsWrapper.offsetWidth * 3}`,
 					scrub: 1,
 					invalidateOnRefresh: true,
@@ -167,22 +167,24 @@ export default function ArtistPage({
 							{/* PREVIOUS / NEXT BUTTONS */}
 							{artists.length > 1 && artistInfo && (
 								<div className='flex'>
-									<div className='w-full md:w-96 md:h-full flex items-end justify-end'>
-										<span className='text-link-lg mr-2'>{`[->] `}</span>
-										<button
-											className='underlined-link text-link-lg text-right'
-											onClick={() => handleNavigation('next')}>
-											<span className='mr-2'>Next Artist:</span>
+									<div className='w-full md:w-96 md:h-full flex items-end justify-start md:justify-end text-link-lg'>
+										<div className='flex flex-col'>
+											<span className='text-nowrap'>Next Artist:</span>
 
-											<span>
-												{
-													artists[
-														(artists.indexOf(artistInfo.username) + 1) %
-															artists.length
-													]
-												}
-											</span>
-										</button>
+											<div>
+												<span className='text-nowrap'>{`[->] `}</span>
+												<button
+													className='text-link-lg underlined-link'
+													onClick={() => handleNavigation('next')}>
+													{
+														artists[
+															(artists.indexOf(artistInfo.username) + 1) %
+																artists.length
+														]
+													}
+												</button>
+											</div>
+										</div>
 									</div>
 									<div className='hidden md:block md:w-96 md:h-full'></div>
 								</div>
