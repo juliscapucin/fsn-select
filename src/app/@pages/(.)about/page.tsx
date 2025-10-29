@@ -1,5 +1,9 @@
 import { AboutPageServer } from '@/components/pages'
 
 export default async function Page() {
-	return <AboutPageServer />
+	return (
+		<div className='fixed inset-0 overflow-y-auto'>
+			<AboutPageServer />
+		</div>
+	)
 }

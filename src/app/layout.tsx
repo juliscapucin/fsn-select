@@ -20,8 +20,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
 	children,
+	pages,
 }: Readonly<{
 	children: React.ReactNode
+	pages: React.ReactNode
 }>) {
 	return (
 		<html lang='en'>
@@ -34,6 +36,7 @@ export default function RootLayout({
 					Skip to main content
 				</a>
 				{children}
+				{pages}
 			</body>
 		</html>
 	)

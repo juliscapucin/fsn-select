@@ -26,6 +26,7 @@ export default function PageWrapper({
 	hasFooter = true,
 }: PageWrapperProps) {
 	const scrollSmootherRef = useRef<ScrollSmoother | null>(null)
+	const pageContentRef = useRef<HTMLDivElement | null>(null)
 
 	//* INITIALIZE GSAP SCROLLSMOOTHER *//
 	useGSAP(() => {
@@ -45,6 +46,14 @@ export default function PageWrapper({
 		})
 	}, [])
 
+	useGSAP(() => {
+		if (!pageContentRef.current) return
+		gsap.to(pageContentRef.current, {
+			clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
+			duration: 0.5,
+		})
+	}, [])
+
 	// Cleanup on unmount
 	useEffect(() => {
 		return () => {
@@ -59,32 +68,37 @@ export default function PageWrapper({
 		<>
 			{/* HEADER */}
 			<Header variant={variant === 'primary' ? 'secondary' : 'primary'} />
+			{/* GSAP SMOOTHER WRAPPER */}
 			<div id='smooth-wrapper' className='z-0 pointer-events-none'>
 				{/* GSAP SMOOTHER CONTENT */}
-				<div
-					id='smooth-content'
-					className={`z-0 pointer-events-none ${
-						variant === 'secondary'
-							? 'bg-secondary'
-							: variant === 'accent'
-							? 'bg-accent-1'
-							: 'bg-primary'
-					}`}>
-					{/* PAGE CONTENT GRID */}
+				<div id='smooth-content' className={`z-0 pointer-events-none`}>
+					{/* PAGE CONTENT BACKGROUND / MASK */}
 					<div
-						className={`relative mx-auto grid grid-cols-14 z-0 pointer-events-auto ${
-							hasContainer ? 'container pb-32 md:pt-[var(--height-header)]' : ''
-						} ${variant === 'primary' ? 'text-secondary' : 'text-primary'}`}>
-						{/* MAIN CONTENT */}
-						{/* Keep children in column 2 to 13 */}
-						<main
-							id='main-content' // Add id for skip link
-							tabIndex={-1} // Make focusable for skip link
-							className={`col-start-3 md:col-start-2 col-end-15 md:col-end-14 ${
-								classes ? classes : ''
+						ref={pageContentRef}
+						style={{ clipPath: 'polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%)' }} // mask's initial state
+						className={`min-h-screen w-full pointer-events-auto ${
+							variant === 'primary'
+								? 'bg-primary text-secondary'
+								: 'bg-secondary text-primary'
+						}`}>
+						{/* PAGE CONTENT GRID */}
+						<div
+							className={`relative mx-auto grid grid-cols-14 z-0 pointer-events-auto ${
+								hasContainer
+									? 'container pb-32 md:pt-[var(--height-header)]'
+									: ''
 							}`}>
-							{children}
-						</main>
+							{/* MAIN CONTENT */}
+							{/* Keep children in column 2 to 13 */}
+							<main
+								id='main-content' // Add id for skip link
+								tabIndex={-1} // Make focusable for skip link
+								className={`col-start-3 md:col-start-2 col-end-15 md:col-end-14 ${
+									classes ? classes : ''
+								}`}>
+								{children}
+							</main>
+						</div>
 					</div>
 
 					{/* FOOTER */}
