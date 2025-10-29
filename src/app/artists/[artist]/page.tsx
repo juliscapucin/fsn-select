@@ -1,7 +1,6 @@
 import { notFound } from 'next/navigation'
-import Link from 'next/link'
 
-import { ArtistPage, EmptyResults, PageWrapper } from '@/components'
+import { ArtistPage, EmptyResults } from '@/components'
 import { getFashionBeautyTopicPhotos, getPhotosByArtist } from '@/queries'
 import { UnsplashPhoto } from '@/types/unsplash'
 
@@ -107,7 +106,9 @@ export default async function Page({
 		}
 	}
 
-	if (errorState) {
+	if (errorState?.type === 'not_found') {
+		return notFound()
+	} else if (errorState) {
 		return <EmptyResults message={errorState.message} />
 	}
 

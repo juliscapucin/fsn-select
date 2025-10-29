@@ -23,7 +23,7 @@ export async function generateStaticParams() {
 export default async function Page({
 	params,
 }: {
-	params: Promise<{ slug: 'grid' | 'list' | 'gallery' }>
+	params: Promise<{ slug: 'grid' | 'list' | 'artists' | 'gallery' }>
 }) {
 	const { slug } = await params
 
@@ -34,10 +34,13 @@ export default async function Page({
 		page: page.slug.replace('/', ''),
 	}))
 
-	// Check if the slug is valid
-	if (!validImagePages.some((page) => page.page === slug)) {
+	// Check if the slug is valid + add 'artists' as a valid page
+	if (
+		slug !== 'artists' &&
+		!validImagePages.some((page) => page.page === slug)
+	) {
 		return notFound()
 	}
 
-	return <ImagesPageServer variant={slug} />
+	return <ImagesPageServer variant={slug === 'artists' ? 'list' : slug} />
 }

@@ -2,11 +2,11 @@
 
 import { useRef, useEffect } from 'react'
 
-import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
+import { useGSAP } from '@gsap/react'
 import { ScrollSmoother } from 'gsap/ScrollSmoother'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-gsap.registerPlugin(ScrollSmoother, ScrollTrigger)
+gsap.registerPlugin(ScrollSmoother, ScrollTrigger, useGSAP)
 
 import { Footer, Header } from '@/components'
 
@@ -29,31 +29,28 @@ export default function PageWrapper({
 
 	//* INITIALIZE GSAP SCROLLSMOOTHER *//
 	useGSAP(() => {
-		// Check if ScrollSmoother already exists and destroy it
+		// Only run on client side
+		if (typeof window === 'undefined') return
+
+		// Cleanup existing ScrollSmoother
 		if (scrollSmootherRef.current) {
 			scrollSmootherRef.current.kill()
+			scrollSmootherRef.current = null
 		}
 
 		// Create new ScrollSmoother
 		scrollSmootherRef.current = ScrollSmoother.create({
-			smooth: 1, // how long (in seconds) it takes to "catch up" to the native scroll position
-			effects: false, // looks for data-speed and data-lag attributes on elements
+			smooth: 1,
+			effects: false,
 		})
-
-		// Cleanup function
-		return () => {
-			if (scrollSmootherRef.current) {
-				scrollSmootherRef.current.kill()
-				scrollSmootherRef.current = null
-			}
-		}
 	}, [])
 
-	// Additional cleanup on unmount
+	// Cleanup on unmount
 	useEffect(() => {
 		return () => {
 			if (scrollSmootherRef.current) {
 				scrollSmootherRef.current.kill()
+				scrollSmootherRef.current = null
 			}
 		}
 	}, [])
