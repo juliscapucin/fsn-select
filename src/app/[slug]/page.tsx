@@ -5,19 +5,19 @@ import { ImagesPageServer } from '@/components'
 import { navLinks } from '@/lib/data'
 
 // Return a list of `params` to populate the [artist] dynamic segment
-export async function generateStaticParams() {
-	try {
-		// exclude home & get first 3 nav link pages
-		const imagePages = navLinks.slice(1, 4)
+// export async function generateStaticParams() {
+// 	try {
+// 		// exclude home & get first 3 nav link pages
+// 		const imagePages = navLinks.slice(1, 4)
 
-		return imagePages.map((page) => ({
-			page: page.slug.replace('/', ''),
-		}))
-	} catch (error) {
-		console.error('Error generating static params:', error)
-		return []
-	}
-}
+// 		return imagePages.map((page) => ({
+// 			page: page.slug.replace('/', ''),
+// 		}))
+// 	} catch (error) {
+// 		console.error('Error generating static params:', error)
+// 		return []
+// 	}
+// }
 
 export default async function Page({
 	params,
