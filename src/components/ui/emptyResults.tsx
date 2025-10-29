@@ -19,7 +19,8 @@ export default function EmptyResults({
 		<PageWrapper
 			variant='secondary'
 			hasContainer={false}
-			classes='flex flex-col items-center justify-center h-svh'>
+			classes='flex flex-col items-center justify-center h-svh'
+			pageName='empty results'>
 			<div>
 				<h1 className='heading-headline text-center text-pretty'>{lines[0]}</h1>
 				<div className='max-w-prose'>

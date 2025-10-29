@@ -90,7 +90,8 @@ export default function ArtistPage({
 				variant='secondary'
 				classes='overflow-clip md:pt-[var(--height-header)] bg-accent-1'
 				hasContainer={false}
-				hasFooter={false}>
+				hasFooter={false}
+				pageName='artist'>
 				{artistPhotos.length > 0 && artistInfo ? (
 					//* CAROUSEL OUTER CONTAINER *//
 					<div

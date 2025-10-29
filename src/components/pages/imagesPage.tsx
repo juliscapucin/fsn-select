@@ -129,7 +129,7 @@ export default function ImagesPage({ variant, photos }: ImagesPageProps) {
 					variant='listPage'
 				/>
 			)}
-			<PageWrapper variant='primary'>
+			<PageWrapper variant='primary' pageName={variant}>
 				{photos && photos.length > 0 ? (
 					<div className={containerClasses}>
 						{photos.map((photo, index) => {

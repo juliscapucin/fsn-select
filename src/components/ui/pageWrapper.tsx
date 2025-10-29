@@ -1,6 +1,7 @@
 'use client'
 
-import { useRef, useEffect } from 'react'
+import { useRef, useEffect, Fragment } from 'react'
+import { usePathname } from 'next/navigation'
 
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
@@ -16,6 +17,7 @@ type PageWrapperProps = {
 	children?: React.ReactNode
 	hasContainer?: boolean
 	hasFooter?: boolean
+	pageName: string
 }
 
 export default function PageWrapper({
@@ -24,9 +26,14 @@ export default function PageWrapper({
 	classes,
 	hasContainer = true,
 	hasFooter = true,
+	pageName,
 }: PageWrapperProps) {
+	const pathname = usePathname()
+
 	const scrollSmootherRef = useRef<ScrollSmoother | null>(null)
 	const pageContentRef = useRef<HTMLDivElement | null>(null)
+
+	console.log(pageName)
 
 	//* INITIALIZE GSAP SCROLLSMOOTHER *//
 	useGSAP(() => {
@@ -44,15 +51,33 @@ export default function PageWrapper({
 			smooth: 1,
 			effects: false,
 		})
-	}, [])
+	}, [pathname])
 
 	useGSAP(() => {
-		if (!pageContentRef.current) return
-		gsap.to(pageContentRef.current, {
-			clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
-			duration: 0.5,
-		})
-	}, [])
+		if (
+			pathname === '/' ||
+			(pathname === `/${pageName}` && pageContentRef.current)
+		) {
+			// Animate the clip-path to reveal the content
+			gsap.to(pageContentRef.current, {
+				clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
+				opacity: 1,
+				zIndex: 100,
+				duration: 1,
+				ease: 'power2.out',
+			})
+		} else {
+			// Animate the clip-path to hide the content
+			gsap.to(pageContentRef.current, {
+				clipPath: 'polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%)',
+				zIndex: 0,
+				opacity: 0,
+				duration: 1,
+				delay: 0.5,
+				ease: 'power2.in',
+			})
+		}
+	}, [pageName, pathname])
 
 	// Cleanup on unmount
 	useEffect(() => {
@@ -65,7 +90,7 @@ export default function PageWrapper({
 	}, [])
 
 	return (
-		<>
+		<Fragment key={pageName}>
 			{/* HEADER */}
 			<Header variant={variant === 'primary' ? 'secondary' : 'primary'} />
 			{/* GSAP SMOOTHER WRAPPER */}
@@ -113,6 +138,6 @@ export default function PageWrapper({
 					)}
 				</div>
 			</div>
-		</>
+		</Fragment>
 	)
 }
