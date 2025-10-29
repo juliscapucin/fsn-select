@@ -76,7 +76,7 @@ export default function ImageWithSpinner({
 					priority={priority}
 				/>
 			) : (
-				<EmptyResults message='Failed to load image.' />
+				<EmptyResults message='Failed to load image' variant='inline' />
 			)}
 		</div>
 	)

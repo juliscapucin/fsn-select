@@ -15,8 +15,6 @@ export async function generateStaticParams() {
 		}))
 	} catch (error) {
 		console.error('Error generating static params:', error)
-		// Return empty array if there's an error
-		return []
 	}
 }
 
