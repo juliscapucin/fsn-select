@@ -1,6 +1,6 @@
 import Link from 'next/link'
 
-import { PageWrapper } from '@/components'
+import { PageWrapper } from '@/components/ui'
 
 export default function NotFound() {
 	return (

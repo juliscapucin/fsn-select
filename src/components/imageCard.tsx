@@ -10,7 +10,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 gsap.registerPlugin(ScrollTrigger)
 import { useGSAP } from '@gsap/react'
 
-import { ImageWithSpinner } from '@/components'
+import { ImageWithSpinner } from '@/components/ui'
 import { UnsplashPhoto } from '@/services/unsplash/types'
 
 type ImageCardProps = React.AnchorHTMLAttributes<HTMLAnchorElement> & {

@@ -1,4 +1,4 @@
-import { ImagesPage } from '@/components'
+import { ImagesPage } from '@/components/pages'
 import { UnsplashPhoto } from '@/services/unsplash/types'
 
 import { getFashionBeautyTopicPhotos } from '@/queries/unsplash/photos'

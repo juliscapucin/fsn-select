@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation'
 
-import { ArtistPage, EmptyResults } from '@/components'
+import { EmptyResults } from '@/components/ui'
+import { ArtistPage } from '@/components/pages'
 import { getFashionBeautyTopicPhotos, getPhotosByArtist } from '@/queries'
 import { UnsplashPhoto } from '@/types/unsplash'
 

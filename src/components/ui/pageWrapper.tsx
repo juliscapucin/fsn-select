@@ -8,7 +8,7 @@ import { ScrollSmoother } from 'gsap/ScrollSmoother'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 gsap.registerPlugin(ScrollSmoother, ScrollTrigger)
 
-import { Footer, Header } from '@/components'
+import { Footer, Header } from '@/components/ui'
 
 type PageWrapperProps = {
 	variant: 'primary' | 'secondary' | 'accent'

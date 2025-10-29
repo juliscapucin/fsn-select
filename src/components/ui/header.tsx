@@ -10,7 +10,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin'
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin)
 
-import { MenuMobile, Logo } from '@/components'
+import { MenuMobile, Logo } from '@/components/ui'
 import { navLinks } from '@/lib/data'
 
 type HeaderProps = {

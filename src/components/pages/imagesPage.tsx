@@ -6,7 +6,8 @@ import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
 gsap.registerPlugin(useGSAP)
 
-import { EmptyResults, MouseFollower, PageWrapper } from '@/components'
+import { MouseFollower } from '@/components'
+import { EmptyResults, PageWrapper } from '@/components/ui'
 import { UnsplashPhoto } from '@/services/unsplash/types'
 
 import { ImageCard } from '@/components'

@@ -12,10 +12,10 @@ import { UnsplashPhoto } from '@/types/unsplash'
 import {
 	EmptyResults,
 	ExternalLink,
-	IconArrowUpRight,
 	ImageWithSpinner,
 	PageWrapper,
-} from '@/components'
+} from '@/components/ui'
+import { IconArrowUpRight } from '@/components/icons'
 
 type ArtistPageProps = {
 	artists: string[]

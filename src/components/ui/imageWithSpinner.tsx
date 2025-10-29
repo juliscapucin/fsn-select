@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import Image from 'next/image'
 import { UnsplashPhoto } from '@/types/unsplash'
-import { EmptyResults } from '@/components'
+import { EmptyResults } from '@/components/ui'
 
 type ImageWithSpinnerProps = React.HTMLAttributes<HTMLDivElement> & {
 	className?: string

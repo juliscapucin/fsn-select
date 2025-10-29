@@ -1,4 +1,4 @@
-import { PageWrapper } from '@/components'
+import { PageWrapper } from '@/components/ui'
 
 type EmptyResultsProps = {
 	message: string
@@ -32,8 +32,8 @@ export default function EmptyResults({
 			</div>
 		</PageWrapper>
 	) : (
-		<div className='w-full h-full flex items-center justify-center'>
-			<p className='heading-headline text-center text-pretty'>{message}</p>
+		<div className='w-full h-full min-h-96 flex items-center justify-center bg-accent-1'>
+			<p className='text-center text-pretty'>{message}</p>
 		</div>
 	)
 }

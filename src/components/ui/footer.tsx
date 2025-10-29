@@ -7,7 +7,7 @@ import { useGSAP } from '@gsap/react'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 gsap.registerPlugin(ScrollTrigger)
 
-import { ExternalLink, Logo } from '@/components'
+import { ExternalLink, Logo } from '@/components/ui'
 
 type FooterProps = {
 	variant: 'primary' | 'secondary'

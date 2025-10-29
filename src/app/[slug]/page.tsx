@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation'
 
-import { ImagesPageServer } from '@/components'
+import { ImagesPageServer } from '@/components/pages'
 
 import { navLinks } from '@/lib/data'
 

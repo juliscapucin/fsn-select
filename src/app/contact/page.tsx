@@ -1,4 +1,4 @@
-import { ImageWithSpinner, PageWrapper } from '@/components'
+import { ImageWithSpinner, PageWrapper } from '@/components/ui'
 import { getFashionBeautyTopicPhotos } from '@/queries/unsplash/photos'
 
 import { UnsplashPhoto } from '@/services/unsplash/types'
