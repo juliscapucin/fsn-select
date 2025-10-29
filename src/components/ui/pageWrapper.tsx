@@ -58,13 +58,7 @@ export default function PageWrapper({
 	return (
 		<>
 			{/* HEADER */}
-			<Header
-				variant={
-					variant === 'primary' || variant === 'accent'
-						? 'secondary'
-						: 'primary'
-				}
-			/>
+			<Header variant={variant === 'primary' ? 'secondary' : 'primary'} />
 			<div id='smooth-wrapper' className='z-0 pointer-events-none'>
 				{/* GSAP SMOOTHER CONTENT */}
 				<div
@@ -78,13 +72,9 @@ export default function PageWrapper({
 					}`}>
 					{/* PAGE CONTENT GRID */}
 					<div
-						className={`relative mx-auto min-h-screen pt-2 grid grid-cols-14 z-0 pointer-events-auto ${
+						className={`relative mx-auto grid grid-cols-14 z-0 pointer-events-auto ${
 							hasContainer ? 'container pb-32 md:pt-[var(--height-header)]' : ''
-						} ${
-							variant === 'primary' || variant === 'accent'
-								? 'text-secondary'
-								: 'text-primary'
-						}`}>
+						} ${variant === 'primary' ? 'text-secondary' : 'text-primary'}`}>
 						{/* MAIN CONTENT */}
 						{/* Keep children in column 2 to 13 */}
 						<main

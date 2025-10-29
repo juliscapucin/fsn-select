@@ -54,7 +54,7 @@ export default function ArtistPage({
 					animation: tl,
 					trigger: outerWrapper,
 					pin: true,
-					start: 'top top+=170',
+					start: 'top top+=160',
 					end: `+=${cardsWrapper.offsetWidth * 3}`,
 					scrub: 1,
 					invalidateOnRefresh: true,
@@ -88,20 +88,20 @@ export default function ArtistPage({
 		<>
 			<PageWrapper
 				variant='secondary'
-				classes='overflow-clip md:pt-[var(--height-header)]'
+				classes='overflow-clip md:pt-[var(--height-header)] bg-accent-1'
 				hasContainer={false}
 				hasFooter={false}>
 				{artistPhotos.length > 0 && artistInfo ? (
 					//* CAROUSEL OUTER CONTAINER *//
 					<div
-						className='relative md:h-content overflow-clip'
+						className='relative md:h-content overflow-clip pb-4'
 						ref={carouselContainerRef}>
 						{/* CARDS CONTAINER */}
 						<div
-							className='w-full md:w-fit md:h-content flex flex-col md:flex-row flex-nowrap gap-4 will-change-transform md:pl-[var(--height-header)] pb-4'
+							className='w-full md:w-fit md:h-full flex flex-col md:flex-row flex-nowrap gap-4 will-change-transform md:pl-[var(--height-header)]'
 							ref={cardsContainerRef}>
 							{/* HEADER */}
-							<header className='mb-8 w-container md:w-[32vw] h-full flex flex-col justify-between'>
+							<header className='w-container md:w-[32vw] h-full flex flex-col justify-between'>
 								<div>
 									{/* ARTIST NAME */}
 									{artistInfo.name && (
@@ -117,7 +117,7 @@ export default function ArtistPage({
 									)}
 								</div>
 
-								<div>
+								<div className='flex flex-col'>
 									{/* INSTAGRAM LINK */}
 									{artistInfo.social.instagram_username && (
 										<ExternalLink

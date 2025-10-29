@@ -26,9 +26,11 @@ body {
 } */
 
 :root {
-	--primary: #f5f3ea;
+	--primary: #dad5c9;
+	/* --primary: #f5f3ea; */
 	--secondary: #1f1a04;
-	--accent-1: #827c7a;
+	--accent-1: #38312e;
+	/* --accent-1: #827c7a; */
 	--accent-2: #fff2ec;
 	--accent-3: #dad5c9;
 	--accent-focus: #ff6e1f;
