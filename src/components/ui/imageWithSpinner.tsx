@@ -61,7 +61,7 @@ export default function ImageWithSpinner({
 			{!hasError ? (
 				<Image
 					className={className}
-					src={imageSrc.urls.regular}
+					src={imageSrc.urls.full}
 					alt={alt_description || altFallback}
 					sizes={sizes}
 					quality={quality}

@@ -20,11 +20,6 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
 	children,
-	contact,
-	about,
-	gallery,
-	grid,
-	list,
 }: Readonly<{
 	children: React.ReactNode
 	contact: React.ReactNode
@@ -36,7 +31,7 @@ export default function RootLayout({
 	return (
 		<html lang='en'>
 			<body
-				className={`${font.variable} antialiased font-primary bg-primary uppercase overflow-clip`}>
+				className={`${font.variable} antialiased font-primary uppercase bg-primary text-secondary`}>
 				{/* SKIP TO MAIN CONTENT LINK - for screen readers */}
 				<a
 					href='#main-content'
@@ -45,11 +40,6 @@ export default function RootLayout({
 				</a>
 
 				{children}
-				<div className='fixed inset-0'>{contact}</div>
-				<div className='fixed inset-0'>{grid}</div>
-				<div className='fixed inset-0'>{about}</div>
-				<div className='fixed inset-0'>{gallery}</div>
-				<div className='fixed inset-0'>{list}</div>
 			</body>
 		</html>
 	)

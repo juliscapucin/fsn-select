@@ -145,20 +145,21 @@ export default function ArtistPage({
 								return (
 									<a
 										key={photo.id}
-										className='relative block group cursor-pointer h-[70svh] md:min-h-full md:h-full w-full md:w-[20vw] md:min-w-[450px] md:max-w-[600px] overflow-clip'
+										className='relative block group cursor-pointer h-[70svh] md:min-h-full md:h-full w-full md:w-[30vw] md:min-w-[450px] md:max-w-[700px] overflow-clip'
 										target='_blank'
 										rel='noopener noreferrer'
-										href={photo.links.html}>
+										href={photo.links.html}
+										aria-label='View full image on Unsplash'>
 										{/* OVERLAY ARROW ICON */}
 										<div className='absolute left-4 bottom-4 bg-secondary rounded-full w-12 h-12 pl-0.5 pb-0.5 flex justify-center items-center z-10 transition-opacity duration-300 md:opacity-0 group-hover:opacity-100'>
-											<IconArrowUpRight color='white' />
+											<IconArrowUpRight color='primary' />
 										</div>
 										{/* IMAGE */}
 										<ImageWithSpinner
 											imageSrc={photo}
 											quality={75}
 											isFill={true}
-											sizes='(min-width: 640px) 30vw, 100vw'
+											sizes='(min-width: 640px) 50vw, 100vw'
 											className='relative h-full w-full object-cover transition-transform duration-300 group-hover:scale-105 will-change-transform'
 										/>
 									</a>

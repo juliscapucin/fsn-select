@@ -17,6 +17,24 @@ type HeaderProps = {
 	variant?: 'primary' | 'secondary'
 }
 
+function animatePageTransition(routerAction: () => void) {
+	gsap.fromTo(
+		'.gsap-page-transition',
+		{ xPercent: -100, duration: 0.6, ease: 'power2.out' },
+		{
+			xPercent: 0,
+			onComplete: () => {
+				routerAction()
+			},
+		}
+	)
+	gsap.to('.gsap-page-wrapper', {
+		xPercent: 50,
+		duration: 0.5,
+		ease: 'power2.out',
+	})
+}
+
 export default function Header({ variant }: HeaderProps) {
 	const router = useRouter()
 	const pathname = usePathname()
@@ -75,7 +93,7 @@ export default function Header({ variant }: HeaderProps) {
 						className='pointer-events-auto absolute left-0 top-0 bottom-0 opacity-0 -z-30'
 						onClick={(e) => {
 							e.preventDefault()
-							router.push('/')
+							animatePageTransition(() => router.push('/'))
 						}}
 						href='/'>
 						<div className='flex items-end gap-8 h-10'>
@@ -111,7 +129,7 @@ export default function Header({ variant }: HeaderProps) {
 									key={`panel-button-${index}`}
 									onClick={(e) => {
 										e.preventDefault()
-										router.push(link.slug)
+										animatePageTransition(() => router.push(link.slug))
 									}}
 									href={link.slug}>
 									<span
