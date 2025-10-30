@@ -10,6 +10,8 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { GSDevTools } from 'gsap/GSDevTools'
 gsap.registerPlugin(ScrollSmoother, ScrollTrigger, GSDevTools)
 
+import { registerTransitionRefs } from '@/lib/animations'
+
 import { Footer, Header } from '@/components/ui'
 
 type PageWrapperProps = {
@@ -93,6 +95,10 @@ export default function PageWrapper({
 
 	// Cleanup on unmount
 	useEffect(() => {
+		if (pageContentRef.current && pageTransitionRef.current) {
+			registerTransitionRefs(pageTransitionRef.current, pageContentRef.current)
+		}
+
 		return () => {
 			if (scrollSmootherRef.current) {
 				scrollSmootherRef.current.kill()
@@ -103,6 +109,7 @@ export default function PageWrapper({
 
 	return (
 		<Fragment key={pageName}>
+			{/* PAGE TRANSITION MASK */}
 			<div
 				ref={pageTransitionRef}
 				className='gsap-page-transition fixed inset-0 bg-secondary z-50'></div>
