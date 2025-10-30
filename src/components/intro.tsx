@@ -15,8 +15,6 @@ type IntroProps = {
 export default function Intro({ photos }: IntroProps) {
 	const introRef = useRef<HTMLDivElement>(null)
 
-	console.log(photos)
-
 	useGSAP(
 		() => {
 			if (!introRef.current) return

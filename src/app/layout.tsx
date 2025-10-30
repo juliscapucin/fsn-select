@@ -43,11 +43,6 @@ export default function RootLayout({
 	children,
 }: Readonly<{
 	children: React.ReactNode
-	contact: React.ReactNode
-	grid: React.ReactNode
-	about: React.ReactNode
-	gallery: React.ReactNode
-	list: React.ReactNode
 }>) {
 	return (
 		<html lang='en'>
