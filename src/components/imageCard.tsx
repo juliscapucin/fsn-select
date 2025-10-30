@@ -10,6 +10,8 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 gsap.registerPlugin(ScrollTrigger)
 import { useGSAP } from '@gsap/react'
 
+import { animatePageExit } from '@/lib/animations'
+
 import { ImageWithSpinner } from '@/components/ui'
 import { UnsplashPhoto } from '@/services/unsplash/types'
 
@@ -61,7 +63,9 @@ export default function ImageCard({
 					href={`/artists/${photo.user.username}`}
 					onClick={(e) => {
 						e.preventDefault()
-						router.push(`/artists/${photo.user.username}`)
+						animatePageExit(() =>
+							router.push(`/artists/${photo.user.username}`)
+						)
 					}}
 					{...props}>
 					{/* ARTIST NAME */}
@@ -78,7 +82,9 @@ export default function ImageCard({
 					className='relative group w-full mb-6 flex flex-col justify-start'
 					onClick={(e) => {
 						e.preventDefault()
-						router.push(`/artists/${photo.user.username}`)
+						animatePageExit(() =>
+							router.push(`/artists/${photo.user.username}`)
+						)
 					}}
 					href={`/artists/${photo.user.username}`}>
 					<ImageWithSpinner
@@ -108,7 +114,9 @@ export default function ImageCard({
 					className={`relative flex group w-full`}
 					onClick={(e) => {
 						e.preventDefault()
-						router.push(`/artists/${photo.user.username}`)
+						animatePageExit(() =>
+							router.push(`/artists/${photo.user.username}`)
+						)
 					}}
 					href={`/artists/${photo.user.username}`}>
 					{/* ARTIST NAME OVERLAY */}
