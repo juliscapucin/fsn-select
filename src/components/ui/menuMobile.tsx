@@ -3,9 +3,12 @@
 import { useRef, useState, useEffect } from 'react'
 import { usePathname, useRouter } from 'next/navigation'
 
+import gsap from 'gsap'
+
 import { ButtonBurger, ButtonClose } from '@/components/buttons'
 
 import type { NavLink } from '@/types/ui'
+import { useGSAP } from '@gsap/react'
 
 type NavLinksProps = {
 	navLinks: NavLink[]
@@ -26,23 +29,47 @@ const animateMobileMenu = (
 }
 
 export default function MenuMobile({ navLinks }: NavLinksProps) {
-	const mobileMenuRef = useRef(null)
+	const mobileMenuRef = useRef<HTMLDivElement | null>(null)
 	const pathname = usePathname()
 	const router = useRouter()
 
 	const [isMenuOpen, setIsMenuOpen] = useState(false)
 
 	const toggleMenu = (routerAction?: () => void) => {
-		setIsMenuOpen(!isMenuOpen)
-
-		animateMobileMenu(
-			mobileMenuRef.current,
-			routerAction ? routerAction : undefined
-		)
+		setIsMenuOpen((prev) => !prev)
+		if (routerAction) {
+			routerAction()
+		}
 	}
+
+	useGSAP(
+		() => {
+			if (!mobileMenuRef.current) return
+
+			if (isMenuOpen) {
+				gsap.to(mobileMenuRef.current, {
+					y: '0%',
+					duration: 0.5,
+					ease: 'power4.out',
+					onComplete: () => {
+						document.body.style.overflow = 'hidden'
+					},
+				})
+			} else {
+				document.body.style.overflow = 'unset'
+				gsap.to(mobileMenuRef.current, {
+					y: '-120%',
+					duration: 0.5,
+					ease: 'power4.in',
+				})
+			}
+		},
+		{ dependencies: [isMenuOpen], scope: mobileMenuRef }
+	)
 
 	// Handle escape key
 	useEffect(() => {
+		if (!isMenuOpen) return
 		const handleEscape = (e: KeyboardEvent) => {
 			if (e.key === 'Escape' && isMenuOpen) {
 				toggleMenu()
@@ -51,19 +78,6 @@ export default function MenuMobile({ navLinks }: NavLinksProps) {
 
 		document.addEventListener('keydown', handleEscape)
 		return () => document.removeEventListener('keydown', handleEscape)
-	}, [isMenuOpen])
-
-	// Prevent body scroll when menu is open
-	useEffect(() => {
-		if (isMenuOpen) {
-			document.body.style.overflow = 'hidden'
-		} else {
-			document.body.style.overflow = 'unset'
-		}
-
-		return () => {
-			document.body.style.overflow = 'unset'
-		}
 	}, [isMenuOpen])
 
 	return (
@@ -77,7 +91,7 @@ export default function MenuMobile({ navLinks }: NavLinksProps) {
 					aria-controls='mobile-menu'
 					aria-label={'Open navigation menu'}
 				/>
-				<header className='fixed top-2 right-0 left-0 z-50 pointer-events-none block h-dvh md:hidden'>
+				<header className='fixed top-2 right-0 left-0 z-50 pointer-events-none block h-dvh md:hidden gutter-stable'>
 					{/* EXPANDED MENU */}
 					<aside
 						className='z-50 pointer-events-auto fixed top-0 min-h-svh w-full -translate-y-[120%] bg-secondary transition-transform duration-300'

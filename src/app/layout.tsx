@@ -45,9 +45,9 @@ export default function RootLayout({
 	children: React.ReactNode
 }>) {
 	return (
-		<html lang='en'>
+		<html lang='en' className='overflow-hidden gutter-stable bg-secondary'>
 			<body
-				className={`${font.variable} antialiased font-primary uppercase bg-primary text-secondary`}>
+				className={`${font.variable} antialiased font-primary uppercase text-secondary`}>
 				{/* SKIP TO MAIN CONTENT LINK - for screen readers */}
 				<a
 					href='#main-content'

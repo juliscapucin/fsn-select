@@ -104,7 +104,7 @@ body {
 	}
 
 	*::-webkit-scrollbar-track {
-		background: var(--primary);
+		background: var(--secondary);
 	}
 
 	*::-webkit-scrollbar-thumb {
@@ -208,5 +208,14 @@ body {
 		100% {
 			mask-position: 150% 0;
 		}
+	}
+
+	/* UTILITIES */
+	.gutter-stable {
+		scrollbar-gutter: stable;
+	}
+
+	.gutter-auto {
+		scrollbar-gutter: auto;
 	}
 }

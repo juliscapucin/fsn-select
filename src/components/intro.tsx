@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 
 import gsap from 'gsap'
@@ -15,11 +15,17 @@ type IntroProps = {
 export default function Intro({ photos }: IntroProps) {
 	const introRef = useRef<HTMLDivElement>(null)
 
+	// INTRO ANIMATION TIMELINE
 	useGSAP(
 		() => {
 			if (!introRef.current) return
 
-			const tl = gsap.timeline()
+			const tl = gsap.timeline({
+				onComplete: () => {
+					document.documentElement.classList.remove('overflow-hidden')
+					document.documentElement.classList.add('gutter-stable')
+				},
+			})
 
 			// Animate background clip path
 			tl.to('.gsap-pic-bg', {
@@ -43,14 +49,18 @@ export default function Intro({ photos }: IntroProps) {
 					introRef.current,
 					{
 						clipPath: 'polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)',
-						duration: 1,
+						duration: 1.2,
 						ease: 'power4.out',
+						onComplete: () => {
+							document.body.style.overflow = 'unset'
+						},
 					},
 					'+=0.5' // wait 0.5s before starting this animation
 				)
 		},
 		{ dependencies: [], scope: introRef }
 	)
+
 	return (
 		<div
 			ref={introRef}
