@@ -112,7 +112,7 @@ export default function ImagesPage({ variant, photos }: ImagesPageProps) {
 								className='heading-display absolute overflow-clip'
 								key={photo.id}>
 								<div className='gsap-active-artist opacity-0 flex items-center justify-center h-32 w-full'>
-									<span className='block text-accent-3 w-fit md:text-nowrap text-center text-pretty'>
+									<span className='block text-white w-fit md:text-nowrap text-center text-pretty'>
 										{`[ ${photo.user.name} ]`}
 									</span>
 								</div>

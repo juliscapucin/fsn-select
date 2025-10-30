@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import localFont from 'next/font/local'
 import './globals.css'
+import { Intro } from '@/components'
 
 // Load custom font //
 const font = localFont({
@@ -38,6 +39,7 @@ export default function RootLayout({
 					className='fixed top-0 left-0 z-50 -translate-y-full bg-secondary text-primary px-4 py-2 underline focus:translate-y-0'>
 					Skip to main content
 				</a>
+				<Intro />
 
 				{children}
 			</body>

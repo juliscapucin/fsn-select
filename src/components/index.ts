@@ -1,5 +1,6 @@
 import ImageCard from './imageCard'
+import Intro from './intro'
 import MouseFollower from './mouseFollower'
 import ThemeToggle from './themeToggle'
 
-export { ImageCard, MouseFollower, ThemeToggle }
+export { ImageCard, Intro, MouseFollower, ThemeToggle }

@@ -75,6 +75,9 @@ body {
 	--height-header: calc(var(--spacing) * 40) /* [40] 10rem = 160px */;
 	--height-footer: calc(var(--spacing) * 150); /* [150] 37.5rem = 600px */
 	--height-content: calc(100svh - var(--height-header));
+
+	/* Widths */
+	--width-column: calc(100vw / 14);
 }
 
 @layer base {
@@ -175,7 +178,7 @@ body {
 	}
 
 	.heading-title {
-		@apply text-title-small font-normal sm:text-title-medium xl:text-title-large uppercase;
+		@apply text-title-small font-normal sm:text-title-medium xl:text-title-large uppercase leading-none text-pretty;
 	}
 
 	/* TEXT STYLES */
