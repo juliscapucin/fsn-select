@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef, useEffect } from 'react'
+import { useRef, useEffect, Fragment } from 'react'
 import { usePathname } from 'next/navigation'
 
 import gsap from 'gsap'
@@ -13,7 +13,7 @@ gsap.registerPlugin(ScrollSmoother, ScrollTrigger, GSDevTools)
 import { Footer, Header } from '@/components/ui'
 
 type PageWrapperProps = {
-	variant: 'primary' | 'secondary' | 'accent'
+	variant: 'primary' | 'secondary' | 'tertiary' | 'accent'
 	classes?: string
 	children?: React.ReactNode
 	hasContainer?: boolean
@@ -35,6 +35,23 @@ export default function PageWrapper({
 	const pageContentRef = useRef<HTMLDivElement | null>(null)
 	const pageTransitionRef = useRef<HTMLDivElement | null>(null)
 
+	let pageWrapperStyles = ''
+
+	switch (variant) {
+		case 'primary':
+			pageWrapperStyles = 'bg-primary text-secondary'
+			break
+		case 'secondary':
+			pageWrapperStyles = 'bg-secondary text-primary'
+			break
+		case 'tertiary':
+			pageWrapperStyles = 'bg-tertiary text-primary'
+			break
+		case 'accent':
+			pageWrapperStyles = 'bg-accent-1 text-primary'
+			break
+	}
+
 	//* INITIALIZE GSAP SCROLLSMOOTHER *//
 	useGSAP(() => {
 		// Only run on client side
@@ -53,6 +70,7 @@ export default function PageWrapper({
 		})
 	}, [pathname])
 
+	// * PAGE TRANSITION ANIMATION *//
 	useGSAP(() => {
 		if (!pageContentRef.current || !pageTransitionRef.current) return
 
@@ -84,7 +102,7 @@ export default function PageWrapper({
 	}, [])
 
 	return (
-		<>
+		<Fragment key={pageName}>
 			<div
 				ref={pageTransitionRef}
 				className='gsap-page-transition fixed inset-0 bg-secondary z-50'></div>
@@ -98,9 +116,7 @@ export default function PageWrapper({
 					<div
 						ref={pageContentRef}
 						className={`gsap-page-wrapper min-h-screen w-full pointer-events-auto ${
-							variant === 'primary'
-								? 'bg-primary text-secondary'
-								: 'bg-secondary text-primary'
+							pageWrapperStyles ? pageWrapperStyles : ''
 						}`}>
 						{/* PAGE CONTENT GRID */}
 						<div
@@ -126,7 +142,9 @@ export default function PageWrapper({
 					{hasFooter && (
 						<Footer
 							variant={
-								variant === 'primary' || variant === 'accent'
+								variant === 'primary' ||
+								variant === 'accent' ||
+								variant === 'tertiary'
 									? 'secondary'
 									: 'primary'
 							}
@@ -134,6 +152,6 @@ export default function PageWrapper({
 					)}
 				</div>
 			</div>
-		</>
+		</Fragment>
 	)
 }

@@ -51,7 +51,7 @@ export default function Footer({ variant }: FooterProps) {
 		<footer
 			ref={footerContainerRef}
 			className={`h-footer pointer-events-auto overflow-clip ${
-				variant === 'primary' ? 'bg-accent-1' : 'bg-secondary'
+				variant === 'primary' ? 'bg-primary' : 'bg-secondary'
 			}`}>
 			{/* CONTENT */}
 			<div
