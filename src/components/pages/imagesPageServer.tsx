@@ -6,7 +6,7 @@ import { EmptyResults } from '@/components/ui'
 import { ImagesPage } from '@/components/pages'
 import { UnsplashPhoto } from '@/services/unsplash/types'
 
-import { getFashionBeautyTopicPhotos } from '@/queries/unsplash/photos'
+import { getFashionBeautyTopicPhotos } from '@/queries'
 
 let photos: UnsplashPhoto[] = []
 let errorState: {

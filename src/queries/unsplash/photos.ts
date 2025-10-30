@@ -17,8 +17,9 @@ export async function getFashionBeautyTopicPhotos(
 // Get random photos from the fashion-beauty topic
 export async function getRandomFashionBeautyTopicPhotos(
 	count?: number
-): Promise<UnsplashPhoto[]> {
-	return unsplashService.getRandomFashionBeautyPhotos(count)
+): Promise<string[]> {
+	const photos = await unsplashService.getRandomFashionBeautyPhotos(count)
+	return photos.map((photo) => photo.urls.small)
 }
 
 // Get photos by a specific artist (username)
