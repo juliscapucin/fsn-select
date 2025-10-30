@@ -1,5 +1,5 @@
 type IconArrowProps = {
-	color?: string
+	color?: 'primary' | 'secondary'
 }
 
 export default function IconArrowUpRight({ color }: IconArrowProps) {

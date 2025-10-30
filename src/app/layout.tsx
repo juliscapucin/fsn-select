@@ -2,6 +2,27 @@ import type { Metadata } from 'next'
 import localFont from 'next/font/local'
 import './globals.css'
 
+import { getFashionBeautyTopicPhotos } from '@/queries'
+import handleError from '@/lib/handleError'
+
+let introPhotos: string[] = []
+let errorState: {
+	type: 'not_found' | 'api_error' | 'network_error' | 'rate_limit'
+	message: string
+} | null = null
+
+import { Intro } from '@/components'
+
+try {
+	introPhotos = await getFashionBeautyTopicPhotos({
+		page: 1,
+		per_page: 10,
+	}).then((photos) => photos.map((photo) => photo.urls.small))
+} catch (error) {
+	console.error('Error fetching intro photos:', error)
+	errorState = handleError(error)
+}
+
 // Load custom font //
 const font = localFont({
 	variable: '--font-pp-neue-corp',
@@ -20,36 +41,24 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
 	children,
-	contact,
-	about,
-	gallery,
-	grid,
-	list,
 }: Readonly<{
 	children: React.ReactNode
-	contact: React.ReactNode
-	grid: React.ReactNode
-	about: React.ReactNode
-	gallery: React.ReactNode
-	list: React.ReactNode
 }>) {
 	return (
 		<html lang='en'>
 			<body
-				className={`${font.variable} antialiased font-primary bg-primary uppercase overflow-clip`}>
+				className={`${font.variable} antialiased font-primary uppercase bg-primary text-secondary`}>
 				{/* SKIP TO MAIN CONTENT LINK - for screen readers */}
 				<a
 					href='#main-content'
 					className='fixed top-0 left-0 z-50 -translate-y-full bg-secondary text-primary px-4 py-2 underline focus:translate-y-0'>
 					Skip to main content
 				</a>
+				{introPhotos.length > 0 && !errorState && (
+					<Intro photos={introPhotos} />
+				)}
 
 				{children}
-				<div className='fixed inset-0'>{contact}</div>
-				<div className='fixed inset-0'>{grid}</div>
-				<div className='fixed inset-0'>{about}</div>
-				<div className='fixed inset-0'>{gallery}</div>
-				<div className='fixed inset-0'>{list}</div>
 			</body>
 		</html>
 	)

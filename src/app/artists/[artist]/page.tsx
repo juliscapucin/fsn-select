@@ -1,5 +1,7 @@
 import { notFound } from 'next/navigation'
 
+import handleError from '@/lib/handleError'
+
 import { EmptyResults } from '@/components/ui'
 import { ArtistPage } from '@/components/pages'
 import { getFashionBeautyTopicPhotos, getPhotosByArtist } from '@/queries'
@@ -74,37 +76,7 @@ export default async function Page({
 	} catch (error) {
 		console.error(`Error fetching photos for artist "${artist}":`, error)
 
-		// Specific error handling based on error type
-		if (error instanceof Error) {
-			if (error.message.includes('404')) {
-				errorState = {
-					type: 'not_found',
-					message: `Artist "${artist}" was not found. Please check the spelling or try a different artist.`,
-				}
-			} else if (
-				error.message.includes('403') ||
-				error.message.includes('rate limit')
-			) {
-				errorState = {
-					type: 'rate_limit',
-					message: `We're currently experiencing high traffic. Please try viewing "${artist}'s" photos again in a few minutes.`,
-				}
-			} else if (
-				error.message.includes('500') ||
-				error.message.includes('502') ||
-				error.message.includes('503')
-			) {
-				errorState = {
-					type: 'api_error',
-					message: `Our image service is temporarily unavailable. We're working to restore access to "${artist}'s" photos.`,
-				}
-			} else {
-				errorState = {
-					type: 'network_error',
-					message: `Unable to load "${artist}'s" photos. Please check your internet connection and try again.`,
-				}
-			}
-		}
+		errorState = handleError(error)
 	}
 
 	if (errorState?.type === 'not_found') {

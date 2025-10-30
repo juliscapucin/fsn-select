@@ -7,12 +7,13 @@ import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
 import { ScrollSmoother } from 'gsap/ScrollSmoother'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-gsap.registerPlugin(ScrollSmoother, ScrollTrigger)
+import { GSDevTools } from 'gsap/GSDevTools'
+gsap.registerPlugin(ScrollSmoother, ScrollTrigger, GSDevTools)
 
 import { Footer, Header } from '@/components/ui'
 
 type PageWrapperProps = {
-	variant: 'primary' | 'secondary' | 'accent'
+	variant: 'primary' | 'secondary' | 'tertiary' | 'accent'
 	classes?: string
 	children?: React.ReactNode
 	hasContainer?: boolean
@@ -32,8 +33,24 @@ export default function PageWrapper({
 
 	const scrollSmootherRef = useRef<ScrollSmoother | null>(null)
 	const pageContentRef = useRef<HTMLDivElement | null>(null)
+	const pageTransitionRef = useRef<HTMLDivElement | null>(null)
 
-	console.log(pageName)
+	let pageWrapperStyles = ''
+
+	switch (variant) {
+		case 'primary':
+			pageWrapperStyles = 'bg-primary text-secondary'
+			break
+		case 'secondary':
+			pageWrapperStyles = 'bg-secondary text-primary'
+			break
+		case 'tertiary':
+			pageWrapperStyles = 'bg-tertiary text-primary'
+			break
+		case 'accent':
+			pageWrapperStyles = 'bg-accent-1 text-primary'
+			break
+	}
 
 	//* INITIALIZE GSAP SCROLLSMOOTHER *//
 	useGSAP(() => {
@@ -53,30 +70,25 @@ export default function PageWrapper({
 		})
 	}, [pathname])
 
+	// * PAGE TRANSITION ANIMATION *//
 	useGSAP(() => {
-		if (
-			pathname === '/' ||
-			(pathname === `/${pageName}` && pageContentRef.current)
-		) {
-			// Animate the clip-path to reveal the content
-			gsap.to(pageContentRef.current, {
-				clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
-				opacity: 1,
-				zIndex: 100,
-				duration: 1,
-				ease: 'power2.out',
-			})
-		} else {
-			// Animate the clip-path to hide the content
-			gsap.to(pageContentRef.current, {
-				clipPath: 'polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%)',
-				zIndex: 0,
-				opacity: 0,
-				duration: 1,
-				delay: 0.5,
-				ease: 'power2.in',
-			})
-		}
+		if (!pageContentRef.current || !pageTransitionRef.current) return
+
+		gsap.set(pageContentRef.current, { xPercent: -50 })
+
+		// Animate the mask to reveal the content
+		gsap.to(pageTransitionRef.current, {
+			duration: 0.6,
+			xPercent: 100,
+			ease: 'power2.out',
+		})
+		gsap.to(pageContentRef.current, {
+			xPercent: 0,
+			duration: 0.5,
+			ease: 'power2.out',
+		})
+
+		// GSDevTools.create()
 	}, [pageName, pathname])
 
 	// Cleanup on unmount
@@ -91,6 +103,9 @@ export default function PageWrapper({
 
 	return (
 		<Fragment key={pageName}>
+			<div
+				ref={pageTransitionRef}
+				className='gsap-page-transition fixed inset-0 bg-secondary z-50'></div>
 			{/* HEADER */}
 			<Header variant={variant === 'primary' ? 'secondary' : 'primary'} />
 			{/* GSAP SMOOTHER WRAPPER */}
@@ -100,11 +115,8 @@ export default function PageWrapper({
 					{/* PAGE CONTENT BACKGROUND / MASK */}
 					<div
 						ref={pageContentRef}
-						style={{ clipPath: 'polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%)' }} // mask's initial state
-						className={`min-h-screen w-full pointer-events-auto ${
-							variant === 'primary'
-								? 'bg-primary text-secondary'
-								: 'bg-secondary text-primary'
+						className={`gsap-page-wrapper min-h-screen w-full pointer-events-auto ${
+							pageWrapperStyles ? pageWrapperStyles : ''
 						}`}>
 						{/* PAGE CONTENT GRID */}
 						<div
@@ -130,7 +142,9 @@ export default function PageWrapper({
 					{hasFooter && (
 						<Footer
 							variant={
-								variant === 'primary' || variant === 'accent'
+								variant === 'primary' ||
+								variant === 'accent' ||
+								variant === 'tertiary'
 									? 'secondary'
 									: 'primary'
 							}

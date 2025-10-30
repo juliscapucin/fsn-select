@@ -102,7 +102,7 @@ export default function ArtistPage({
 							className='w-full md:w-fit md:h-full flex flex-col md:flex-row flex-nowrap gap-4 will-change-transform md:pl-[var(--height-header)]'
 							ref={cardsContainerRef}>
 							{/* HEADER */}
-							<header className='w-container md:w-[32vw] h-full flex flex-col justify-between'>
+							<header className='w-container md:w-[32vw] md:min-w-[450px] md:max-w-[800px] h-full flex flex-col justify-between'>
 								<div>
 									{/* ARTIST NAME */}
 									{artistInfo.name && (
@@ -111,15 +111,16 @@ export default function ArtistPage({
 
 									{/* BIO AND LOCATION */}
 									{artistInfo.bio && (
-										<p className='mt-4 text-pretty'>{artistInfo.bio}</p>
+										<p className='heading-title mt-4 mr-32'>{artistInfo.bio}</p>
 									)}
 									{artistInfo.location && (
 										<p className='mt-4'>Location: {artistInfo.location}</p>
 									)}
 								</div>
 
-								<div className='flex flex-col'>
-									{/* INSTAGRAM LINK */}
+								{/* EXTERNAL LINKS */}
+								<div className='flex flex-col mb-8'>
+									{/* INSTAGRAM */}
 									{artistInfo.social.instagram_username && (
 										<ExternalLink
 											variant='primary'
@@ -129,7 +130,7 @@ export default function ArtistPage({
 										</ExternalLink>
 									)}
 
-									{/* UNSPLASH LINK */}
+									{/* UNSPLASH */}
 									{artistInfo.username && (
 										<ExternalLink
 											variant='primary'
@@ -145,51 +146,53 @@ export default function ArtistPage({
 								return (
 									<a
 										key={photo.id}
-										className='relative block group cursor-pointer h-[70svh] md:min-h-full md:h-full w-full md:w-[20vw] md:min-w-[450px] md:max-w-[600px] overflow-clip'
+										className='relative block group cursor-pointer h-[70svh] md:min-h-full md:h-full w-full md:w-[32vw] md:min-w-[450px] md:max-w-[800px] overflow-clip'
 										target='_blank'
 										rel='noopener noreferrer'
-										href={photo.links.html}>
+										href={photo.links.html}
+										aria-label='View full image on Unsplash'>
 										{/* OVERLAY ARROW ICON */}
 										<div className='absolute left-4 bottom-4 bg-secondary rounded-full w-12 h-12 pl-0.5 pb-0.5 flex justify-center items-center z-10 transition-opacity duration-300 md:opacity-0 group-hover:opacity-100'>
-											<IconArrowUpRight color='white' />
+											<IconArrowUpRight color='primary' />
 										</div>
 										{/* IMAGE */}
 										<ImageWithSpinner
 											imageSrc={photo}
 											quality={75}
 											isFill={true}
-											sizes='(min-width: 640px) 30vw, 100vw'
-											className='relative h-full w-full object-cover transition-transform duration-300 group-hover:scale-105 will-change-transform'
+											sizes='(min-width: 640px) 50vw, 100vw'
+											imageClassName='relative h-full w-full object-cover transition-transform duration-300 group-hover:scale-105 will-change-transform'
+											bgColor='bg-secondary'
 										/>
 									</a>
 								)
 							})}
 
 							{/* PREVIOUS / NEXT BUTTONS */}
-							{artists.length > 1 && artistInfo && (
-								<div className='flex'>
-									<div className='w-full md:w-96 md:h-full flex items-end justify-start md:justify-end text-link-lg'>
-										<div className='flex flex-col'>
-											<span className='text-nowrap'>Next Artist:</span>
+							<div className='relative w-[50vw] md:h-full flex items-center justify-center text-link-lg md:pr-0 gap-8 md:flex-col md:gap-4 mr-[var(--width-column)]'>
+								{artists.length > 1 && artistInfo && (
+									<div className='mr-[var(--width-column)] text-center'>
+										<p className='heading-headline text-nowrap block mb-2'>
+											Next Artist
+										</p>
 
-											<div>
-												<span className='text-nowrap'>{`[->] `}</span>
-												<button
-													className='text-link-lg underlined-link'
-													onClick={() => handleNavigation('next')}>
-													{
-														artists[
-															(artists.indexOf(artistInfo.username) + 1) %
-																artists.length
-														]
-													}
-												</button>
-											</div>
+										<div>
+											<button
+												className='text-link-lg underlined-link mr-2'
+												onClick={() => handleNavigation('next')}
+												aria-label='Navigate to next artist'>
+												{
+													artists[
+														(artists.indexOf(artistInfo.username) + 1) %
+															artists.length
+													]
+												}
+											</button>
+											<span className='text-nowrap'>{`[->] `}</span>
 										</div>
 									</div>
-									<div className='hidden md:block md:w-96 md:h-full'></div>
-								</div>
-							)}
+								)}
+							</div>
 						</div>
 					</div>
 				) : (

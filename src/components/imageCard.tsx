@@ -85,13 +85,13 @@ export default function ImageCard({
 						imageSrc={photo}
 						quality={75}
 						sizes='(min-width: 640px) 100vw, 100vw'
-						className='w-full object-cover'
+						imageClassName='w-full object-cover'
 					/>
 					<ImageWithSpinner
 						imageSrc={photo}
 						quality={75}
 						sizes='(min-width: 640px) 30vw, 30vw'
-						className='absolute top-0 left-0 w-full h-auto object-cover transition-all duration-300 group-hover:opacity-100 group-hover:mix-blend-exclusion group-hover:translate-x-4 group-hover:-translate-y-4'
+						imageClassName='absolute top-0 left-0 w-full h-auto object-cover transition-all duration-300 group-hover:opacity-100 group-hover:mix-blend-exclusion group-hover:translate-x-4 group-hover:-translate-y-4'
 					/>
 					{/* ARTIST NAME */}
 					<p className='underlined-link text-link-lg w-fit mt-2 group-hover:opacity-50'>
@@ -125,13 +125,13 @@ export default function ImageCard({
 							imageSrc={photo}
 							quality={75}
 							sizes='(min-width: 640px) 50vw, 50vw'
-							className='w-full h-full object-cover group-hover:scale-105 transition-transform duration-300'
+							imageClassName='w-full h-full object-cover group-hover:scale-105 transition-transform duration-300'
 						/>
 						<ImageWithSpinner
 							imageSrc={photo}
 							quality={75}
 							sizes='(min-width: 640px) 50vw, 50vw'
-							className='
+							imageClassName='
 							absolute inset-0 w-full h-full object-cover
 							mix-blend-exclusion
 							opacity-0 group-hover:opacity-100

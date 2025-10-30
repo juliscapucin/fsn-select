@@ -6,9 +6,10 @@ import { UnsplashPhoto } from '@/types/unsplash'
 import { EmptyResults } from '@/components/ui'
 
 type ImageWithSpinnerProps = React.HTMLAttributes<HTMLDivElement> & {
-	className?: string
+	imageClassName?: string
 	wrapperClassName?: string
 	spinnerClassName?: string
+	bgColor?: string
 	sizes: string
 	quality?: number
 	priority?: boolean
@@ -19,9 +20,10 @@ type ImageWithSpinnerProps = React.HTMLAttributes<HTMLDivElement> & {
 }
 
 export default function ImageWithSpinner({
-	className = '',
+	imageClassName = '',
 	wrapperClassName = '',
 	spinnerClassName = '',
+	bgColor = 'bg-accent-3',
 	sizes,
 	quality = 75,
 	priority = false,
@@ -47,7 +49,7 @@ export default function ImageWithSpinner({
 			aria-live='polite'>
 			{showSpinner && isLoading && !hasError && (
 				<div
-					className={`bg-accent-1 absolute inset-0 z-10 grid place-items-center ${spinnerClassName}`}
+					className={`absolute inset-0 z-10 grid place-items-center ${spinnerClassName} ${bgColor}`}
 					role='status'
 					aria-label='Loading image'>
 					<div className='relative aspect-square w-[10%] min-w-12 motion-safe:animate-spin'>
@@ -60,8 +62,8 @@ export default function ImageWithSpinner({
 
 			{!hasError ? (
 				<Image
-					className={className}
-					src={imageSrc.urls.regular}
+					className={imageClassName}
+					src={imageSrc.urls.full}
 					alt={alt_description || altFallback}
 					sizes={sizes}
 					quality={quality}

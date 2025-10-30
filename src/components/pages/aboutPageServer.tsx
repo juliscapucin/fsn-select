@@ -1,5 +1,5 @@
 import { ImageWithSpinner, PageWrapper } from '@/components/ui'
-import { getFashionBeautyTopicPhotos } from '@/queries/unsplash/photos'
+import { getFashionBeautyTopicPhotos } from '@/queries'
 
 import { UnsplashPhoto } from '@/services/unsplash/types'
 
@@ -17,7 +17,7 @@ export default async function AboutPageServer() {
 		console.error('Error fetching fashion-beauty topic photos:', error)
 	}
 	return (
-		<PageWrapper variant='accent' pageName='about'>
+		<PageWrapper variant='tertiary' pageName='about'>
 			<div className='grid grid-cols-6 lg:grid-cols-12 w-full gap-2 mt-2'>
 				{/* LEFT CONTENT */}
 				<div className='hidden md:block col-start-1 col-span-3 self-end'>
