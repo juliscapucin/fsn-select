@@ -39,7 +39,7 @@ export default function RootLayout({
 					className='fixed top-0 left-0 z-50 -translate-y-full bg-secondary text-primary px-4 py-2 underline focus:translate-y-0'>
 					Skip to main content
 				</a>
-				<Intro />
+				{/* <Intro /> */}
 
 				{children}
 			</body>
