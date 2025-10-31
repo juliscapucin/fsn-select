@@ -76,7 +76,7 @@ export default function PageWrapper({
 	useGSAP(() => {
 		if (!pageContentRef.current || !pageTransitionRef.current) return
 
-		gsap.set(pageContentRef.current, { xPercent: -50 })
+		gsap.set(pageContentRef.current, { xPercent: -30 })
 
 		// Animate the mask to reveal the content
 		gsap.to(pageTransitionRef.current, {
@@ -115,6 +115,13 @@ export default function PageWrapper({
 				className='gsap-page-transition fixed inset-0 bg-secondary z-50'></div>
 			{/* HEADER */}
 			<Header variant={variant === 'primary' ? 'secondary' : 'primary'} />
+
+			{/* OVERLAY TO COVER LOGO WHEN SCROLLING TO FOOTER */}
+			{/* <div
+				className={`w-10 h-footer absolute -bottom-[var(--height-footer)] left-0 z-500 ${
+					variant === 'primary' ? 'bg-primary' : 'bg-secondary'
+				}`}></div> */}
+
 			{/* GSAP SMOOTHER WRAPPER */}
 			<div id='smooth-wrapper' className='z-0 pointer-events-none'>
 				{/* GSAP SMOOTHER CONTENT */}
@@ -128,16 +135,14 @@ export default function PageWrapper({
 						{/* PAGE CONTENT GRID */}
 						<div
 							className={`relative mx-auto grid grid-cols-14 z-0 pointer-events-auto ${
-								hasContainer
-									? 'container pb-32 md:pt-[var(--height-header)]'
-									: ''
+								hasContainer ? 'container pb-32' : ''
 							}`}>
 							{/* MAIN CONTENT */}
 							{/* Keep children in column 2 to 13 */}
 							<main
 								id='main-content' // Add id for skip link
 								tabIndex={-1} // Make focusable for skip link
-								className={`col-start-3 md:col-start-2 col-end-15 md:col-end-14 ${
+								className={`col-start-3 md:col-start-2 xl-col-start-1 col-end-15 md:col-end-14 xl:col-end-14 ${
 									classes ? classes : ''
 								}`}>
 								{children}

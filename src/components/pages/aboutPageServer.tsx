@@ -47,7 +47,7 @@ export default async function AboutPageServer() {
 							imagery, featuring recent work from photographers on Unsplash.
 						</p>
 						<p className='mt-4'>
-							*This collection evolves over time so you can explore, connect and
+							The collection evolves over time so you can explore, connect and
 							collaborate with image makers from all over the world.
 						</p>
 					</div>

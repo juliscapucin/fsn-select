@@ -71,7 +71,7 @@ export default function Intro({ photos }: IntroProps) {
 					<Logo variant='primary' />
 				</div>
 				<div
-					className='relative gsap-pic-bg w-[400px] h-[500px] bg-primary p-8'
+					className='gsap-pic-bg relative w-[400px] h-[500px] bg-primary p-8'
 					style={{ clipPath: 'polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)' }} // mask's initial state
 				>
 					{photos &&

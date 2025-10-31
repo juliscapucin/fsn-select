@@ -50,13 +50,13 @@ export default function Footer({ variant }: FooterProps) {
 	return (
 		<footer
 			ref={footerContainerRef}
-			className={`h-footer pointer-events-auto overflow-clip ${
+			className={`relative h-footer pointer-events-auto overflow-clip grid grid-cols-14 ${
 				variant === 'primary' ? 'bg-primary' : 'bg-secondary'
 			}`}>
 			{/* CONTENT */}
 			<div
 				ref={footerContentRef}
-				className={`relative h-full w-full px-2 ${
+				className={`relative h-full w-full px-2 col-start-2 col-end-14 ${
 					variant === 'primary' ? 'text-secondary' : 'text-primary'
 				} transition-[background-color] duration-800 container mx-auto py-8 flex flex-col`}>
 				<p className='text-paragraph'>

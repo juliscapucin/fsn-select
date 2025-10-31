@@ -27,37 +27,6 @@ export default function Header({ variant }: HeaderProps) {
 	const headerContainerRef = useRef<HTMLDivElement>(null)
 	const headerContentRef = useRef<HTMLAnchorElement>(null)
 
-	// HEADER SCROLLTRIGGER ANIMATION
-	useGSAP(() => {
-		if (!headerContainerRef.current || !headerContentRef.current) return
-
-		ScrollTrigger.getById('header')?.kill()
-		gsap.set(window, { scrollTo: 0 })
-
-		const tl = gsap.timeline({
-			scrollTrigger: {
-				id: 'header',
-				trigger: headerContainerRef.current,
-				start: 'top top',
-				scrub: 1,
-				// markers: true,
-			},
-		})
-
-		tl.set(headerContentRef.current, {
-			transformOrigin: 'top right',
-			rotate: -90,
-			yPercent: 100,
-			xPercent: -100,
-			opacity: 1,
-		}).fromTo(
-			headerContentRef.current,
-			{ yPercent: 100 },
-			{ yPercent: 0 },
-			0 // start at the same time as previous tween
-		)
-	}, [pathname])
-
 	return (
 		<>
 			<MenuMobile navLinks={navLinks} />
@@ -69,11 +38,11 @@ export default function Header({ variant }: HeaderProps) {
 				} z-50`}>
 				<div
 					ref={headerContainerRef}
-					className='mx-auto h-header w-full container flex items-start justify-end'>
+					className='mx-auto h-full w-full container flex items-start justify-end'>
 					{/* VERTICAL HEADER */}
 					<Link
 						ref={headerContentRef}
-						className='pointer-events-auto absolute left-0 top-0 bottom-0 opacity-0 -z-30'
+						className='pointer-events-auto absolute left-0 top-0 bottom-0 -translate-x-full origin-top-right -rotate-90'
 						onClick={(e) => {
 							e.preventDefault()
 							animatePageExit(() => router.push('/'))
