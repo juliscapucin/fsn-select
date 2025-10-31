@@ -38,10 +38,12 @@ export default async function AboutPageServer() {
 								sizes='(min-width: 640px) 30vw, 30vw'
 							/>
 						)}
-						<h1 className='heading-display text-nowrap mt-8'>About</h1>
+						<h1 className='heading-display text-nowrap mt-8 text-center'>
+							About
+						</h1>
 					</div>
 
-					<div className='col-start-2 col-span-4 md:col-span-5 mt-4 text-paragraph'>
+					<div className='col-start-1 col-span-5 md:col-span-4 mt-4 text-paragraph text-center text-pretty'>
 						<p>
 							This is a curated selection of contemporary Fashion & Beauty
 							imagery, featuring recent work from photographers on Unsplash.

@@ -59,7 +59,7 @@ export default function ImageCard({
 			return (
 				<Link
 					key={photo.id}
-					className='group relative flex items-center justify-center w-full'
+					className='heading-headline relative flex items-center justify-center underlined-link w-fit opacity-50 transition-opacity duration-300 hover:opacity-100'
 					href={`/artists/${photo.user.username}`}
 					onClick={(e) => {
 						e.preventDefault()
@@ -69,9 +69,7 @@ export default function ImageCard({
 					}}
 					{...props}>
 					{/* ARTIST NAME */}
-					<p className='underlined-link heading-headline w-fit'>
-						{photo.user.name}
-					</p>
+					{photo.user.name}
 				</Link>
 			)
 		// * GRID VARIANT */
