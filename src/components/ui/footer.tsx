@@ -56,29 +56,36 @@ export default function Footer({ variant }: FooterProps) {
 			{/* CONTENT */}
 			<div
 				ref={footerContentRef}
-				className={`relative h-full w-full px-2 col-start-2 col-end-14 ${
+				className={`relative w-full px-2 col-start-2 col-end-14 transition-[background-color] duration-800 container mx-auto py-8 flex flex-col ${
 					variant === 'primary' ? 'text-secondary' : 'text-primary'
-				} transition-[background-color] duration-800 container mx-auto py-8 flex flex-col`}>
-				<p className='text-paragraph'>
-					Images featured in this collection are sourced from Unsplash and
-					remain the property of their respective photographers. Please review
-					individual licenses on Unsplash before reuse.
-				</p>
-				<p className='text-paragraph mt-8'>
-					Read more about Terms & Conditions, Cookies, and Privacy Policies at{' '}
-					<ExternalLink
-						variant={variant === 'primary' ? 'secondary' : 'primary'}
-						href='https://unsplash.com/license'>
-						Unsplash.com
-					</ExternalLink>{' '}
-				</p>
-				<div className='flex-1 flex flex-col md:flex-row w-full md:items-end md:justify-between mt-8 md:mt-0 md:mb-8'>
-					<div>
-						<Logo variant={variant === 'primary' ? 'secondary' : 'primary'} />
+				}`}>
+				{/* LOGO */}
+				<div className='my-8 scale-150 origin-top-left'>
+					<Logo variant={variant === 'primary' ? 'secondary' : 'primary'} />
+				</div>
+				{/* COPYRIGHT */}
+				<p>© {new Date().getFullYear()} All rights reserved</p>
 
-						{/* COPYRIGHT */}
-						<p>© {new Date().getFullYear()} All rights reserved</p>
+				<div className='flex-1 flex w-full items-end justify-between'>
+					{/* TERMS */}
+					<div>
+						<p className='text-paragraph'>
+							Images featured in this collection are sourced from Unsplash and
+							remain the property of their respective photographers. Please
+							review individual licenses on Unsplash before reuse.
+						</p>
+						<p className='text-paragraph mt-8'>
+							Read more about Terms & Conditions, Cookies, and Privacy Policies
+							at{' '}
+							<ExternalLink
+								variant={variant === 'primary' ? 'secondary' : 'primary'}
+								href='https://unsplash.com/license'>
+								Unsplash.com
+							</ExternalLink>{' '}
+						</p>
 					</div>
+
+					{/* CREDIT */}
 					<p className='mt-4 md:mt-0'>
 						Crafted by{' '}
 						<ExternalLink

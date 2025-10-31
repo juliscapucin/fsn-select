@@ -41,7 +41,7 @@ export default async function AboutPageServer() {
 						<h1 className='heading-display text-nowrap mt-8'>About</h1>
 					</div>
 
-					<div className='col-start-2 col-span-5 mt-4 text-paragraph'>
+					<div className='col-start-2 col-span-4 md:col-span-5 mt-4 text-paragraph'>
 						<p>
 							This is a curated selection of contemporary Fashion & Beauty
 							imagery, featuring recent work from photographers on Unsplash.
