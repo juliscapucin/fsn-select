@@ -60,13 +60,15 @@ export default function Footer({ variant }: FooterProps) {
 					variant === 'primary' ? 'text-secondary' : 'text-primary'
 				}`}>
 				{/* LOGO */}
-				<div className='my-8 scale-150 origin-top-left'>
+				<div className='mt-8 md:mb-8 md:scale-150 origin-top-left'>
 					<Logo variant={variant === 'primary' ? 'secondary' : 'primary'} />
 				</div>
 				{/* COPYRIGHT */}
-				<p>© {new Date().getFullYear()} All rights reserved</p>
+				<p className='mb-8 md:mb-0'>
+					© {new Date().getFullYear()} All rights reserved
+				</p>
 
-				<div className='flex-1 flex w-full items-end justify-between'>
+				<div className='flex-1 flex flex-col gap-8 md:flex-row w-full items-end justify-between'>
 					{/* TERMS */}
 					<div>
 						<p className='text-paragraph'>

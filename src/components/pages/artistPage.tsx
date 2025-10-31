@@ -88,14 +88,14 @@ export default function ArtistPage({
 		<>
 			<PageWrapper
 				variant='secondary'
-				classes='overflow-clip md:pt-[var(--height-header)] bg-accent-1'
+				classes='overflow-clip md:pt-[var(--height-header)] md:bg-accent-1'
 				hasContainer={false}
 				hasFooter={false}
 				pageName='artist'>
 				{artistPhotos.length > 0 && artistInfo ? (
 					//* CAROUSEL OUTER CONTAINER *//
 					<div
-						className='relative md:h-content overflow-clip pb-4'
+						className='relative md:h-content overflow-clip my-16 md:my-0 pb-4'
 						ref={carouselContainerRef}>
 						{/* CARDS CONTAINER */}
 						<div

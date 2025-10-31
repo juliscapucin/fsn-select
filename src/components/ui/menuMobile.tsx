@@ -14,31 +14,18 @@ type NavLinksProps = {
 	navLinks: NavLink[]
 }
 
-const animateMobileMenu = (
-	el: HTMLElement | null,
-	routerAction?: () => void
-) => {
-	if (!el) return
-	if (el.classList.contains('opacity-0')) el.classList.remove('opacity-y-0')
-
-	el.classList.toggle('-translate-y-[120%]')
-
-	if (routerAction) {
-		routerAction()
-	}
-}
-
 export default function MenuMobile({ navLinks }: NavLinksProps) {
 	const mobileMenuRef = useRef<HTMLDivElement | null>(null)
 	const pathname = usePathname()
 	const router = useRouter()
 
 	const [isMenuOpen, setIsMenuOpen] = useState(false)
+	const [slug, setSlug] = useState<string | null>(null)
 
-	const toggleMenu = (routerAction?: () => void) => {
+	const toggleMenu = (slug?: string | null) => {
 		setIsMenuOpen((prev) => !prev)
-		if (routerAction) {
-			routerAction()
+		if (slug) {
+			router.push(slug)
 		}
 	}
 
@@ -53,6 +40,7 @@ export default function MenuMobile({ navLinks }: NavLinksProps) {
 					ease: 'power4.out',
 					onComplete: () => {
 						document.body.style.overflow = 'hidden'
+						if (slug) router.push(slug)
 					},
 				})
 			} else {
@@ -94,7 +82,7 @@ export default function MenuMobile({ navLinks }: NavLinksProps) {
 				<header className='fixed top-2 right-0 left-0 z-50 pointer-events-none block h-dvh md:hidden gutter-stable'>
 					{/* EXPANDED MENU */}
 					<aside
-						className='z-50 pointer-events-auto fixed top-0 min-h-svh w-full -translate-y-[120%] bg-secondary transition-transform duration-300'
+						className='z-50 pointer-events-auto fixed top-0 min-h-svh w-full bg-secondary transition-transform duration-300'
 						ref={mobileMenuRef}
 						role='dialog'
 						aria-modal='true'
@@ -126,14 +114,10 @@ export default function MenuMobile({ navLinks }: NavLinksProps) {
 										className='relative flex w-full justify-center'
 										key={link.slug}>
 										<button
-											className='block font-primary disabled:opacity-40'
-											onClick={() =>
-												toggleMenu(() => {
-													router.push(`${link.slug}`)
-												})
-											}
+											className='block font-primary disabled:opacity-40 transition-opacity duration-500'
+											onClick={() => toggleMenu(link.slug)}
 											disabled={isCurrentPage}
-											aria-current={isCurrentPage ? 'page' : undefined}
+											aria-current={isCurrentPage ? 'location' : undefined}
 											tabIndex={isMenuOpen ? 0 : -1}>
 											<span className='heading-display text-primary md:text-secondary uppercase'>
 												{link.label}
