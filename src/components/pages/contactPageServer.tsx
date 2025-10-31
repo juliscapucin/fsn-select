@@ -59,7 +59,9 @@ export default async function ContactPageServer() {
 						{photos.length > 0 &&
 							photos.map((photo, index) => (
 								<div key={photo.id} className='flex items-center gap-2'>
-									<span className='heading-title'>{`[${index + 1}]`}</span>
+									<span className='border-2 w-6 h-6 border-primary flex items-center justify-center'>{`${
+										index + 1
+									}`}</span>
 									<a
 										className='underlined-link heading-title text-center'
 										href={`https://unsplash.com/@${photo.user.username}?modal=%5B%22SendMessage%22%2C%7B%22username%22%3A%22${photo.user.username}%22%2C%22subject%22%3A%22default%22%7D%5D`}
