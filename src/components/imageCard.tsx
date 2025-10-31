@@ -79,7 +79,7 @@ export default function ImageCard({
 			return (
 				<Link
 					key={photo.id}
-					className='relative group w-full mb-6 flex flex-col justify-start'
+					className='relative group w-full mb-6 flex flex-col justify-start overflow-clip'
 					onClick={(e) => {
 						e.preventDefault()
 						animatePageExit(() =>
@@ -91,13 +91,23 @@ export default function ImageCard({
 						imageSrc={photo}
 						quality={75}
 						sizes='(min-width: 640px) 100vw, 100vw'
-						imageClassName='w-full object-cover'
+						imageClassName='w-full object-cover group-hover:scale-105 origin-bottom transition-transform duration-300'
 					/>
 					<ImageWithSpinner
 						imageSrc={photo}
 						quality={75}
 						sizes='(min-width: 640px) 30vw, 30vw'
-						imageClassName='absolute top-0 left-0 w-full h-auto object-cover transition-all duration-300 group-hover:opacity-100 group-hover:mix-blend-exclusion group-hover:translate-x-4 group-hover:-translate-y-4'
+						imageClassName='
+							absolute inset-0 w-full h-fit object-cover
+							mix-blend-exclusion
+							translate-x-2 -translate-y-2
+							opacity-0 group-hover:opacity-100
+							transition-all duration-300
+							mask-[repeating-linear-gradient(90deg,#000_0_50%,transparent_100%_200%)]
+							mask-size-[150%_100%]
+							mask-no-repeat
+							mask-position:-150%_0
+							group-hover:animate-[glitchStrip_0.5s_ease-in-out_forwards]'
 					/>
 					{/* ARTIST NAME */}
 					<p className='underlined-link text-link-lg w-fit mt-2 group-hover:opacity-50'>

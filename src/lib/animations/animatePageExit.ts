@@ -24,7 +24,7 @@ export function animatePageExit(routerAction: () => void) {
 		}
 	)
 	gsap.to(pageWrapperRef, {
-		xPercent: 30,
+		xPercent: 10,
 		duration: 0.5,
 		ease: 'power2.out',
 	})
