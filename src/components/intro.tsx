@@ -28,35 +28,42 @@ export default function Intro({ photos }: IntroProps) {
 			})
 
 			// Animate background clip path
-			tl.to('.gsap-pic-bg', {
+			tl.to('.gsap-logo-intro', {
 				clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
-				duration: 1.2,
+				duration: 0.5,
 				delay: 0.1,
-				ease: 'power4.in',
+				ease: 'power3.in',
 				// Stagger children divs opacity
 			})
 				.to(
+					'.gsap-pic-bg',
+					{
+						clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
+						duration: 0.7,
+						delay: 0.1,
+						ease: 'power4.in',
+					},
+					'<' // start at the same time as the previous animation
+				)
+				.to(
+					// Stagger children divs opacity
 					'.gsap-pic-bg > div',
 					{
 						opacity: 1,
 						duration: 0.15,
-						stagger: 0.15,
+						stagger: 0.2,
 						ease: 'power2.out',
 					},
-					'-=0.1' // start this animation 0.1s before the previous one ends
+					'-=0.5' // start this animation 0.5s before the previous one ends
 				)
-				.to(
-					introRef.current,
-					{
-						clipPath: 'polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)',
-						duration: 1,
-						ease: 'power4.out',
-						onComplete: () => {
-							document.body.style.overflow = 'unset'
-						},
+				.to(introRef.current, {
+					clipPath: 'polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)',
+					duration: 1,
+					ease: 'power4.out',
+					onComplete: () => {
+						document.body.style.overflow = 'unset'
 					},
-					'+=0.5' // wait 0.5s before starting this animation
-				)
+				})
 		},
 		{ dependencies: [], scope: introRef }
 	)
@@ -66,9 +73,14 @@ export default function Intro({ photos }: IntroProps) {
 			ref={introRef}
 			className='fixed inset-0 z-100 bg-tertiary flex items-center justify-center'
 			style={{ clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)' }}>
-			<div className='relative w-9/10 h-[400px] md:w-[500px] md:h-[500px] flex items-start justify-center'>
+			<div className='relative w-9/10 md:w-[500px] h-[500px] flex items-start justify-center'>
 				{/* LOGO */}
-				<div className='absolute top-0 left-0 -translate-x-full origin-top-right -rotate-90'>
+				<div
+					className='gsap-logo-intro absolute top-0 left-0 -translate-x-full origin-top-right -rotate-90'
+					style={{
+						clipPath: 'polygon(100% 0%, 100% 0%, 100% 100%, 100% 100%)',
+					}} // mask's initial state
+				>
 					<Logo variant='primary' />
 				</div>
 
