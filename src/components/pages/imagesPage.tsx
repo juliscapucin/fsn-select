@@ -31,7 +31,7 @@ export default function ImagesPage({ variant, photos }: ImagesPageProps) {
 	switch (variant) {
 		case 'list':
 			containerClasses =
-				'relative flex flex-col gap-24 items-center justify-center z-30 mix-blend-exclusion'
+				'relative flex flex-col gap-24 items-center justify-center z-30 mt-32'
 			break
 		case 'gallery':
 			containerClasses = 'flex flex-col'

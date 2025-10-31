@@ -18,7 +18,7 @@ export default async function ContactPageServer() {
 	}
 	return (
 		<PageWrapper variant='secondary' pageName='contact'>
-			<div className='grid grid-cols-6 xl:grid-cols-12 w-full gap-2 mt-2'>
+			<div className='grid grid-cols-6 xl:grid-cols-12 w-full gap-2'>
 				{/* CENTER CONTENT */}
 				<div className='col-start-1 col-span-7 md:col-start-3 md:col-span-4 lg:col-start-4 lg:col-span-6 grid grid-cols-6'>
 					<div className='col-start-1 col-span-5 md:col-span-4'>
