@@ -30,7 +30,7 @@ export default function Intro({ photos }: IntroProps) {
 			// Animate background clip path
 			tl.to('.gsap-pic-bg', {
 				clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
-				duration: 1.5,
+				duration: 1.2,
 				delay: 0.1,
 				ease: 'power4.in',
 				// Stagger children divs opacity
@@ -49,7 +49,7 @@ export default function Intro({ photos }: IntroProps) {
 					introRef.current,
 					{
 						clipPath: 'polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)',
-						duration: 1.2,
+						duration: 1,
 						ease: 'power4.out',
 						onComplete: () => {
 							document.body.style.overflow = 'unset'
@@ -66,12 +66,15 @@ export default function Intro({ photos }: IntroProps) {
 			ref={introRef}
 			className='fixed inset-0 z-100 bg-tertiary flex items-center justify-center'
 			style={{ clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)' }}>
-			<div className='relative w-[500px] h-[500px] flex items-center justify-center'>
+			<div className='relative w-9/10 h-[400px] md:w-[500px] md:h-[500px] flex items-start justify-center'>
+				{/* LOGO */}
 				<div className='absolute top-0 left-0 -translate-x-full origin-top-right -rotate-90'>
 					<Logo variant='primary' />
 				</div>
+
+				{/* PHOTOS */}
 				<div
-					className='gsap-pic-bg relative w-[400px] h-[500px] bg-primary p-8'
+					className='gsap-pic-bg relative w-4/5 h-full'
 					style={{ clipPath: 'polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)' }} // mask's initial state
 				>
 					{photos &&
@@ -83,7 +86,7 @@ export default function Intro({ photos }: IntroProps) {
 									alt={`Fashion Beauty Photo ${index + 1}`}
 									className='w-full h-full object-cover'
 									quality={75}
-									sizes={'(max-width: 600px) 15vw, 500px'}
+									sizes={'800px'}
 									loading='eager'
 									fill
 									priority
