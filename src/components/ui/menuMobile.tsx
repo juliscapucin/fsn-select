@@ -77,6 +77,7 @@ export default function MenuMobile({ navLinks }: NavLinksProps) {
 					onClick={() => toggleMenu()}
 					aria-expanded={isMenuOpen}
 					aria-controls='mobile-menu'
+					aria-haspopup='dialog'
 					aria-label={'Open navigation menu'}
 				/>
 				<header className='fixed top-2 right-0 left-0 z-50 pointer-events-none block h-dvh md:hidden gutter-stable'>
