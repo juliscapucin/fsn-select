@@ -20,7 +20,6 @@ export default function MenuMobile({ navLinks }: NavLinksProps) {
 	const router = useRouter()
 
 	const [isMenuOpen, setIsMenuOpen] = useState(false)
-	const [slug, setSlug] = useState<string | null>(null)
 
 	const toggleMenu = (slug?: string | null) => {
 		setIsMenuOpen((prev) => !prev)
@@ -40,7 +39,6 @@ export default function MenuMobile({ navLinks }: NavLinksProps) {
 					ease: 'power4.out',
 					onComplete: () => {
 						document.body.style.overflow = 'hidden'
-						if (slug) router.push(slug)
 					},
 				})
 			} else {
@@ -60,7 +58,7 @@ export default function MenuMobile({ navLinks }: NavLinksProps) {
 		if (!isMenuOpen) return
 		const handleEscape = (e: KeyboardEvent) => {
 			if (e.key === 'Escape' && isMenuOpen) {
-				toggleMenu()
+				setIsMenuOpen(false)
 			}
 		}
 
@@ -71,7 +69,7 @@ export default function MenuMobile({ navLinks }: NavLinksProps) {
 	return (
 		navLinks && (
 			<>
-				{/* BURGER BUTTON - Outside header for blend mode */}
+				{/* BURGER BUTTON - Outside div for blend mode */}
 				<ButtonBurger
 					className='z-50 pointer-events-auto fixed top-0 flex w-full items-center justify-end pr-4 mix-blend-exclusion md:hidden'
 					onClick={() => toggleMenu()}
@@ -80,7 +78,7 @@ export default function MenuMobile({ navLinks }: NavLinksProps) {
 					aria-haspopup='dialog'
 					aria-label={'Open navigation menu'}
 				/>
-				<header className='fixed top-2 right-0 left-0 z-50 pointer-events-none block h-dvh md:hidden gutter-stable'>
+				<div className='fixed top-2 right-0 left-0 z-50 pointer-events-none block h-dvh md:hidden gutter-stable'>
 					{/* EXPANDED MENU */}
 					<aside
 						className='z-50 pointer-events-auto fixed top-0 min-h-svh w-full bg-secondary transition-transform duration-300'
@@ -129,7 +127,7 @@ export default function MenuMobile({ navLinks }: NavLinksProps) {
 							})}
 						</nav>
 					</aside>
-				</header>
+				</div>
 			</>
 		)
 	)

@@ -51,7 +51,7 @@ export default function RootLayout({
 				{/* SKIP TO MAIN CONTENT LINK - for screen readers */}
 				<a
 					href='#main-content'
-					className='fixed top-0 left-0 z-50 -translate-y-full bg-secondary text-primary px-4 py-2 underline focus:translate-y-0'>
+					className='fixed top-0 left-0 z-100 -translate-y-full bg-secondary text-primary px-4 py-2 underline focus:translate-y-0'>
 					Skip to main content
 				</a>
 				{introPhotos.length > 0 && !errorState && (

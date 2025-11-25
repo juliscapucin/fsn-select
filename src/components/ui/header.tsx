@@ -49,7 +49,7 @@ export default function Header({ variant }: HeaderProps) {
 						href='/'>
 						<div className='flex items-end gap-8 h-10'>
 							{/* DATE */}
-							<div className='h-8 overflow-clip flex items-center'>
+							<div className='h-8 overflow-clip flex items-center min-w-fit'>
 								<span className='heading-title leading-none'>
 									{new Date().toLocaleString('default', { month: 'long' })}
 									&mdash;{new Date().getFullYear()}

@@ -1,5 +1,4 @@
 const navLinks = [
-	{ label: 'Home', slug: '/' },
 	{ label: 'Gallery', slug: '/gallery' },
 	{ label: 'Grid', slug: '/grid' },
 	{ label: 'List', slug: '/list' },
