@@ -31,7 +31,7 @@ export default function ImagesPage({ variant, photos }: ImagesPageProps) {
 	switch (variant) {
 		case 'list':
 			containerClasses =
-				'relative flex flex-col gap-24 items-center justify-center z-30 mt-32'
+				'relative flex flex-col gap-24 items-center justify-center mt-32 mix-blend-exclusion'
 			break
 		case 'gallery':
 			containerClasses = 'flex flex-col'
@@ -129,7 +129,12 @@ export default function ImagesPage({ variant, photos }: ImagesPageProps) {
 					variant='listPage'
 				/>
 			)}
-			<PageWrapper variant='primary' pageName={variant}>
+			{/* PAGE & IMAGES */}
+			{/* List has to have transparent background because of mouse follower */}
+			<PageWrapper
+				classes='mix-blend-exclusion'
+				variant={variant === 'list' ? 'transparent' : 'primary'}
+				pageName={variant}>
 				{photos && photos.length > 0 ? (
 					<div className={containerClasses}>
 						{photos.map((photo, index) => {

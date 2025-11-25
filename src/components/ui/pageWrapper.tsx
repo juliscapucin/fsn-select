@@ -15,7 +15,7 @@ import { registerTransitionRefs } from '@/lib/animations'
 import { Footer, Header } from '@/components/ui'
 
 type PageWrapperProps = {
-	variant: 'primary' | 'secondary' | 'tertiary' | 'accent'
+	variant: 'primary' | 'secondary' | 'tertiary' | 'accent' | 'transparent'
 	classes?: string
 	children?: React.ReactNode
 	hasContainer?: boolean
@@ -51,6 +51,9 @@ export default function PageWrapper({
 			break
 		case 'accent':
 			pageWrapperStyles = 'bg-accent-1 text-primary'
+			break
+		case 'transparent':
+			pageWrapperStyles = 'bg-transparent text-primary'
 			break
 	}
 
@@ -123,18 +126,23 @@ export default function PageWrapper({
 				}`}></div> */}
 
 			{/* GSAP SMOOTHER WRAPPER */}
-			<div id='smooth-wrapper' className='z-0 pointer-events-none'>
+			{/* Added mix-blend-exclusion for transparent variant */}
+			<div
+				id='smooth-wrapper'
+				className={`z-2 pointer-events-none ${
+					variant === 'transparent' ? 'mix-blend-exclusion' : ''
+				}`}>
 				{/* GSAP SMOOTHER CONTENT */}
-				<div id='smooth-content' className={`z-0 pointer-events-none`}>
+				<div id='smooth-content' className={`pointer-events-none`}>
 					{/* PAGE CONTENT BACKGROUND / MASK */}
 					<div
 						ref={pageContentRef}
 						className={`gsap-page-wrapper min-h-screen w-full pointer-events-auto ${
-							pageWrapperStyles ? pageWrapperStyles : ''
+							pageWrapperStyles || ''
 						}`}>
 						{/* PAGE CONTENT GRID */}
 						<div
-							className={`relative mx-auto grid grid-cols-14 z-0 pointer-events-auto ${
+							className={`relative mx-auto grid grid-cols-14 pointer-events-auto ${
 								hasContainer ? 'container pb-32' : ''
 							}`}>
 							{/* MAIN CONTENT */}

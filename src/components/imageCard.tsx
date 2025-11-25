@@ -60,7 +60,7 @@ export default function ImageCard({
 			return (
 				<Link
 					key={photo.id}
-					className='heading-headline relative flex items-center justify-center underlined-link w-fit opacity-50 transition-opacity duration-300 hover:opacity-100'
+					className='heading-headline relative flex items-center justify-center underlined-link w-fit opacity-50 transition-opacity duration-300 hover:opacity-100 text-white mix-blend-exclusion'
 					href={`/artists/${photo.user.username}`}
 					onClick={(e) => {
 						e.preventDefault()

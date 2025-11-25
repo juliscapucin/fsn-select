@@ -61,25 +61,25 @@ export default function MouseFollower({
 	return (
 		<div
 			ref={cursorRef}
-			className={`pointer-events-none fixed inset-0 z-30 h-64 w-64 ${
+			className={`pointer-events-none fixed inset-0 z-1 h-64 w-64 origin-center ${
 				variant === 'listPage'
-					? 'mix-blend-multiply'
+					? 'bg-blend-difference'
 					: 'flex items-center justify-center'
 			}`}>
 			{/* OVERLAY FOR LIST PAGE */}
 			{variant === 'listPage' && photos && photos.length > 0 && (
-				<div className='relative h-96 w-96'>
+				<div className='relative h-[500px] w-[500px]'>
 					{photos.map((photo, index) => {
 						const isPortrait = photo.height > photo.width
 						return (
 							<ImageWithSpinner
 								key={photo.id}
-								wrapperClassName={`absolute transition-opacity duration-300 ${
+								wrapperClassName={`absolute inset-0 transition-opacity duration-300 overflow-clip ${
 									index === indexHovered ? 'opacity-100' : 'opacity-0'
-								} ${isPortrait ? 'h-full w-auto' : 'w-full h-auto'}`}
-								loadingColor='bg-transparent'
+								} ${isPortrait ? 'h-full w-2/3' : 'w-full h-2/3'}`}
 								maskColor='bg-transparent'
 								imageSrc={photo}
+								imageClassName='h-full w-full object-cover'
 								sizes='30vw'
 							/>
 						)
