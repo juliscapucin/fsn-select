@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation'
 
-import { ImageWithSpinner, PageWrapper } from '@/components/ui'
+import { PageWrapper } from '@/components/ui'
 import handleError from '@/lib/handleError'
 
 import { EmptyResults } from '@/components/ui'
@@ -44,7 +44,7 @@ export default async function ContactPageServer() {
 
 	return (
 		<PageWrapper variant='secondary' pageName='contact'>
-			<div className='grid grid-cols-6 xl:grid-cols-12 w-full gap-2'>
+			<div className='grid grid-cols-6 xl:grid-cols-12 w-full h-content place-items-center gap-2'>
 				{/* CENTER CONTENT */}
 				<div className='col-start-1 col-span-7 md:col-start-1 md:col-span-12'>
 					<h1 className='heading-display text-nowrap mt-24 mb-2 text-center'>
