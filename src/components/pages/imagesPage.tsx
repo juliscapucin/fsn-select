@@ -132,7 +132,6 @@ export default function ImagesPage({ variant, photos }: ImagesPageProps) {
 			{/* PAGE & IMAGES */}
 			{/* List has to have transparent background because of mouse follower */}
 			<PageWrapper
-				classes='mix-blend-exclusion'
 				variant={variant === 'list' ? 'transparent' : 'primary'}
 				pageName={variant}>
 				{photos && photos.length > 0 ? (

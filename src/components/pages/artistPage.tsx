@@ -99,10 +99,10 @@ export default function ArtistPage({
 						ref={carouselContainerRef}>
 						{/* CARDS CONTAINER */}
 						<div
-							className='w-full md:w-fit md:h-full flex flex-col md:flex-row flex-nowrap gap-4 will-change-transform md:pl-(--height-header)'
+							className='w-full md:w-fit md:h-full flex flex-col md:flex-row flex-nowrap gap-4 will-change-transform md:pl-16 lg:pl-(--height-header)'
 							ref={cardsContainerRef}>
 							{/* HEADER */}
-							<header className='w-container md:w-[32vw] md:min-w-[450px] md:max-w-[800px] h-full flex flex-col justify-between'>
+							<header className='w-container md:w-[32vw] md:min-w-[500px] lg:w-[50vw] lg:max-w-[900px] h-full flex flex-col justify-between'>
 								<div>
 									{/* ARTIST NAME */}
 									{artistInfo.name && (
@@ -152,7 +152,7 @@ export default function ArtistPage({
 										href={photo.links.html}
 										aria-label='View full image on Unsplash'>
 										{/* OVERLAY ARROW ICON */}
-										<div className='absolute left-4 bottom-4 bg-secondary rounded-full w-12 h-12 pl-0.5 pb-0.5 flex justify-center items-center z-10 transition-opacity duration-300 md:opacity-0 group-hover:opacity-100'>
+										<div className='absolute left-4 bottom-4 bg-secondary rounded-full w-12 h-12 pl-0.5 pb-0.5 flex justify-center items-center z-20 transition-opacity duration-300 md:opacity-0 group-hover:opacity-100'>
 											<IconArrowUpRight color='primary' />
 										</div>
 										{/* IMAGE */}
