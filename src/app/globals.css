@@ -165,7 +165,7 @@ body {
 	}
 
 	.btn-ghost-sm {
-		@apply flex items-center border border-secondary bg-transparent px-2 py-[2px] text-label-large font-medium text-secondary transition-colors duration-300 hover:bg-secondary hover:text-primary;
+		@apply flex items-center border border-secondary bg-transparent px-2 py-0.5 text-label-large font-medium text-secondary transition-colors duration-300 hover:bg-secondary hover:text-primary;
 	}
 
 	/* HEADING STYLES */

@@ -76,12 +76,12 @@ export default function PageWrapper({
 	useGSAP(() => {
 		if (!pageContentRef.current || !pageTransitionRef.current) return
 
-		gsap.set(pageContentRef.current, { xPercent: -10 })
+		gsap.set(pageContentRef.current, { xPercent: 10 })
 
 		// Animate the mask to reveal the content
 		gsap.to(pageTransitionRef.current, {
 			duration: 0.6,
-			xPercent: 100,
+			xPercent: -100,
 			ease: 'power2.out',
 		})
 		gsap.to(pageContentRef.current, {

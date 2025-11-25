@@ -120,7 +120,7 @@ export default function ImagesPage({ variant, photos }: ImagesPageProps) {
 						))}
 				</div>
 			)}
-			{/* MOUSE FOLLOWER FOR INDEX PAGE */}
+			{/* MOUSE FOLLOWER FOR LIST PAGE */}
 			{variant === 'list' && (
 				<MouseFollower
 					isVisible={isMouseFollowerVisible}

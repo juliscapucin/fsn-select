@@ -33,6 +33,7 @@ export default function ImageCard({
 
 	const isPortrait = photo.height > photo.width
 
+	// SCROLL TRIGGER FOR GALLERY PAGE //
 	useGSAP(() => {
 		if (variant !== 'gallery' || !cardRef.current || !handleActiveArtist) return
 		const element = cardRef.current
@@ -54,7 +55,7 @@ export default function ImageCard({
 	}, [variant])
 
 	switch (variant) {
-		// * INDEX VARIANT */
+		// * LIST VARIANT */
 		case 'list':
 			return (
 				<Link
@@ -88,9 +89,13 @@ export default function ImageCard({
 					<ImageWithSpinner
 						imageSrc={photo}
 						quality={75}
+						index={index}
+						loadingColor='bg-tertiary'
+						maskColor='bg-primary'
 						sizes='(min-width: 640px) 100vw, 100vw'
 						imageClassName='w-full object-cover group-hover:scale-105 origin-bottom transition-transform duration-300'
 					/>
+					{/* GLITCH EFFECT OVERLAY */}
 					<ImageWithSpinner
 						imageSrc={photo}
 						quality={75}
@@ -119,7 +124,7 @@ export default function ImageCard({
 				<Link
 					key={photo.id}
 					ref={cardRef}
-					className={`relative flex group w-full`}
+					className={`relative flex group w-full overflow-clip`}
 					onClick={(e) => {
 						e.preventDefault()
 						animatePageExit(() =>
@@ -134,13 +139,15 @@ export default function ImageCard({
 
 					{/* IMAGE */}
 					<div
-						className={`relative bg-accent-3 ${
+						className={`relative ${
 							index % 2 === 0 ? 'mr-auto ml-0' : 'ml-auto mr-0'
 						} ${isPortrait ? 'w-2/3' : 'w-full sm:w-2/3'}`}>
 						<ImageWithSpinner
 							imageSrc={photo}
 							quality={75}
 							sizes='(min-width: 640px) 50vw, 50vw'
+							loadingColor='bg-tertiary'
+							maskColor='bg-tertiary'
 							imageClassName='w-full h-full object-cover group-hover:scale-105 transition-transform duration-300'
 						/>
 						<ImageWithSpinner

@@ -15,7 +15,7 @@ export function animatePageExit(routerAction: () => void) {
 
 	gsap.fromTo(
 		transitionOverlayRef,
-		{ xPercent: -100, duration: 0.6, ease: 'power2.out' },
+		{ xPercent: 100, duration: 0.6, ease: 'power2.out' },
 		{
 			xPercent: 0,
 			onComplete: () => {
@@ -24,7 +24,7 @@ export function animatePageExit(routerAction: () => void) {
 		}
 	)
 	gsap.to(pageWrapperRef, {
-		xPercent: 10,
+		xPercent: -10,
 		duration: 0.5,
 		ease: 'power2.out',
 	})

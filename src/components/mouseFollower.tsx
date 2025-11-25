@@ -68,17 +68,22 @@ export default function MouseFollower({
 			}`}>
 			{/* OVERLAY FOR LIST PAGE */}
 			{variant === 'listPage' && photos && photos.length > 0 && (
-				<div className='relative h-64 w-64'>
-					{photos.map((photo, index) => (
-						<ImageWithSpinner
-							wrapperClassName={`absolute transition-opacity duration-300 ${
-								index === indexHovered ? 'opacity-100' : 'opacity-0'
-							}`}
-							key={photo.id}
-							imageSrc={photo}
-							sizes='30vw'
-						/>
-					))}
+				<div className='relative h-96 w-96'>
+					{photos.map((photo, index) => {
+						const isPortrait = photo.height > photo.width
+						return (
+							<ImageWithSpinner
+								key={photo.id}
+								wrapperClassName={`absolute transition-opacity duration-300 ${
+									index === indexHovered ? 'opacity-100' : 'opacity-0'
+								} ${isPortrait ? 'h-full w-auto' : 'w-full h-auto'}`}
+								loadingColor='bg-transparent'
+								maskColor='bg-transparent'
+								imageSrc={photo}
+								sizes='30vw'
+							/>
+						)
+					})}
 				</div>
 			)}
 		</div>

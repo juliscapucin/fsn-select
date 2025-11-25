@@ -5,7 +5,6 @@ import { useRouter, usePathname } from 'next/navigation'
 import Link from 'next/dist/client/link'
 
 import gsap from 'gsap'
-import { useGSAP } from '@gsap/react'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin'
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin)
@@ -74,24 +73,25 @@ export default function Header({ variant }: HeaderProps) {
 					{navLinks.map(
 						(link, index) =>
 							link.slug !== '/' && (
-								<Link
-									className={`text-link-lg navlink uppercase ${
-										pathname === link.slug ? 'pointer-events-none' : ''
-									}`}
-									key={`panel-button-${index}`}
-									onClick={(e) => {
-										e.preventDefault()
-										animatePageExit(() => router.push(link.slug))
-									}}
-									href={link.slug}>
-									<span
-										className={`${
-											pathname === link.slug ? 'opacity-100' : 'opacity-0'
-										}`}>
-										{'[->] '}
-									</span>
-									<span className='underlined-link'>{link.label}</span>
-								</Link>
+								<li key={`panel-button-${index}`}>
+									<Link
+										className={`text-link-lg navlink uppercase ${
+											pathname === link.slug ? 'pointer-events-none' : ''
+										}`}
+										onClick={(e) => {
+											e.preventDefault()
+											animatePageExit(() => router.push(link.slug))
+										}}
+										href={link.slug}>
+										<span
+											className={`${
+												pathname === link.slug ? 'opacity-100' : 'opacity-0'
+											}`}>
+											{'[->] '}
+										</span>
+										<span className='underlined-link'>{link.label}</span>
+									</Link>
+								</li>
 							)
 					)}
 				</ul>

@@ -34,7 +34,7 @@ const font = localFont({
 })
 
 export const metadata: Metadata = {
-	title: 'FSN Select',
+	title: 'FSN Talent',
 	description:
 		'A curated selection of contemporary fashion and beauty imagery from Unsplash.',
 }

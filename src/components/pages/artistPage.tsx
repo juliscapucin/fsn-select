@@ -99,7 +99,7 @@ export default function ArtistPage({
 						ref={carouselContainerRef}>
 						{/* CARDS CONTAINER */}
 						<div
-							className='w-full md:w-fit md:h-full flex flex-col md:flex-row flex-nowrap gap-4 will-change-transform md:pl-[var(--height-header)]'
+							className='w-full md:w-fit md:h-full flex flex-col md:flex-row flex-nowrap gap-4 will-change-transform md:pl-(--height-header)'
 							ref={cardsContainerRef}>
 							{/* HEADER */}
 							<header className='w-container md:w-[32vw] md:min-w-[450px] md:max-w-[800px] h-full flex flex-col justify-between'>
@@ -141,7 +141,7 @@ export default function ArtistPage({
 									)}
 								</div>
 							</header>
-							{artistPhotos.map((photo) => {
+							{artistPhotos.map((photo, index) => {
 								// IMAGE CARD //
 								return (
 									<a
@@ -162,16 +162,18 @@ export default function ArtistPage({
 											isFill={true}
 											sizes='(min-width: 640px) 50vw, 100vw'
 											imageClassName='relative h-full w-full object-cover transition-transform duration-300 group-hover:scale-105 will-change-transform'
-											bgColor='bg-secondary'
+											loadingColor='bg-secondary'
+											maskColor='bg-secondary'
+											index={index}
 										/>
 									</a>
 								)
 							})}
 
 							{/* PREVIOUS / NEXT BUTTONS */}
-							<div className='relative w-[50vw] md:h-full flex items-center justify-center text-link-lg md:pr-0 gap-8 md:flex-col md:gap-4 mr-[var(--width-column)]'>
+							<div className='relative w-[50vw] md:h-full flex items-center justify-center text-link-lg md:pr-0 gap-8 md:flex-col md:gap-4 mr-(--width-column)'>
 								{artists.length > 1 && artistInfo && (
-									<div className='mr-[var(--width-column)] text-center'>
+									<div className='mr-(--width-column) text-center'>
 										<p className='heading-headline text-nowrap block mb-2'>
 											Next Artist
 										</p>

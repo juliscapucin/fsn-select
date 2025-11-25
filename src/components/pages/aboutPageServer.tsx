@@ -25,6 +25,9 @@ export default async function AboutPageServer() {
 						<ImageWithSpinner
 							imageSrc={photos[0]}
 							sizes='(min-width: 640px) 30vw, 30vw'
+							index={1}
+							loadingColor='bg-primary'
+							maskColor='bg-tertiary'
 						/>
 					)}
 				</div>
@@ -36,6 +39,9 @@ export default async function AboutPageServer() {
 							<ImageWithSpinner
 								imageSrc={photos[3]}
 								sizes='(min-width: 640px) 30vw, 30vw'
+								index={2}
+								loadingColor='bg-primary'
+								maskColor='bg-tertiary'
 							/>
 						)}
 						<h1 className='heading-display text-nowrap mt-8 text-center'>
@@ -61,6 +67,9 @@ export default async function AboutPageServer() {
 						<ImageWithSpinner
 							imageSrc={photos[10]}
 							sizes='(min-width: 640px) 30vw, 30vw'
+							index={3}
+							loadingColor='bg-primary'
+							maskColor='bg-primary'
 						/>
 					)}
 				</div>
