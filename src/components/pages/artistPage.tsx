@@ -162,7 +162,6 @@ export default function ArtistPage({
 											isFill={true}
 											sizes='(min-width: 640px) 50vw, 100vw'
 											imageClassName='relative h-full w-full object-cover transition-transform duration-300 group-hover:scale-105 will-change-transform'
-											loadingColor='bg-secondary'
 											maskColor='bg-secondary'
 											index={index}
 										/>

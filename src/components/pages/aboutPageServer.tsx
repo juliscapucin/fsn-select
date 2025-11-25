@@ -26,8 +26,8 @@ export default async function AboutPageServer() {
 							imageSrc={photos[0]}
 							sizes='(min-width: 640px) 30vw, 30vw'
 							index={1}
-							loadingColor='bg-primary'
 							maskColor='bg-tertiary'
+							wrapperClassName='relative overflow-clip'
 						/>
 					)}
 				</div>
@@ -40,8 +40,8 @@ export default async function AboutPageServer() {
 								imageSrc={photos[3]}
 								sizes='(min-width: 640px) 30vw, 30vw'
 								index={2}
-								loadingColor='bg-primary'
 								maskColor='bg-tertiary'
+								wrapperClassName='relative overflow-clip'
 							/>
 						)}
 						<h1 className='heading-display text-nowrap mt-8 text-center'>
@@ -68,8 +68,8 @@ export default async function AboutPageServer() {
 							imageSrc={photos[10]}
 							sizes='(min-width: 640px) 30vw, 30vw'
 							index={3}
-							loadingColor='bg-primary'
-							maskColor='bg-primary'
+							maskColor='bg-tertiary'
+							wrapperClassName='relative overflow-clip'
 						/>
 					)}
 				</div>

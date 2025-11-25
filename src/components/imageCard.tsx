@@ -90,7 +90,6 @@ export default function ImageCard({
 						imageSrc={photo}
 						quality={75}
 						index={index}
-						loadingColor='bg-tertiary'
 						maskColor='bg-primary'
 						sizes='(min-width: 640px) 100vw, 100vw'
 						imageClassName='w-full object-cover group-hover:scale-105 origin-bottom transition-transform duration-300'
@@ -146,7 +145,6 @@ export default function ImageCard({
 							imageSrc={photo}
 							quality={75}
 							sizes='(min-width: 640px) 50vw, 50vw'
-							loadingColor='bg-tertiary'
 							maskColor='bg-tertiary'
 							imageClassName='w-full h-full object-cover group-hover:scale-105 transition-transform duration-300'
 						/>

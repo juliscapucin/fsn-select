@@ -12,7 +12,6 @@ type ImageWithSpinnerProps = React.HTMLAttributes<HTMLDivElement> & {
 	imageClassName?: string
 	wrapperClassName?: string
 	spinnerClassName?: string
-	loadingColor?: string
 	maskColor?: string
 	sizes: string
 	quality?: number
@@ -27,7 +26,6 @@ type ImageWithSpinnerProps = React.HTMLAttributes<HTMLDivElement> & {
 export default function ImageWithSpinner({
 	imageClassName,
 	wrapperClassName,
-	loadingColor,
 	maskColor,
 	sizes,
 	quality = 75,
@@ -44,7 +42,7 @@ export default function ImageWithSpinner({
 	const { alt_description, width, height } = imageSrc
 	const { id } = props
 
-	console.log(maskColor, loadingColor)
+	console.log(maskColor)
 	const imageMaskRef = useRef<HTMLDivElement | null>(null)
 
 	useGSAP(
@@ -72,9 +70,7 @@ export default function ImageWithSpinner({
 			aria-live='polite'>
 			{showSpinner && isLoading && !hasError && (
 				<div
-					className={`absolute inset-0 z-5 grid place-items-center animate-pulse ${
-						loadingColor || 'bg-accent-1/20'
-					}`}
+					className={`absolute inset-0 z-10 grid place-items-center animate-pulse bg-accent-2/50`}
 					role='status'
 					aria-label='Loading image'>
 					<span className='sr-only'>Loading image</span>
@@ -86,10 +82,11 @@ export default function ImageWithSpinner({
 					{/* IMAGE MASK */}
 					<div
 						ref={imageMaskRef}
-						className={`absolute inset-0 z-10 will-change-transform ${
+						className={`absolute -inset-32 z-5 will-change-transform ${
 							maskColor || 'bg-primary'
 						}`}
 					/>
+
 					<Image
 						className={imageClassName}
 						src={imageSrc.urls.full}
