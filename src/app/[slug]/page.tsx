@@ -27,10 +27,8 @@ export default async function Page({
 	const { slug } = await params
 
 	// throw error if slug is not in navLinks
-	const imagePages = navLinks.slice(1, 4)
-
-	const validImagePages = imagePages.map((page) => ({
-		page: page.slug.replace('/', ''),
+	const validImagePages = navLinks.map((page) => ({
+		page: page.slug,
 	}))
 
 	// Check if the slug is valid + add 'artists' as a valid page

@@ -170,9 +170,9 @@ export default function ArtistPage({
 							})}
 
 							{/* PREVIOUS / NEXT BUTTONS */}
-							<div className='relative w-[50vw] md:h-full flex items-center justify-center text-link-lg md:pr-0 gap-8 md:flex-col md:gap-4 mr-(--width-column)'>
+							<div className='relative md:w-[50vw] md:h-full flex items-center justify-center text-link-lg md:pr-0 gap-8 md:flex-col md:gap-4 mr-(--width-column)'>
 								{artists.length > 1 && artistInfo && (
-									<div className='mr-(--width-column) text-center'>
+									<div className='mx-auto md:ml-0 mt-8 md:mt-0 md:mr-(--width-column) text-center'>
 										<p className='heading-headline text-nowrap block mb-2'>
 											Next Artist
 										</p>
