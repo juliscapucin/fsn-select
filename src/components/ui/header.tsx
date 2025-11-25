@@ -80,7 +80,7 @@ export default function Header({ variant }: HeaderProps) {
 										}`}
 										onClick={(e) => {
 											e.preventDefault()
-											animatePageExit(() => router.push(link.slug))
+											animatePageExit(() => router.push(`/${link.slug}`))
 										}}
 										href={link.slug}>
 										<span

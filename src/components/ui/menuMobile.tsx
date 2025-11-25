@@ -24,7 +24,7 @@ export default function MenuMobile({ navLinks }: NavLinksProps) {
 	const toggleMenu = (slug?: string | null) => {
 		setIsMenuOpen((prev) => !prev)
 		if (slug) {
-			router.push(slug)
+			router.push(`/${slug}`)
 		}
 	}
 
@@ -44,7 +44,7 @@ export default function MenuMobile({ navLinks }: NavLinksProps) {
 			} else {
 				document.body.style.overflow = 'unset'
 				gsap.to(mobileMenuRef.current, {
-					y: '-120%',
+					y: '120%',
 					duration: 0.5,
 					ease: 'power4.in',
 				})
@@ -81,7 +81,7 @@ export default function MenuMobile({ navLinks }: NavLinksProps) {
 				<div className='fixed top-2 right-0 left-0 z-50 pointer-events-none block h-dvh md:hidden gutter-stable'>
 					{/* EXPANDED MENU */}
 					<aside
-						className='z-50 pointer-events-auto fixed top-0 min-h-svh w-full bg-secondary transition-transform duration-300'
+						className='z-50 pointer-events-auto fixed inset-0 bg-secondary translate-y-[120%]'
 						ref={mobileMenuRef}
 						role='dialog'
 						aria-modal='true'
