@@ -37,33 +37,38 @@ export default function ArtistPage({
 
 	//* GSAP HORIZONTAL SCROLL ANIMATION *//
 	useEffect(() => {
+		const mm = gsap.matchMedia()
+
+		// Set up ScrollTrigger only for medium screens and above
 		const timeoutId = window.setTimeout(() => {
-			if (!carouselContainerRef.current || !cardsContainerRef.current) return
-			const outerWrapper = carouselContainerRef.current
-			const cardsWrapper = cardsContainerRef.current
-			const xTranslate = cardsWrapper.scrollWidth - window.innerWidth
-			const endScroll = cardsWrapper.scrollWidth * 3
+			mm.add('(min-width: 768px)', () => {
+				if (!carouselContainerRef.current || !cardsContainerRef.current) return
+				const outerWrapper = carouselContainerRef.current
+				const cardsWrapper = cardsContainerRef.current
+				const xTranslate = cardsWrapper.scrollWidth - window.innerWidth
+				const endScroll = cardsWrapper.scrollWidth * 3
 
-			window.scrollTo(0, 0)
+				window.scrollTo(0, 0)
 
-			ScrollTrigger.getById('artist-page-carousel')?.kill()
+				ScrollTrigger.getById('artist-page-carousel')?.kill()
 
-			const tl = gsap.timeline({
-				scrollTrigger: {
-					id: 'artist-page-carousel',
-					trigger: outerWrapper,
-					pin: true,
-					start: 'top top',
-					end: `+=${endScroll}`,
-					scrub: 1,
-					invalidateOnRefresh: true,
-				},
-			})
+				const tl = gsap.timeline({
+					scrollTrigger: {
+						id: 'artist-page-carousel',
+						trigger: outerWrapper,
+						pin: true,
+						start: 'top top',
+						end: `+=${endScroll}`,
+						scrub: 1,
+						invalidateOnRefresh: true,
+					},
+				})
 
-			tl.to(cardsWrapper, {
-				x: -xTranslate,
-				ease: 'none',
-				duration: 5,
+				tl.to(cardsWrapper, {
+					x: -xTranslate,
+					ease: 'none',
+					duration: 5,
+				})
 			})
 		}, 500) // Delay to ensure ScrollTrigger is properly set up
 
@@ -165,7 +170,7 @@ export default function ArtistPage({
 											imageSrc={photo}
 											quality={75}
 											isFill={true}
-											sizes='(min-width: 640px) 50vw, 100vw'
+											sizes='(max-width: 768px) 100vw, 60vw'
 											imageClassName='relative h-full w-full object-cover transition-transform duration-300 group-hover:scale-105 will-change-transform'
 											maskColor='bg-secondary'
 											index={index}
