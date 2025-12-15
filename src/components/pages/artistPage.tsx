@@ -1,7 +1,7 @@
 'use client'
 
 import { useRef } from 'react'
-import { useRouter } from 'next/navigation'
+import { useRouter, usePathname } from 'next/navigation'
 
 import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
@@ -30,6 +30,7 @@ export default function ArtistPage({
 	artistInfo,
 }: ArtistPageProps) {
 	const router = useRouter()
+	const pathname = usePathname()
 
 	const gsapRef = useRef<gsap.MatchMedia | null>(null)
 	const carouselContainerRef = useRef<HTMLDivElement | null>(null)
@@ -68,7 +69,7 @@ export default function ArtistPage({
 				invalidateOnRefresh: true,
 			})
 		})
-	}, [])
+	}, [pathname])
 
 	//* PREVIOUS / NEXT ARTIST NAVIGATION *//
 	function handleNavigation(direction: 'previous' | 'next') {
