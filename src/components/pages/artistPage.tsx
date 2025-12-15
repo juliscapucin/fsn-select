@@ -40,6 +40,7 @@ export default function ArtistPage({
 	useGSAP(() => {
 		if (!carouselContainerRef.current || !cardsContainerRef.current) return
 		if (gsapRef.current) {
+			gsapRef.current.revert()
 			gsapRef.current = null
 			ScrollTrigger.getById('artist-page-carousel')?.kill()
 		}
