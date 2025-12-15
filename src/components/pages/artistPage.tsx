@@ -32,45 +32,36 @@ export default function ArtistPage({
 	const router = useRouter()
 	const pathname = usePathname()
 
-	const gsapRef = useRef<gsap.MatchMedia | null>(null)
 	const carouselContainerRef = useRef<HTMLDivElement | null>(null)
 	const cardsContainerRef = useRef<HTMLDivElement | null>(null)
 
 	//* GSAP HORIZONTAL SCROLL ANIMATION *//
 	useGSAP(() => {
 		if (!carouselContainerRef.current || !cardsContainerRef.current) return
-		if (gsapRef.current) {
-			gsapRef.current.revert()
-			gsapRef.current = null
-			ScrollTrigger.getById('artist-page-carousel')?.kill()
-		}
 
 		console.log('scrollTrigger')
 
 		window.scrollTo(0, 0)
 
-		gsapRef.current = gsap.matchMedia()
 		const outerWrapper = carouselContainerRef.current
 		const cardsWrapper = cardsContainerRef.current
 
-		gsapRef.current.add('(min-width: 768px)', () => {
-			const tl = gsap.timeline({
-				scrollTrigger: {
-					id: 'artist-page-carousel',
-					trigger: outerWrapper,
-					pin: true,
-					start: 'top top',
-					end: () => `+=${cardsWrapper.scrollWidth * 3}`,
-					scrub: 1,
-					invalidateOnRefresh: true,
-				},
-			})
+		const tl = gsap.timeline({
+			scrollTrigger: {
+				id: 'artist-page-carousel',
+				trigger: outerWrapper,
+				pin: true,
+				start: 'top top',
+				end: () => `+=${cardsWrapper.scrollWidth * 3}`,
+				scrub: 1,
+				invalidateOnRefresh: true,
+			},
+		})
 
-			tl.to(cardsWrapper, {
-				x: `-=${cardsWrapper.scrollWidth - window.innerWidth}px`,
-				ease: 'none',
-				duration: 5,
-			})
+		tl.to(cardsWrapper, {
+			x: `-=${cardsWrapper.scrollWidth - window.innerWidth}px`,
+			ease: 'none',
+			duration: 5,
 		})
 	}, [pathname])
 
