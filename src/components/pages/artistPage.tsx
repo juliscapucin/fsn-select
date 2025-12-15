@@ -1,7 +1,7 @@
 'use client'
 
 import { useRef } from 'react'
-import { useRouter } from 'next/navigation'
+import { useRouter, usePathname } from 'next/navigation'
 
 import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
@@ -30,6 +30,7 @@ export default function ArtistPage({
 	artistInfo,
 }: ArtistPageProps) {
 	const router = useRouter()
+	const pathname = usePathname()
 
 	const gsapRef = useRef<gsap.MatchMedia | null>(null)
 	const carouselContainerRef = useRef<HTMLDivElement | null>(null)
@@ -42,6 +43,8 @@ export default function ArtistPage({
 			gsapRef.current = null
 			ScrollTrigger.getById('artist-page-carousel')?.kill()
 		}
+
+		console.log('scrollTrigger')
 
 		window.scrollTo(0, 0)
 
@@ -63,12 +66,12 @@ export default function ArtistPage({
 			})
 
 			tl.to(cardsWrapper, {
-				x: () => `-=${cardsWrapper.scrollWidth - window.innerWidth}px`,
+				x: `-=${cardsWrapper.scrollWidth - window.innerWidth}px`,
 				ease: 'none',
 				duration: 5,
 			})
 		})
-	}, [])
+	}, [pathname])
 
 	//* PREVIOUS / NEXT ARTIST NAVIGATION *//
 	function handleNavigation(direction: 'previous' | 'next') {
