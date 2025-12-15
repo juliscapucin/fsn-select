@@ -41,10 +41,10 @@ export default function ArtistPage({
 
 		console.log('scrollTrigger')
 
-		window.scrollTo(0, 0)
-
 		const outerWrapper = carouselContainerRef.current
 		const cardsWrapper = cardsContainerRef.current
+		const xTranslate = cardsWrapper.scrollWidth - window.innerWidth
+		const endScroll = cardsWrapper.scrollWidth * 3
 
 		const tl = gsap.timeline({
 			scrollTrigger: {
@@ -52,14 +52,14 @@ export default function ArtistPage({
 				trigger: outerWrapper,
 				pin: true,
 				start: 'top top',
-				end: () => `+=${cardsWrapper.scrollWidth * 3}`,
+				end: `+=${endScroll}`,
 				scrub: 1,
 				invalidateOnRefresh: true,
 			},
 		})
 
 		tl.to(cardsWrapper, {
-			x: () => `-=${cardsWrapper.scrollWidth - window.innerWidth}px`,
+			x: -xTranslate,
 			ease: 'none',
 			duration: 5,
 		})
