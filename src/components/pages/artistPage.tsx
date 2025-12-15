@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { useRouter, usePathname } from 'next/navigation'
 
 import { useGSAP } from '@gsap/react'
@@ -36,33 +36,43 @@ export default function ArtistPage({
 	const cardsContainerRef = useRef<HTMLDivElement | null>(null)
 
 	//* GSAP HORIZONTAL SCROLL ANIMATION *//
-	useGSAP(() => {
-		if (!carouselContainerRef.current || !cardsContainerRef.current) return
-
+	useEffect(() => {
 		console.log('scrollTrigger')
 
-		const outerWrapper = carouselContainerRef.current
-		const cardsWrapper = cardsContainerRef.current
-		const xTranslate = cardsWrapper.scrollWidth - window.innerWidth
-		const endScroll = cardsWrapper.scrollWidth * 3
+		setTimeout(() => {
+			if (!carouselContainerRef.current || !cardsContainerRef.current) return
+			const outerWrapper = carouselContainerRef.current
+			const cardsWrapper = cardsContainerRef.current
+			const xTranslate = cardsWrapper.scrollWidth - window.innerWidth
+			const endScroll = cardsWrapper.scrollWidth * 3
 
-		const tl = gsap.timeline({
-			scrollTrigger: {
-				id: 'artist-page-carousel',
-				trigger: outerWrapper,
-				pin: true,
-				start: 'top top',
-				end: `+=${endScroll}`,
-				scrub: 1,
-				invalidateOnRefresh: true,
-			},
-		})
+			window.scrollTo(0, 0)
 
-		tl.to(cardsWrapper, {
-			x: -xTranslate,
-			ease: 'none',
-			duration: 5,
-		})
+			ScrollTrigger.getById('artist-page-carousel')?.kill()
+
+			const tl = gsap.timeline({
+				scrollTrigger: {
+					id: 'artist-page-carousel',
+					trigger: outerWrapper,
+					pin: true,
+					start: 'top top',
+					end: `+=${endScroll}`,
+					scrub: 1,
+					invalidateOnRefresh: true,
+				},
+			})
+
+			tl.to(cardsWrapper, {
+				x: -xTranslate,
+				ease: 'none',
+				duration: 5,
+			})
+		}, 500) // Delay to ensure ScrollTrigger is properly set up
+
+		return () => {
+			console.log('return')
+			ScrollTrigger.getById('artist-page-carousel')?.kill()
+		}
 	}, [pathname])
 
 	//* PREVIOUS / NEXT ARTIST NAVIGATION *//
