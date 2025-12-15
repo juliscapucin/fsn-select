@@ -1,7 +1,7 @@
 'use client'
 
 import { useRef } from 'react'
-import { useRouter, usePathname } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 
 import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
@@ -30,7 +30,6 @@ export default function ArtistPage({
 	artistInfo,
 }: ArtistPageProps) {
 	const router = useRouter()
-	const pathname = usePathname()
 
 	const gsapRef = useRef<gsap.MatchMedia | null>(null)
 	const carouselContainerRef = useRef<HTMLDivElement | null>(null)
@@ -41,7 +40,7 @@ export default function ArtistPage({
 		if (!carouselContainerRef.current || !cardsContainerRef.current) return
 		if (gsapRef.current) {
 			gsapRef.current = null
-			ScrollTrigger.getAll().forEach((trigger) => trigger.kill())
+			ScrollTrigger.getById('artist-page-carousel')?.kill()
 		}
 
 		window.scrollTo(0, 0)
@@ -51,25 +50,25 @@ export default function ArtistPage({
 		const cardsWrapper = cardsContainerRef.current
 
 		gsapRef.current.add('(min-width: 768px)', () => {
-			const tl = gsap.timeline()
+			const tl = gsap.timeline({
+				scrollTrigger: {
+					id: 'artist-page-carousel',
+					trigger: outerWrapper,
+					pin: true,
+					start: 'top top',
+					end: `+=${cardsWrapper.offsetWidth * 3}`,
+					scrub: 1,
+					invalidateOnRefresh: true,
+				},
+			})
 
 			tl.to(cardsWrapper, {
 				x: `-=${cardsWrapper.offsetWidth - window.innerWidth}px`,
 				ease: 'none',
 				duration: 5,
 			})
-
-			ScrollTrigger.create({
-				animation: tl,
-				trigger: outerWrapper,
-				pin: true,
-				start: 'top top',
-				end: `+=${cardsWrapper.offsetWidth * 3}`,
-				scrub: 1,
-				invalidateOnRefresh: true,
-			})
 		})
-	}, [pathname])
+	}, [])
 
 	//* PREVIOUS / NEXT ARTIST NAVIGATION *//
 	function handleNavigation(direction: 'previous' | 'next') {
