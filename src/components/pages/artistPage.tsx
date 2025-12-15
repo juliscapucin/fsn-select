@@ -37,9 +37,7 @@ export default function ArtistPage({
 
 	//* GSAP HORIZONTAL SCROLL ANIMATION *//
 	useEffect(() => {
-		console.log('scrollTrigger')
-
-		setTimeout(() => {
+		const timeoutId = window.setTimeout(() => {
 			if (!carouselContainerRef.current || !cardsContainerRef.current) return
 			const outerWrapper = carouselContainerRef.current
 			const cardsWrapper = cardsContainerRef.current
@@ -70,7 +68,7 @@ export default function ArtistPage({
 		}, 500) // Delay to ensure ScrollTrigger is properly set up
 
 		return () => {
-			console.log('return')
+			clearTimeout(timeoutId)
 			ScrollTrigger.getById('artist-page-carousel')?.kill()
 		}
 	}, [pathname])

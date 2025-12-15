@@ -22,7 +22,7 @@ export default function Footer({ variant }: FooterProps) {
 
 		ScrollTrigger.getById('footer')?.kill()
 
-		setTimeout(() => {
+		const timeoutId = window.setTimeout(() => {
 			const tl = gsap.timeline({
 				scrollTrigger: {
 					id: 'footer',
@@ -30,19 +30,18 @@ export default function Footer({ variant }: FooterProps) {
 					start: 'top bottom',
 					end: 'center bottom',
 					scrub: 0,
-					// markers: true,
 				},
 			})
 
 			tl.fromTo(
 				footerContentRef.current,
 				{ yPercent: -30 },
-				{ yPercent: 0, ease: 'none' },
-				0 // start at the same time as previous tween
+				{ yPercent: 0, ease: 'none' }
 			)
-		}, 500) // Delay to ensure ScrollTrigger is properly reset
+		}, 500)
 
 		return () => {
+			clearTimeout(timeoutId)
 			ScrollTrigger.getById('footer')?.kill()
 		}
 	}, [])
