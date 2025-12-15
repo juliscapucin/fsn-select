@@ -56,14 +56,14 @@ export default function ArtistPage({
 					trigger: outerWrapper,
 					pin: true,
 					start: 'top top',
-					end: `+=${cardsWrapper.offsetWidth * 3}`,
+					end: () => `+=${cardsWrapper.scrollWidth * 3}`,
 					scrub: 1,
 					invalidateOnRefresh: true,
 				},
 			})
 
 			tl.to(cardsWrapper, {
-				x: `-=${cardsWrapper.offsetWidth - window.innerWidth}px`,
+				x: () => `-=${cardsWrapper.scrollWidth - window.innerWidth}px`,
 				ease: 'none',
 				duration: 5,
 			})
