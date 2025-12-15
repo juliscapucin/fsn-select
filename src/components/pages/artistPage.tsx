@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation'
 import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
 gsap.registerPlugin(useGSAP, ScrollTrigger)
 
 import { UnsplashPhoto } from '@/types/unsplash'
@@ -30,17 +31,25 @@ export default function ArtistPage({
 }: ArtistPageProps) {
 	const router = useRouter()
 
+	const gsapRef = useRef<gsap.MatchMedia | null>(null)
 	const carouselContainerRef = useRef<HTMLDivElement | null>(null)
 	const cardsContainerRef = useRef<HTMLDivElement | null>(null)
 
 	//* GSAP HORIZONTAL SCROLL ANIMATION *//
 	useGSAP(() => {
 		if (!carouselContainerRef.current || !cardsContainerRef.current) return
-		const mm = gsap.matchMedia()
+		if (gsapRef.current) {
+			gsapRef.current = null
+			ScrollTrigger.getAll().forEach((trigger) => trigger.kill())
+		}
+
+		window.scrollTo(0, 0)
+
+		gsapRef.current = gsap.matchMedia()
 		const outerWrapper = carouselContainerRef.current
 		const cardsWrapper = cardsContainerRef.current
 
-		mm.add('(min-width: 768px)', () => {
+		gsapRef.current.add('(min-width: 768px)', () => {
 			const tl = gsap.timeline()
 
 			tl.to(cardsWrapper, {
@@ -53,10 +62,10 @@ export default function ArtistPage({
 				animation: tl,
 				trigger: outerWrapper,
 				pin: true,
-				start: 'top top+=160',
+				start: 'top top',
 				end: `+=${cardsWrapper.offsetWidth * 3}`,
 				scrub: 1,
-				// invalidateOnRefresh: true,
+				invalidateOnRefresh: true,
 			})
 		})
 	}, [])
@@ -81,14 +90,14 @@ export default function ArtistPage({
 		<>
 			<PageWrapper
 				variant='secondary'
-				classes='overflow-clip md:pt-[var(--height-header)] md:bg-accent-1'
+				classes='overflow-clip md:bg-accent-1'
 				hasContainer={false}
 				hasFooter={false}
 				pageName='artist'>
 				{artistPhotos.length > 0 && artistInfo ? (
 					//* CAROUSEL OUTER CONTAINER *//
 					<div
-						className='relative md:h-content overflow-clip my-16 md:my-0 pb-4'
+						className='relative md:h-screen overflow-clip my-16 md:my-0 pb-4 md:pt-(--height-header)'
 						ref={carouselContainerRef}>
 						{/* CARDS CONTAINER */}
 						<div
