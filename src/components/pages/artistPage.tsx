@@ -59,7 +59,7 @@ export default function ArtistPage({
 		})
 
 		tl.to(cardsWrapper, {
-			x: `-=${cardsWrapper.scrollWidth - window.innerWidth}px`,
+			x: () => `-=${cardsWrapper.scrollWidth - window.innerWidth}px`,
 			ease: 'none',
 			duration: 5,
 		})
