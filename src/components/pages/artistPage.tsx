@@ -34,35 +34,32 @@ export default function ArtistPage({
 	const cardsContainerRef = useRef<HTMLDivElement | null>(null)
 
 	//* GSAP HORIZONTAL SCROLL ANIMATION *//
-	useGSAP(
-		() => {
-			if (!carouselContainerRef.current || !cardsContainerRef.current) return
-			const mm = gsap.matchMedia()
-			const outerWrapper = carouselContainerRef.current
-			const cardsWrapper = cardsContainerRef.current
+	useGSAP(() => {
+		if (!carouselContainerRef.current || !cardsContainerRef.current) return
+		const mm = gsap.matchMedia()
+		const outerWrapper = carouselContainerRef.current
+		const cardsWrapper = cardsContainerRef.current
 
-			mm.add('(min-width: 768px)', () => {
-				const tl = gsap.timeline()
+		mm.add('(min-width: 768px)', () => {
+			const tl = gsap.timeline()
 
-				tl.to(cardsWrapper, {
-					x: `-=${cardsWrapper.offsetWidth - window.innerWidth}px`,
-					ease: 'none',
-					duration: 5,
-				})
-
-				ScrollTrigger.create({
-					animation: tl,
-					trigger: outerWrapper,
-					pin: true,
-					start: 'top top+=160',
-					end: `+=${cardsWrapper.offsetWidth * 3}`,
-					scrub: 1,
-					invalidateOnRefresh: true,
-				})
+			tl.to(cardsWrapper, {
+				x: `-=${cardsWrapper.offsetWidth - window.innerWidth}px`,
+				ease: 'none',
+				duration: 5,
 			})
-		},
-		{ dependencies: [artistPhotos], revertOnUpdate: true }
-	)
+
+			ScrollTrigger.create({
+				animation: tl,
+				trigger: outerWrapper,
+				pin: true,
+				start: 'top top+=160',
+				end: `+=${cardsWrapper.offsetWidth * 3}`,
+				scrub: 1,
+				// invalidateOnRefresh: true,
+			})
+		})
+	}, [])
 
 	//* PREVIOUS / NEXT ARTIST NAVIGATION *//
 	function handleNavigation(direction: 'previous' | 'next') {
