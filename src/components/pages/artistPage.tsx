@@ -60,10 +60,6 @@ export default function ArtistPage({
 					invalidateOnRefresh: true,
 				})
 			})
-
-			return () => {
-				mm.revert()
-			}
 		},
 		{ dependencies: [artistPhotos], revertOnUpdate: true }
 	)

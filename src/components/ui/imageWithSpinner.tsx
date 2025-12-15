@@ -42,7 +42,6 @@ export default function ImageWithSpinner({
 	const { alt_description, width, height } = imageSrc
 	const { id } = props
 
-	console.log(maskColor)
 	const imageMaskRef = useRef<HTMLDivElement | null>(null)
 
 	useGSAP(
